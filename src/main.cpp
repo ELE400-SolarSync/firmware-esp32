@@ -1,9 +1,22 @@
 #include <Arduino.h>
+#include "../lib/api/api.hpp"
+#include "../lib/wifi/wifi.hpp"
+
+wifi_connection wifi("LakeLaogai", "thereisnowifiinbasingse");
+
+int connection_status;
 
 void setup() {
-  // put your setup code here, to run once:
+  Serial.begin(115200);
+
+  while(!Serial) {
+    ;
+  }
+  delay(1000);
+  connection_status = wifi.connect(10000);
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
+  Serial.println(wifi.getIP());
+  delay(1000);
 }
