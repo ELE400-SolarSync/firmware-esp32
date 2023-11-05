@@ -2,8 +2,13 @@
 #include <HTTPClient.h>
 
 class api_lib {
+private:
+    String host;
+
 public:
-    void setHost(String host);
+    void setHost(String host) {
+        this->host = host;
+    };
 
     String get(String url) {
         HTTPClient http;
@@ -20,6 +25,8 @@ public:
         return "";
     }
 
-private:
-    String host;
+    String sendAmp(int amp){
+        String url = "&field1=" + String(amp);
+        return get(url);
+    }
 };

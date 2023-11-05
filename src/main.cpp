@@ -4,6 +4,8 @@
 
 wifi_connection wifi("LakeLaogai", "thereisnowifiinbasingse");
 
+api_lib api;
+
 int connection_status;
 
 void setup() {
@@ -14,9 +16,13 @@ void setup() {
   }
   delay(1000);
   connection_status = wifi.connect(10000);
+
+  api.setHost("https://api.thingspeak.com/update?api_key=72ZH5DA3WVKUD5R5");
 }
 
 void loop() {
-  Serial.println(wifi.getIP());
-  delay(1000);
+  Serial.println("Sending request");
+  String result = api.get("&field1=0");
+  Serial.println(result);
+  delay(15000);
 }
