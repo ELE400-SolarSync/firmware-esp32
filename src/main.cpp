@@ -1,6 +1,6 @@
 #include <Arduino.h>
-#include "../lib/api/api.hpp"
-#include "../lib/wifi/wifi.hpp"
+#include "../lib/api/src/api.hpp"
+#include "../lib/wifi/src/wifi.hpp"
 
 wifi_connection wifi("LakeLaogai", "thereisnowifiinbasingse");
 
@@ -22,7 +22,8 @@ void setup() {
 
 void loop() {
   Serial.println("Sending request");
-  String result = api.get("&field1=0");
-  Serial.println(result);
-  delay(15000);
+  float data[] = {1.0, 2.0, 3.0};
+  api.sendAmp(data, sizeof(data)/sizeof(data[0]));
+  // Serial.println(result);
+  delay(1000);
 }

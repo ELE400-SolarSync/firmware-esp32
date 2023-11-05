@@ -27,6 +27,12 @@ class wifi_connection {
             return WiFi.localIP().toString();
         }   
 
+/**
+ * @brief Connect to the wifi
+ * 
+ * @param timeout_ms time to wait for the wifi to connect
+ * @return bool time to wait for the wifi to connect 
+ */
         bool connect(int timeout_ms) {
             unsigned long start = millis();
 
@@ -40,9 +46,6 @@ class wifi_connection {
                 Serial.print(".");
             }
 
-            if(WiFi.status() == WL_CONNECTED) {
-                return true;
-            }
-            return false;
+            return WiFi.status() == WL_CONNECTED;
         }        
 };
