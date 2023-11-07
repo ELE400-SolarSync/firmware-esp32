@@ -1,6 +1,9 @@
 #include <Arduino.h>
+#include "../lib/log/log.hpp"
+#include "esp_log.h"
 
 // Objects
+myLogger logger("log.txt", "log/", myLogger::ERROR);
 
 // Global variables
 enum state {
@@ -21,6 +24,8 @@ const int time_to_sleep = 5;        /* Time ESP32 will go to sleep (in seconds) 
 // Can be used to store data in RTC memory during deep sleep
 // RTC_DATA_ATTR int bootCount = 0;
 
+int i = 0;
+
 // Prototypes
 void SerialEvent();
 String get_wakeup_reason();
@@ -28,11 +33,11 @@ String get_wakeup_reason();
 // Setup and Loop
 void setup() {
   Serial.begin(115200);
-
   current_state = CHECKING;
 
   // Set up deep sleep
   esp_sleep_enable_timer_wakeup(time_to_sleep * us_to_s_factor);
+  logger.setLevel(myLogger::DEBUG);
 }
 
 void loop() {
@@ -107,6 +112,17 @@ void SerialEvent() {
         break;
       case 's':
         current_state = SLEEP;
+        Serial.println("ESP going to sleep for %s seconds" + String(time_to_sleep));
+        Serial.flush(); 
+        esp_deep_sleep_start();
+        break;
+      case 'l':
+        logger.enableLoggingInMonitor();
+        Serial.println("Logging enabled");
+        break;
+      case 'L':
+        Serial.println("Logging disabled");
+        logger.disableLoggingInMonitor();
         break;
       default:
         break;
