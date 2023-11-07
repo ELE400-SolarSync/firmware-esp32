@@ -25,7 +25,11 @@ class wifi_connection {
 
         String getIP() const {
             return WiFi.localIP().toString();
-        }   
+        }
+
+        bool getStatus() const {
+            return WiFi.status() == WL_CONNECTED;
+        }
 
 /**
  * @brief Connect to the wifi

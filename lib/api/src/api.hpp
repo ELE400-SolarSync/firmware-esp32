@@ -21,7 +21,7 @@ public:
  * @param url string to complete the host
  * @return String string return of the api call
  */
-    String get(String url) {
+    String getResponse(String url) {
         HTTPClient http;
 
         String server_call = host + url;
@@ -37,6 +37,22 @@ public:
     }
 
 /**
+ * @brief Send data to the host + url and return the code
+ * 
+ * @param url string to complete the host
+ * @return int api code
+ */
+    int getCode(String url) {
+        HTTPClient http;
+
+        String server_call = host + url;
+        http.begin((server_call).c_str());
+
+        int httpCode = http.GET();
+        return httpCode;
+    }
+
+/**
  * @brief send multiple data according to thinspeak atemplate /!\ look at AZURE template
  * 
  * @param amp data to send
@@ -49,6 +65,6 @@ public:
             url = url + "&field" + i + "=" + String(data[i]);
         }
         
-        return get(url);
+        return getResponse(url);
     }
 };
