@@ -60,6 +60,10 @@ class myLogger {
             this->logLevel = level;
         }
 
+        level_t getLevel() const {
+            return logLevel;
+        }
+
         void error(String tag, String message) {
             log(buildlogFormat(tag, "E"), message.c_str());
         }

@@ -42,7 +42,6 @@ class wifi_connection {
 
             WiFiServer server(80);
 
-            Serial.println("Connecting to WiFi ");
             WiFi.begin(ssid, password);
 
             while (WiFi.status() != WL_CONNECTED && millis() - start > timeout_ms) {
