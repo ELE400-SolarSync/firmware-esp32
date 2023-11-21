@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.9.1" xml:lang="en-US">
+  <compound refid="classapi__lib" kind="class"><name>api_lib</name>
+    <member refid="classapi__lib_1a8021f6321559556c3cce5614dd181c9d" kind="variable"><name>host</name></member>
+    <member refid="classapi__lib_1a2ae88643c58b39abed46e97d9048f0d8" kind="function"><name>setHost</name></member>
+    <member refid="classapi__lib_1a9ab1cded091733984ab5ef62d864fa58" kind="function"><name>getResponse</name></member>
+    <member refid="classapi__lib_1a4e4ef2d4e421740991d278c53f857f66" kind="function"><name>getCode</name></member>
+    <member refid="classapi__lib_1ab9b8efe44c87dcf29d6690f9a599752e" kind="function"><name>sendAmp</name></member>
+  </compound>
+  <compound refid="classwifi__connection" kind="class"><name>wifi_connection</name>
+    <member refid="classwifi__connection_1aea337f43249d215c0b3c1a676f3c32ba" kind="variable"><name>ssid</name></member>
+    <member refid="classwifi__connection_1a2240e97ffb9883bc3d94db814b425e44" kind="variable"><name>password</name></member>
+    <member refid="classwifi__connection_1aa69d981e27c2438a4933de0c2761cedb" kind="function"><name>wifi_connection</name></member>
+    <member refid="classwifi__connection_1a4df2439a851a544f5d07e65be73bb69c" kind="function"><name>setSSID</name></member>
+    <member refid="classwifi__connection_1af1a5f8c9b2a09f830a3675e0792eded1" kind="function"><name>setPassword</name></member>
+    <member refid="classwifi__connection_1acc6036c49974f5fdba7c76ea5987944b" kind="function"><name>getIP</name></member>
+    <member refid="classwifi__connection_1ac88d5e9c734f8dd272cfc05a4c6bda08" kind="function"><name>getStatus</name></member>
+    <member refid="classwifi__connection_1a52afbfc28143e9cc24a8a7c0d7cadf02" kind="function"><name>connect</name></member>
+  </compound>
+  <compound refid="namespaceconf" kind="namespace"><name>conf</name>
+    <member refid="conf_8py_1ae475e080536acb271a0a0efe56c3ba42" kind="variable"><name>extensions</name></member>
+    <member refid="conf_8py_1a6c3bfcc1a44546c1c75ce20f55bd0fd6" kind="variable"><name>html_theme</name></member>
+  </compound>
+  <compound refid="conf_8py" kind="file"><name>conf.py</name>
+  </compound>
+  <compound refid="api_8hpp" kind="file"><name>api.hpp</name>
+  </compound>
+  <compound refid="wifi_8hpp" kind="file"><name>wifi.hpp</name>
+  </compound>
+  <compound refid="main_8cpp" kind="file"><name>main.cpp</name>
+    <member refid="main_8cpp_1a5b66db9bb535aa0aff4c15415bb51f8a" kind="variable"><name>wifi</name></member>
+    <member refid="main_8cpp_1aaa4a6506433e578b91475a3dae642569" kind="variable"><name>api</name></member>
+    <member refid="main_8cpp_1a656b8d50e4036b8ae51663e47beea58d" kind="variable"><name>debug</name></member>
+    <member refid="main_8cpp_1a5ab54995772ff96d303a45287001664f" kind="variable"><name>connection_status</name></member>
+    <member refid="main_8cpp_1ae85f069042042f486771e16e80d4ab4d" kind="function"><name>SerialEvent</name></member>
+    <member refid="main_8cpp_1a4fc01d736fe50cf5b977f755b675f11d" kind="function"><name>setup</name></member>
+    <member refid="main_8cpp_1afe461d27b9c48d5921c00d521181f12f" kind="function"><name>loop</name></member>
+  </compound>
+  <compound refid="test__api_2test__main_8cpp" kind="file"><name>test_main.cpp</name>
+    <member refid="test__api_2test__main_8cpp_1a541f63be932ede3565aeaaf39e9634f8" kind="variable"><name>api_url</name></member>
+    <member refid="test__api_2test__main_8cpp_1ab89a4ec9e24f2d941247970161d31da8" kind="variable"><name>wifi_ssid</name></member>
+    <member refid="test__api_2test__main_8cpp_1ac7e7b3e06f1fe3fcf2e522416256f248" kind="variable"><name>wifi_password</name></member>
+    <member refid="test__api_2test__main_8cpp_1a0d726520373d91052848ef84255963a4" kind="variable"><name>wifi</name></member>
+    <member refid="test__api_2test__main_8cpp_1aaa4a6506433e578b91475a3dae642569" kind="variable"><name>api</name></member>
+    <member refid="test__api_2test__main_8cpp_1a95c834d6178047ce9e1bce7cbfea2836" kind="function"><name>setUp</name></member>
+    <member refid="test__api_2test__main_8cpp_1a9909011e5fea0c018842eec4d93d0662" kind="function"><name>tearDown</name></member>
+    <member refid="test__api_2test__main_8cpp_1ac58fefe6fe4a3a1ae30099d0376b0352" kind="function"><name>test_api_call</name></member>
+    <member refid="test__api_2test__main_8cpp_1ad3b8f9412ae1849348d81e09366d25fa" kind="function"><name>test_wifi_connection</name></member>
+    <member refid="test__api_2test__main_8cpp_1a4fc01d736fe50cf5b977f755b675f11d" kind="function"><name>setup</name></member>
+    <member refid="test__api_2test__main_8cpp_1afe461d27b9c48d5921c00d521181f12f" kind="function"><name>loop</name></member>
+  </compound>
+  <compound refid="test__blink_2test__main_8cpp" kind="file"><name>test_main.cpp</name>
+    <member refid="test__blink_2test__main_8cpp_1a8603b3fef2feef8e4fa66e6312573833" kind="variable"><name>LED_BUILTIN</name></member>
+    <member refid="test__blink_2test__main_8cpp_1af27e3188294c2df66d975b74a09c001d" kind="variable"><name>i</name></member>
+    <member refid="test__blink_2test__main_8cpp_1a7a73978df916cacd1d18bb2cd811e56c" kind="variable"><name>max_blinks</name></member>
+    <member refid="test__blink_2test__main_8cpp_1a95c834d6178047ce9e1bce7cbfea2836" kind="function"><name>setUp</name></member>
+    <member refid="test__blink_2test__main_8cpp_1a9909011e5fea0c018842eec4d93d0662" kind="function"><name>tearDown</name></member>
+    <member refid="test__blink_2test__main_8cpp_1a71ed5d08c058f52832d73d10e57236b9" kind="function"><name>test_led_builtin_pin_number</name></member>
+    <member refid="test__blink_2test__main_8cpp_1a2ff9f75df7fbdedf1e4d02ab2685336f" kind="function"><name>test_led_state_high</name></member>
+    <member refid="test__blink_2test__main_8cpp_1abf0798908a200016a437e923a63cf0f1" kind="function"><name>test_led_state_low</name></member>
+    <member refid="test__blink_2test__main_8cpp_1a4fc01d736fe50cf5b977f755b675f11d" kind="function"><name>setup</name></member>
+    <member refid="test__blink_2test__main_8cpp_1afe461d27b9c48d5921c00d521181f12f" kind="function"><name>loop</name></member>
+  </compound>
+  <compound refid="dir_a4f29b99a4f7418161f089241a24c9b5" kind="dir"><name>/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/api</name>
+  </compound>
+  <compound refid="dir_97aefd0d527b934f1d99a682da8fe6a9" kind="dir"><name>/home/pierr/Documents/ETS/ele400/firmware-esp32/lib</name>
+  </compound>
+  <compound refid="dir_529252f5f107614a91ab6ef263d85844" kind="dir"><name>/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/api/src</name>
+  </compound>
+  <compound refid="dir_1aba68cbb86210100c0de8727f63166e" kind="dir"><name>/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/wifi/src</name>
+  </compound>
+  <compound refid="dir_68267d1309a1af8e8297ef4c3efbcdba" kind="dir"><name>/home/pierr/Documents/ETS/ele400/firmware-esp32/src</name>
+  </compound>
+  <compound refid="dir_13e138d54eb8818da29c3992edef070a" kind="dir"><name>/home/pierr/Documents/ETS/ele400/firmware-esp32/test</name>
+  </compound>
+  <compound refid="dir_9437359642f35fa301c692ad946e650e" kind="dir"><name>/home/pierr/Documents/ETS/ele400/firmware-esp32/test/test_api</name>
+  </compound>
+  <compound refid="dir_962d389c1b8d41dcf7f27251c9800104" kind="dir"><name>/home/pierr/Documents/ETS/ele400/firmware-esp32/test/test_blink</name>
+  </compound>
+  <compound refid="dir_0f8cd28d29f31db736942f9a2b1a2b18" kind="dir"><name>/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/wifi</name>
+  </compound>
+</doxygenindex>

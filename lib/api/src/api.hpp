@@ -52,12 +52,13 @@ public:
         return httpCode;
     }
 
-/**
- * @brief send multiple data according to thinspeak atemplate /!\ look at AZURE template
- * 
- * @param amp data to send
- * @return String string return of the api call
- */
+    /**
+     * @brief send multiple data according to thinspeak atemplate /!\ look at AZURE template
+     * 
+     * @param data data to send
+     * @param data_len length of the data
+     * @return String tring return of the api call
+     */
     String sendAmp(float data[], size_t data_len){
         String url;
 
