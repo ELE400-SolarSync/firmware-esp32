@@ -23,6 +23,8 @@
   </compound>
   <compound refid="conf_8py" kind="file"><name>conf.py</name>
   </compound>
+  <compound refid="Readme_8md" kind="file"><name>Readme.md</name>
+  </compound>
   <compound refid="api_8hpp" kind="file"><name>api.hpp</name>
   </compound>
   <compound refid="wifi_8hpp" kind="file"><name>wifi.hpp</name>
@@ -60,6 +62,8 @@
     <member refid="test__blink_2test__main_8cpp_1abf0798908a200016a437e923a63cf0f1" kind="function"><name>test_led_state_low</name></member>
     <member refid="test__blink_2test__main_8cpp_1a4fc01d736fe50cf5b977f755b675f11d" kind="function"><name>setup</name></member>
     <member refid="test__blink_2test__main_8cpp_1afe461d27b9c48d5921c00d521181f12f" kind="function"><name>loop</name></member>
+  </compound>
+  <compound refid="md_Readme" kind="page"><name>md_Readme</name>
   </compound>
   <compound refid="dir_a4f29b99a4f7418161f089241a24c9b5" kind="dir"><name>/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/api</name>
   </compound>
