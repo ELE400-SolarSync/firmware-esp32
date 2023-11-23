@@ -9,9 +9,11 @@ Here are all the modules
 API
 ---
 
-This is the API
+.. doxygenclass:: api_lib
+    :members:
 
 Wifi
 ----
 
-This is the Wifi
+.. doxygenclass:: wifi_connection
+    :members:

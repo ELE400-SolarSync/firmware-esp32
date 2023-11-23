@@ -12,4 +12,4 @@ Links to [tutorials](https://medium.com/@aytackahveci93/documenting-c-code-with-
   sphinx-build -b html -Dbreathe_projects.solarsync=doc_out/xml . doc_out/sphinx/
 ```
 
-Documents will be generated in the build/docs/sphinx folder.
+Documents will be generated in the docs/doc_out/sphinx/index.html.

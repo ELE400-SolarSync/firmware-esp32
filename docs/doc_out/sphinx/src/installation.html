@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Installation &mdash; Python  documentation</title>
+  <title>Installation Guide &mdash; Python  documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -44,7 +44,7 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Table of Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules.html">Modules</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
 </ul>
@@ -63,7 +63,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Installation</li>
+      <li class="breadcrumb-item active">Installation Guide</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/src/installation.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -73,9 +73,49 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="installation">
-<h1>Installation<a class="headerlink" href="#installation" title="Link to this heading"></a></h1>
-<p>Here is the installation process:</p>
+  <section id="installation-guide">
+<h1>Installation Guide<a class="headerlink" href="#installation-guide" title="Link to this heading"></a></h1>
+<ol class="arabic">
+<li><dl class="simple">
+<dt><strong>Install PlatformIO on Visual Studio Code:</strong></dt><dd><ul class="simple">
+<li><p>Ensure that Visual Studio Code is installed on your system.</p></li>
+<li><p>Open VS Code and go to the Extensions view by clicking on the Extensions icon in the Activity Bar on the side of the window or use the keyboard shortcut <cite>Ctrl+Shift+X</cite>.</p></li>
+<li><p>Search for the <a class="reference external" href="https://marketplace.visualstudio.com/items?itemName=platformio.platformio-ide">PlatformIO IDE</a> in the Extensions view search bar.</p></li>
+<li><p>Install the PlatformIO IDE extension.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>Access the Firmware Repository:</strong></dt><dd><ul class="simple">
+<li><p>The firmware source code is hosted on our GitHub repository.</p></li>
+<li><p>Clone the repository using the following link: <a class="reference external" href="https://github.com/ELE400-SolarSync/firmware-esp32">Solar-Charger-IoT-Firmware-Repo</a>.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>Compile and Upload to ESP using PlatformIO:</strong></dt><dd><ul class="simple">
+<li><p>Open the cloned repository in Visual Studio Code.</p></li>
+<li><dl class="simple">
+<dt>Use the PlatformIO sidebar at the bottom of VS Code to build and upload the firmware to the ESP board:</dt><dd><ul>
+<li><p>Click on the PlatformIO icon in the Activity Bar.</p></li>
+<li><p>Navigate to the <cite>Project Tasks</cite> section.</p></li>
+<li><p>Click on <cite>Build</cite> (checkmark logo) to compile the firmware.</p></li>
+<li><p>Click on <cite>Upload</cite> (right arrow) to upload the compiled firmware to the ESP board.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+<ul class="simple">
+<li><p>Ensure that the ESP board is connected to your development machine before starting the upload process.</p></li>
+</ul>
+</li>
+</ol>
+<p>By following these steps, you’ll have successfully installed PlatformIO on Visual Studio Code, cloned the firmware repository, and compiled/uploaded the firmware to the ESP board.</p>
 </section>
 
 
