@@ -13,11 +13,13 @@ Installation Guide
 
 3. **Compile and Upload to ESP using PlatformIO:**
     - Open the cloned repository in Visual Studio Code.
-    - Use the PlatformIO sidebar at the bottom of VS Code to build and upload the firmware to the ESP board:
+    - Use the PlatformIO sidebar at the bottom of VS Code to build and upload the firmware to the ESP board :
         - Click on the PlatformIO icon in the Activity Bar.
         - Navigate to the `Project Tasks` section.
         - Click on `Build` (checkmark logo) to compile the firmware.
         - Click on `Upload` (right arrow) to upload the compiled firmware to the ESP board.
+    - Alternatively, you can use the command :
+        - `pio run -t upload` to compile and upload the firmware to the ESP board.
 
    - Ensure that the ESP board is connected to your development machine before starting the upload process.
 

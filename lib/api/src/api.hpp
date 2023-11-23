@@ -6,21 +6,21 @@ private:
     String host;
 
 public:
-/**
- * @brief Set the Host object (part of the resquestt with the data)
- * 
- * @param host 
- */
+    /**
+     * @brief Set the Host object (part of the resquestt with the data)
+     * 
+     * @param host 
+     */
     void setHost(String host) {
         this->host = host;
     };
 
-/**
- * @brief Send data to the host + url
- * 
- * @param url string to complete the host
- * @return String string return of the api call
- */
+    /**
+     * @brief Send data to the host + url
+     * 
+     * @param url string to complete the host
+     * @return String string return of the api call
+     */
     String getResponse(String url) {
         HTTPClient http;
 
@@ -36,12 +36,12 @@ public:
         return "";
     }
 
-/**
- * @brief Send data to the host + url and return the code
- * 
- * @param url string to complete the host
- * @return int api code
- */
+    /**
+     * @brief Send data to the host + url and return the code
+     * 
+     * @param url string to complete the host
+     * @return int api code
+     */
     int getCode(String url) {
         HTTPClient http;
 

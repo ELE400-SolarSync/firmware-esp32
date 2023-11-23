@@ -4,9 +4,11 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Modules &mdash; SolarSync</title>
+  <title>Modules &mdash; Python  documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/solarsync_favicon.png"/>
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -59,6 +61,8 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#wifi">Wifi</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#_CPPv415wifi_connection"><code class="docutils literal notranslate"><span class="pre">wifi_connection</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4NK15wifi_connection5getIPEv"><code class="docutils literal notranslate"><span class="pre">wifi_connection::getIP()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4NK15wifi_connection9getStatusEv"><code class="docutils literal notranslate"><span class="pre">wifi_connection::getStatus()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#_CPPv4N15wifi_connection7connectEi"><code class="docutils literal notranslate"><span class="pre">wifi_connection::connect()</span></code></a></li>
 </ul>
 </li>
@@ -176,6 +180,28 @@
 <span id="_CPPv315wifi_connection"></span><span id="_CPPv215wifi_connection"></span><span id="wifi_connection"></span><span class="target" id="classwifi__connection"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">wifi_connection</span></span></span><a class="headerlink" href="#_CPPv415wifi_connection" title="Link to this definition"></a><br /></dt>
 <dd><div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK15wifi_connection5getIPEv">
+<span id="_CPPv3NK15wifi_connection5getIPEv"></span><span id="_CPPv2NK15wifi_connection5getIPEv"></span><span id="wifi_connection::getIPC"></span><span class="target" id="classwifi__connection_1acc6036c49974f5fdba7c76ea5987944b"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="n"><span class="pre">String</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getIP</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK15wifi_connection5getIPEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the IP address of the ESP32. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>String IP address </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK15wifi_connection9getStatusEv">
+<span id="_CPPv3NK15wifi_connection9getStatusEv"></span><span id="_CPPv2NK15wifi_connection9getStatusEv"></span><span id="wifi_connection::getStatusC"></span><span class="target" id="classwifi__connection_1ac88d5e9c734f8dd272cfc05a4c6bda08"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getStatus</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK15wifi_connection9getStatusEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Get the Status of the wifi connection. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool Wifi connection status </p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N15wifi_connection7connectEi">
 <span id="_CPPv3N15wifi_connection7connectEi"></span><span id="_CPPv2N15wifi_connection7connectEi"></span><span id="wifi_connection::connect__i"></span><span class="target" id="classwifi__connection_1a52afbfc28143e9cc24a8a7c0d7cadf02"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">connect</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">timeout_ms</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N15wifi_connection7connectEi" title="Link to this definition"></a><br /></dt>

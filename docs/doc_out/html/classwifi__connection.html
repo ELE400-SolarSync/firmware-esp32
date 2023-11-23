@@ -81,11 +81,11 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>setSSID</b> (String s
 <tr class="memitem:af1a5f8c9b2a09f830a3675e0792eded1"><td class="memItemLeft" align="right" valign="top"><a id="af1a5f8c9b2a09f830a3675e0792eded1"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setPassword</b> (String password)</td></tr>
 <tr class="separator:af1a5f8c9b2a09f830a3675e0792eded1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acc6036c49974f5fdba7c76ea5987944b"><td class="memItemLeft" align="right" valign="top"><a id="acc6036c49974f5fdba7c76ea5987944b"></a>
-String&#160;</td><td class="memItemRight" valign="bottom"><b>getIP</b> () const</td></tr>
+<tr class="memitem:acc6036c49974f5fdba7c76ea5987944b"><td class="memItemLeft" align="right" valign="top">String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwifi__connection.html#acc6036c49974f5fdba7c76ea5987944b">getIP</a> () const</td></tr>
+<tr class="memdesc:acc6036c49974f5fdba7c76ea5987944b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the IP address of the ESP32.  <a href="classwifi__connection.html#acc6036c49974f5fdba7c76ea5987944b">More...</a><br /></td></tr>
 <tr class="separator:acc6036c49974f5fdba7c76ea5987944b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac88d5e9c734f8dd272cfc05a4c6bda08"><td class="memItemLeft" align="right" valign="top"><a id="ac88d5e9c734f8dd272cfc05a4c6bda08"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>getStatus</b> () const</td></tr>
+<tr class="memitem:ac88d5e9c734f8dd272cfc05a4c6bda08"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwifi__connection.html#ac88d5e9c734f8dd272cfc05a4c6bda08">getStatus</a> () const</td></tr>
+<tr class="memdesc:ac88d5e9c734f8dd272cfc05a4c6bda08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the Status of the wifi connection.  <a href="classwifi__connection.html#ac88d5e9c734f8dd272cfc05a4c6bda08">More...</a><br /></td></tr>
 <tr class="separator:ac88d5e9c734f8dd272cfc05a4c6bda08"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a52afbfc28143e9cc24a8a7c0d7cadf02"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwifi__connection.html#a52afbfc28143e9cc24a8a7c0d7cadf02">connect</a> (int timeout_ms)</td></tr>
 <tr class="memdesc:a52afbfc28143e9cc24a8a7c0d7cadf02"><td class="mdescLeft">&#160;</td><td class="mdescRight">Connect to the wifi.  <a href="classwifi__connection.html#a52afbfc28143e9cc24a8a7c0d7cadf02">More...</a><br /></td></tr>
@@ -124,6 +124,62 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>getStatus</b> () cons
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>bool time to wait for the wifi to connect </dd></dl>
+
+</div>
+</div>
+<a id="acc6036c49974f5fdba7c76ea5987944b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acc6036c49974f5fdba7c76ea5987944b">&#9670;&nbsp;</a></span>getIP()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">String wifi_connection::getIP </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the IP address of the ESP32. </p>
+<dl class="section return"><dt>Returns</dt><dd>String IP address </dd></dl>
+
+</div>
+</div>
+<a id="ac88d5e9c734f8dd272cfc05a4c6bda08"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac88d5e9c734f8dd272cfc05a4c6bda08">&#9670;&nbsp;</a></span>getStatus()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool wifi_connection::getStatus </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the Status of the wifi connection. </p>
+<dl class="section return"><dt>Returns</dt><dd>bool Wifi connection status </dd></dl>
 
 </div>
 </div>
