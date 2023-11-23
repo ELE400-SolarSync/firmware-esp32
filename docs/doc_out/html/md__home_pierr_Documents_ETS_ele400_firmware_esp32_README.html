@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>SolarSync: Documentation project</title>
+<title>SolarSync: Solar Panel Sensor Data Logger for ESP32</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,20 +63,43 @@ $(function() {
 </div><!-- top -->
 <div class="PageDoc"><div class="header">
   <div class="headertitle">
-<div class="title">Documentation project </div>  </div>
+<div class="title">Solar Panel Sensor Data Logger for ESP32 </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>How to generate the documentation for the project.</p>
-<h1><a class="anchor" id="autotoc_md1"></a>
-Tutorial</h1>
-<p>Links to <a href="https://medium.com/@aytackahveci93/documenting-c-code-with-sphinx-d6315b338615">tutorials</a> on how to generate doc for the project.</p>
-<h1><a class="anchor" id="autotoc_md2"></a>
-Commands</h1>
-<div class="fragment"><div class="line">{\bash}</div>
-<div class="line"> cd docs</div>
-<div class="line"> doxygen Doxyfile.in</div>
-<div class="line"> sphinx-build -b html -Dbreathe_projects.solarsync=doc_out/xml . doc_out/sphinx/</div>
-</div><!-- fragment --><p>Documents will be generated in the docs/doc_out/sphinx/index.html. </p>
+<div class="textblock"><h1><a class="anchor" id="autotoc_md4"></a>
+Overview</h1>
+<p>This project is an ESP32 firmware designed to fetch data from a solar panel sensor and transmit it to the Azure IoT cloud using an API. The firmware is developed for the ESP32 platform, making it suitable for low-power, IoT applications.</p>
+<h1><a class="anchor" id="autotoc_md5"></a>
+Features</h1>
+<ul>
+<li><b>Sensor Data Retrieval:</b> The firmware is capable of reading data from the connected solar panel sensor and additionnal sensors such as a temperature sensor.</li>
+<li><b>Azure IoT Integration:</b> It securely sends the collected data to the Azure IoT cloud via API, providing a seamless way to monitor and analyze solar panel performance.</li>
+<li><b>Power Efficiency:</b> The firmware is optimized for power efficiency to ensure minimal energy consumption, making it suitable for battery-powered applications.</li>
+<li><b>Configurability:</b> The firmware allows easy configuration of parameters such as WiFi credentials, Azure IoT connection details, and sensor communication settings through a uart connection.</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md6"></a>
+Getting Started</h1>
+<h2><a class="anchor" id="autotoc_md7"></a>
+Prerequisites</h2>
+<ul>
+<li><a href="https://platformio.org/">PlatformIO</a> - An open source ecosystem for IoT development. Can be installed as an extension for <a href="https://code.visualstudio.com/">Visual Studio Code</a>. You can read the documentation for the project by opening the <a href="docs/doc_out/sphinx/src/installation.html">doc</a> file in your browser.</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md8"></a>
+Installation</h2>
+<ol type="1">
+<li><p class="startli">Clone this repository to your local machine.</p>
+<p class="startli">```bash git clone <a href="https://github.com/ELE400-SolarSync/firmware-esp32.git">https://github.com/ELE400-SolarSync/firmware-esp32.git</a> ```</p>
+</li>
+<li><p class="startli">Upload the firmware to your ESP32 device using PlatformIO.</p>
+<p class="startli">```bash pio run -t upload ```</p>
+</li>
+</ol>
+<h2><a class="anchor" id="autotoc_md9"></a>
+Usage</h2>
+<ol type="1">
+<li>Open the project in <a href="https://platformio.org/">PlatformIO</a>.</li>
+<li>Follow the instructions in the <a href="docs/doc_out/sphinx/src/usage.html">documentation</a> to use the firmware. </li>
+</ol>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 <!-- start footer part -->
