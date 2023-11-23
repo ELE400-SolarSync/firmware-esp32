@@ -3,7 +3,7 @@
 How to generate the documentation for the project.
 
 ## Tutorial
-Links to [tutorials](https://medium.com/@aytackahveci93/documenting-c-code-with-sphinx-d6315b338615) on how to use the project.
+Links to [tutorials](https://medium.com/@aytackahveci93/documenting-c-code-with-sphinx-d6315b338615) on how to generate doc for the project.
 
 ## Commands
 ```\bash
