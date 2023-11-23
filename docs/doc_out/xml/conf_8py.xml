@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="conf_8py" kind="file" language="Python">
+    <compoundname>conf.py</compoundname>
+    <innernamespace refid="namespaceconf">conf</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="keyword">from</highlight><highlight class="normal"><sp/>cgitb<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>html</highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal">extensions<sp/>=<sp/>[</highlight><highlight class="stringliteral">&quot;breathe&quot;</highlight><highlight class="normal">]</highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal">html_theme<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;sphinx_rtd_theme&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">#<sp/>Breathe<sp/>configuration</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal">breathe_default_project<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;solarsync&quot;</highlight></codeline>
+    </programlisting>
+    <location file="conf.py"/>
+  </compounddef>
+</doxygen>
