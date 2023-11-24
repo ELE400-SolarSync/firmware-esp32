@@ -1,6 +1,5 @@
 #include <Arduino.h>
-
-// Objects
+#include "../lib/dht/src/dht.hpp"
 
 // Global variables
 enum state {
@@ -15,11 +14,18 @@ state current_state = INIT;
 
 bool check, finish, sent = false;
 
+const int dh11_pin = 4;             /* Pin where the DHT11 is connected */
+enum dht_data { hum, temp };        /* Indexes for the DHT11 values */
+float *dht_values;                  /* Array to store the DHT11 values */
+
 const int us_to_s_factor = 1000000;  /* Conversion factor for micro seconds to seconds */
 const int time_to_sleep = 5;        /* Time ESP32 will go to sleep (in seconds) */
 
 // Can be used to store data in RTC memory during deep sleep
 // RTC_DATA_ATTR int bootCount = 0;
+
+// Objects
+DHTSensor dht_sensor(dh11_pin, DHT11);
 
 // Prototypes
 void SerialEvent();
@@ -38,56 +44,14 @@ void setup() {
 void loop() {
   SerialEvent();
 
-  switch (current_state) {
-    case CHECKING:
-      Serial.println("CHECKING");
-      delay(5000);
+  dht_values = dht_sensor.getValues();
 
-      check = true;
+  Serial.print("Humidity: ");
+  Serial.println(dht_values[hum]);
+  Serial.print("Temperature: ");
+  Serial.println(dht_values[temp]);
 
-      if (check) {
-        current_state = FETCHING;
-      } else {
-        current_state = SLEEP;
-      }
-
-      break;
-    case FETCHING:
-      Serial.println("FETCHING");
-      delay(5000);
-
-      finish = true;
-
-      if (finish) {
-        current_state = SENDING;
-      } else {
-        current_state = SLEEP;
-      }
-
-      break;
-    case SENDING:
-      Serial.println("SENDING");
-      delay(5000);
-
-      sent = true;
-
-      if (sent) {
-        current_state = CHECKING;
-      } else {
-        current_state = SLEEP;
-      }
-
-      break;
-    case SLEEP:
-      Serial.println("SLEEP");
-      Serial.flush(); 
-      esp_deep_sleep_start();
-      break;
-    default:
-      Serial.println("FAIL");
-      delay(5000);
-      break;
-  }
+  delay(2000);
 }
 
 
