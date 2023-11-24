@@ -31,6 +31,51 @@
         </inbodydescription>
         <location file="conf.py" line="5" column="1" bodyfile="conf.py" bodystart="5" bodyend="-1"/>
       </memberdef>
+      <memberdef kind="variable" id="conf_8py_1a85ebd472b7d3a9e41a63030cdd5944e6" prot="public" static="no" mutable="no">
+        <type>string</type>
+        <definition>string conf.html_logo</definition>
+        <argsstring></argsstring>
+        <name>html_logo</name>
+        <initializer>=  &quot;ressource/solarsync_logo.png&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="conf.py" line="6" column="1" bodyfile="conf.py" bodystart="6" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="conf_8py_1ac2a0566788a90720ba8d852f67eeda76" prot="public" static="no" mutable="no">
+        <type>string</type>
+        <definition>string conf.html_favicon</definition>
+        <argsstring></argsstring>
+        <name>html_favicon</name>
+        <initializer>=  &quot;ressource/solarsync_favicon.png&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="conf.py" line="7" column="1" bodyfile="conf.py" bodystart="7" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="conf_8py_1aeaafa42217d24810edc9b116b88a4585" prot="public" static="no" mutable="no">
+        <type>dictionary</type>
+        <definition>dictionary conf.html_theme_options</definition>
+        <argsstring></argsstring>
+        <name>html_theme_options</name>
+        <initializer>=  {
+    &apos;logo_only&apos;: True,
+    &apos;style_nav_header_background&apos;: &apos;#829F93&apos;, # Background color of the navigation bar
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="conf.py" line="9" column="1" bodyfile="conf.py" bodystart="9" bodyend="-1"/>
+      </memberdef>
       </sectiondef>
     <briefdescription>
     </briefdescription>

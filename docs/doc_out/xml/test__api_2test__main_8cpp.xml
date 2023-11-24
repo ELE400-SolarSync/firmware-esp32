@@ -231,7 +231,7 @@
 <codeline lineno="30"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>test_wifi_connection(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
 <codeline lineno="31"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="32"><highlight class="normal"><sp/><sp/>delay(1000);</highlight></codeline>
-<codeline lineno="33"><highlight class="normal"><sp/><sp/>TEST_ASSERT_TRUE(wifi.getStatus());</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/>TEST_ASSERT_TRUE(wifi.<ref refid="classwifi__connection_1ac88d5e9c734f8dd272cfc05a4c6bda08" kindref="member">getStatus</ref>());</highlight></codeline>
 <codeline lineno="34"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="35"><highlight class="normal"></highlight></codeline>
 <codeline lineno="36"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>setup()</highlight></codeline>

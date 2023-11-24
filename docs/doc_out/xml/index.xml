@@ -20,6 +20,9 @@
   <compound refid="namespaceconf" kind="namespace"><name>conf</name>
     <member refid="conf_8py_1ae475e080536acb271a0a0efe56c3ba42" kind="variable"><name>extensions</name></member>
     <member refid="conf_8py_1a6c3bfcc1a44546c1c75ce20f55bd0fd6" kind="variable"><name>html_theme</name></member>
+    <member refid="conf_8py_1a85ebd472b7d3a9e41a63030cdd5944e6" kind="variable"><name>html_logo</name></member>
+    <member refid="conf_8py_1ac2a0566788a90720ba8d852f67eeda76" kind="variable"><name>html_favicon</name></member>
+    <member refid="conf_8py_1aeaafa42217d24810edc9b116b88a4585" kind="variable"><name>html_theme_options</name></member>
   </compound>
   <compound refid="conf_8py" kind="file"><name>conf.py</name>
   </compound>
@@ -28,6 +31,8 @@
   <compound refid="api_8hpp" kind="file"><name>api.hpp</name>
   </compound>
   <compound refid="wifi_8hpp" kind="file"><name>wifi.hpp</name>
+  </compound>
+  <compound refid="README_8md" kind="file"><name>README.md</name>
   </compound>
   <compound refid="main_8cpp" kind="file"><name>main.cpp</name>
     <member refid="main_8cpp_1a5b66db9bb535aa0aff4c15415bb51f8a" kind="variable"><name>wifi</name></member>
@@ -64,6 +69,8 @@
     <member refid="test__blink_2test__main_8cpp_1afe461d27b9c48d5921c00d521181f12f" kind="function"><name>loop</name></member>
   </compound>
   <compound refid="md_Readme" kind="page"><name>md_Readme</name>
+  </compound>
+  <compound refid="md__home_pierr_Documents_ETS_ele400_firmware_esp32_README" kind="page"><name>md__home_pierr_Documents_ETS_ele400_firmware_esp32_README</name>
   </compound>
   <compound refid="dir_a4f29b99a4f7418161f089241a24c9b5" kind="dir"><name>/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/api</name>
   </compound>
