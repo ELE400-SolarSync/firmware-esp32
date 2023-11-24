@@ -25,7 +25,7 @@ const int time_to_sleep = 5;        /* Time ESP32 will go to sleep (in seconds) 
 // RTC_DATA_ATTR int bootCount = 0;
 
 // Objects
-DHTSensor dht_sensor(dh11_pin, DHT11);
+DHTSensor dht_sensor(dh11_pin);
 
 // Prototypes
 void SerialEvent();
