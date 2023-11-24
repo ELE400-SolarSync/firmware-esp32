@@ -7,7 +7,9 @@ class VoltageSensor {
      * 
      * @param pin 
      */
-    VoltageSensor(int pin);
+    VoltageSensor(int pin) {
+        this->pin = pin;
+    };
     
     /**
      * @brief Setup the pin as input
@@ -45,7 +47,9 @@ class CurrentSensor {
          * 
          * @param pin 
          */
-        CurrentSensor(int pin);
+        CurrentSensor(int pin) {
+            this->pin = pin;
+        };
         
         /**
          * @brief Setup the pin as input
