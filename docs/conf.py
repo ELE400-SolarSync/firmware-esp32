@@ -11,5 +11,7 @@ html_theme_options = {
     'style_nav_header_background': '#829F93', # Background color of the navigation bar
 }
 
+copyright = "- 2023 SolarSync"
+
 # Breathe configuration
 breathe_default_project = "solarsync"
