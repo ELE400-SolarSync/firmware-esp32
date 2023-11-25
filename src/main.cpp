@@ -2,22 +2,11 @@
 #include "../lib/api/src/api.hpp"
 #include "../lib/wifi/src/wifi.hpp"
 #include "../lib/sd/src/sdcustom.hpp"
+#include "../lib/log/src/log.hpp"
 
 // Global Variables
 const int debug = false;
 
-// Objects
-SDCustom sd;
-wifi_connection wifi("LakeLaogai", "thereisnowifiinbasingse");
-api_lib api;
-
-//  Prototyping
-
-// Setup and Loop
-
-// Objects
-
-// Global variables
 enum state {
     INIT,
     CHECKING,
@@ -33,8 +22,16 @@ bool check, finish, sent = false;
 const int us_to_s_factor = 1000000;  /* Conversion factor for micro seconds to seconds */
 const int time_to_sleep = 5;        /* Time ESP32 will go to sleep (in seconds) */
 
+int log_test = 0;
+
 // Can be used to store data in RTC memory during deep sleep
 // RTC_DATA_ATTR int bootCount = 0;
+
+// Objects
+SDCustom sd(32);
+wifi_connection wifi("LakeLaogai", "thereisnowifiinbasingse");
+api_lib api;
+myLogger logger(sd);
 
 // Prototypes
 void SerialEvent();
@@ -43,40 +40,34 @@ String get_wakeup_reason();
 // Setup and Loop
 void setup() {
   Serial.begin(115200);
-  
-  // wifi.connect(10000);
-  sd.begin();
 
-  sd.deleteFile("esp32.txt");
-  sd.writeFile("esp32.txt", "Hello World");
-  sd.writeFile("esp32.txt", "it's me again");
+  logger.init(); 
 
   // Set up deep sleep
   esp_sleep_enable_timer_wakeup(time_to_sleep * us_to_s_factor);
 }
 
+void loop() {
+  SerialEvent();
 
+  logger.info("main", "test " + String(log_test));
+  log_test++;
+  delay(1000);
+}
 
 // Functions
 void SerialEvent() {
   while (Serial.available()) {
-    char inChar = (char)Serial.read();
-    switch (inChar) {
-      case 'c':
-        current_state = CHECKING;
-        break;
-      case 'f':
-        current_state = FETCHING;
-        break;
-      case 'a':
-        current_state = SENDING;
-        break;
-      case 's':
-        current_state = SLEEP;
-        break;
-      default:
-        break;
+    String inChar = Serial.readString();
+    if (inChar.indexOf("date") != -1) {
+      Serial.println("lol");
     }
+    // if (inChar.indexOf("terminal") != -1) {
+    //   if (inChar.indexOf("enable") != -1)
+    //     logger.enableLoggingInMonitor();
+    //   else if (inChar.indexOf("disable") != -1)
+    //     logger.disableLoggingInMonitor();
+    // }
   }
 }
 

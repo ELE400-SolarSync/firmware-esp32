@@ -1,88 +1,88 @@
-#include <string>
 #include <HTTPClient.h>
 
 class api_lib {
-private:
-    String host;
+    private:
+        String host;
 
-public:
-/**
- * @brief Set the Host object (part of the resquestt with the data)
- * 
- * @param host 
- */
-    void setHost(String host) {
-        this->host = host;
-    };
+    public:
+        /**
+         * @brief Set the Host object (part of the resquestt with the data)
+         * 
+         * @param host 
+         */
+        void setHost(String host) {
+            this->host = host;
+        };
 
-/**
- * @brief Send data to the host + url
- * 
- * @param url string to complete the host
- * @return String string return of the api call
- */
-    String getResponse(String url) {
-        HTTPClient http;
+        /**
+         * @brief Send data to the host + url
+         * 
+         * @param url string to complete the host
+         * @return String string return of the api call
+         */
+        String getResponse(String url) {
+            HTTPClient http;
 
-        String server_call = host + url;
-        http.begin((server_call).c_str());
+            String server_call = host + url;
+            http.begin((server_call).c_str());
 
-        int httpCode = http.GET();
-        if (httpCode > 0) {
-            if (httpCode == HTTP_CODE_OK) {
-                return http.getString();
+            int httpCode = http.GET();
+            if (httpCode > 0) {
+                if (httpCode == HTTP_CODE_OK) {
+                    return http.getString();
+                }
             }
+            return "";
         }
-        return "";
-    }
 
-/**
- * @brief Send data to the host + url and return the code
- * 
- * @param url string to complete the host
- * @return int api code
- */
-    int getCode(String url) {
-        HTTPClient http;
+        /**
+         * @brief Send data to the host + url and return the code
+         * 
+         * @param url string to complete the host
+         * @return int api code
+         */
+        int getCode(String url) {
+            HTTPClient http;
 
-        String server_call = host + url;
-        http.begin((server_call).c_str());
+            String server_call = host + url;
+            http.begin((server_call).c_str());
 
-        int httpCode = http.GET();
-        return httpCode;
-    }
-
-    /**
-     * @brief send multiple data according to thinspeak atemplate /!\ look at AZURE template
-     * 
-     * @param data data to send
-     * @param data_len length of the data
-     * @return String tring return of the api call
-     */
-    String sendAmp(float data[], size_t data_len){
-        String url;
-
-        for(int i = 0; i < data_len; i++){
-            url = url + "&field" + i + "=" + String(data[i]);
+            int httpCode = http.GET();
+            return httpCode;
         }
-        
-        return getResponse(url);
-    }
 
-    String getDate(String timzeone = "America/Montreal") {
-        HTTPClient http_date;
-        http_date.begin("http://worldtimeapi.org/api/timezone/" + timzeone);
+        /**
+         * @brief send multiple data according to thinspeak atemplate /!\ look at AZURE template
+         * 
+         * @param data data to send
+         * @param data_len length of the data
+         * @return String tring return of the api call
+         */
+        String sendAmp(float data[], size_t data_len){
+            String url;
 
-        String date;
-        int httpCode = http_date.GET();
-        if (httpCode > 0) {
-            if (httpCode == HTTP_CODE_OK) {
-                String payload = http_date.getString();
-                int index = payload.indexOf("datetime");
-                date = payload.substring(index + 11, index + 30);
+            for(int i = 0; i < data_len; i++){
+                url = url + "&field" + i + "=" + String(data[i]);
             }
+            
+            return getResponse(url);
         }
 
-        return date;
-    }
+        String getDate(String timzeone = "America/Montreal") {
+            HTTPClient http_date;
+            http_date.begin("http://worldtimeapi.org/api/timezone/" + timzeone);
+
+            String date;
+            int httpCode = http_date.GET();
+            if (httpCode > 0) {
+                if (httpCode == HTTP_CODE_OK) {
+                    String payload = http_date.getString();
+                    int index = payload.indexOf("datetime");
+                    date = payload.substring(index + 11, index + 30);
+                    date.replace("T", " ");
+                }
+            }
+
+            return date;
+        }
 };

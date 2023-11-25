@@ -3,9 +3,16 @@
 
 // https://github.com/arduino-libraries/SD/issues/129
 
-
+#ifndef SDCUSTOM_H
+#define SDCUSTOM_H
 class SDCustom {
     public:
+        int max_size;
+
+        SDCustom(int size) {
+            this->max_size = size;
+        };
+
         /**
          * @brief Start the SD Card
          * 
@@ -40,11 +47,31 @@ class SDCustom {
          * @param filename the name of the file
          * @return bool does the file exist
          */
-        bool fileExists(const char *filename) {
+        bool fileExists(String filename) {
             if (!SD.exists(filename)) {
                 return false;
             }
             return true;
+        };
+
+        /**
+         * @brief Open a file
+         * 
+         * @param filename 
+         * @return SDFile 
+         */
+        SDFile openFile(String filename) {
+            SDLib::File myFile = SD.open(filename);
+            return myFile;
+        };
+
+        /**
+         * @brief Close a file
+         * 
+         * @param file the file to close
+         */
+        void closeFile(SDFile file) {
+            file.close();
         };
 
 
@@ -53,7 +80,7 @@ class SDCustom {
          * 
          * @param filename the name of the file
          */
-        void createFile(const char *filename) {
+        void createFile(String filename) {
             SDLib::File myFile = SD.open(filename, FILE_WRITE);
             myFile.close();
         };
@@ -64,8 +91,17 @@ class SDCustom {
          * 
          * @param filename the name of the file
          */
-        void deleteFile(const char *filename) {
+        void deleteFile(String filename) {
             SD.remove(filename);
+        };
+
+        /**
+         * @brief Create a directory
+         * 
+         * @param path 
+         */
+        void mkdir(String path) {
+            Serial.println("Created directory: " + path + " / " + SD.mkdir(path));
         };
 
         /**
@@ -74,7 +110,7 @@ class SDCustom {
          * @param filename the name of the file
          * @param message the message to write
          */
-        void writeFile(const char *filename, const char *message) {
+        void writeFile(String filename, String message) {
             if(!fileExists(filename)) {
                 createFile(filename);
             }
@@ -90,7 +126,7 @@ class SDCustom {
          * @param filename the name of the file
          * @return String the contents of the file
          */
-        String readFile(const char *filename) {
+        String readFile(String filename) {
             String content;
 
             if(!fileExists(filename)) {
@@ -115,3 +151,5 @@ class SDCustom {
         int SD_CS = 5;
         int SD_DET = 22;
 };
+
+#endif // SDCUSTOM_H
