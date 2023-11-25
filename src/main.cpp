@@ -1,4 +1,19 @@
 #include <Arduino.h>
+#include "../lib/api/src/api.hpp"
+#include "../lib/wifi/src/wifi.hpp"
+#include "../lib/sd/src/sdcustom.hpp"
+
+// Global Variables
+const int debug = false;
+
+// Objects
+SDCustom sd;
+wifi_connection wifi("LakeLaogai", "thereisnowifiinbasingse");
+api_lib api;
+
+//  Prototyping
+
+// Setup and Loop
 
 // Objects
 
@@ -28,67 +43,18 @@ String get_wakeup_reason();
 // Setup and Loop
 void setup() {
   Serial.begin(115200);
+  
+  // wifi.connect(10000);
+  sd.begin();
 
-  current_state = CHECKING;
+  sd.deleteFile("esp32.txt");
+  sd.writeFile("esp32.txt", "Hello World");
+  sd.writeFile("esp32.txt", "it's me again");
 
   // Set up deep sleep
   esp_sleep_enable_timer_wakeup(time_to_sleep * us_to_s_factor);
 }
 
-void loop() {
-  SerialEvent();
-
-  switch (current_state) {
-    case CHECKING:
-      Serial.println("CHECKING");
-      delay(5000);
-
-      check = true;
-
-      if (check) {
-        current_state = FETCHING;
-      } else {
-        current_state = SLEEP;
-      }
-
-      break;
-    case FETCHING:
-      Serial.println("FETCHING");
-      delay(5000);
-
-      finish = true;
-
-      if (finish) {
-        current_state = SENDING;
-      } else {
-        current_state = SLEEP;
-      }
-
-      break;
-    case SENDING:
-      Serial.println("SENDING");
-      delay(5000);
-
-      sent = true;
-
-      if (sent) {
-        current_state = CHECKING;
-      } else {
-        current_state = SLEEP;
-      }
-
-      break;
-    case SLEEP:
-      Serial.println("SLEEP");
-      Serial.flush(); 
-      esp_deep_sleep_start();
-      break;
-    default:
-      Serial.println("FAIL");
-      delay(5000);
-      break;
-  }
-}
 
 
 // Functions
