@@ -6,6 +6,11 @@
 
 class SDCustom {
     public:
+        /**
+         * @brief Start the SD Card
+         * 
+         * @return bool has the SD Card started 
+         */
         bool begin() {
             pinMode(SD_DET, INPUT);
 
@@ -16,6 +21,11 @@ class SDCustom {
             return true;
         };
 
+        /**
+         * @brief Check if the SD Card is inserted
+         * 
+         * @return bool is the SD Card inserted
+         */
         bool isSDInserted() {
             if(!digitalRead(SD_DET)) {
                 return false;
@@ -23,6 +33,13 @@ class SDCustom {
             return true;
         };
 
+
+        /**
+         * @brief Check if a file exists
+         * 
+         * @param filename the name of the file
+         * @return bool does the file exist
+         */
         bool fileExists(const char *filename) {
             if (!SD.exists(filename)) {
                 return false;
@@ -30,15 +47,33 @@ class SDCustom {
             return true;
         };
 
+
+        /**
+         * @brief Create a file
+         * 
+         * @param filename the name of the file
+         */
         void createFile(const char *filename) {
             SDLib::File myFile = SD.open(filename, FILE_WRITE);
             myFile.close();
         };
 
+
+        /**
+         * @brief Delete a file
+         * 
+         * @param filename the name of the file
+         */
         void deleteFile(const char *filename) {
             SD.remove(filename);
         };
 
+        /**
+         * @brief Write to a file
+         * 
+         * @param filename the name of the file
+         * @param message the message to write
+         */
         void writeFile(const char *filename, const char *message) {
             if(!fileExists(filename)) {
                 createFile(filename);
@@ -48,6 +83,13 @@ class SDCustom {
             myFile.close();
         };
 
+
+        /**
+         * @brief Read a file
+         * 
+         * @param filename the name of the file
+         * @return String the contents of the file
+         */
         String readFile(const char *filename) {
             String content;
 
