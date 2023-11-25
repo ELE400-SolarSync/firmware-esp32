@@ -68,4 +68,21 @@ public:
         
         return getResponse(url);
     }
+
+    String getDate(String timzeone = "America/Montreal") {
+        HTTPClient http_date;
+        http_date.begin("http://worldtimeapi.org/api/timezone/" + timzeone);
+
+        String date;
+        int httpCode = http_date.GET();
+        if (httpCode > 0) {
+            if (httpCode == HTTP_CODE_OK) {
+                String payload = http_date.getString();
+                int index = payload.indexOf("datetime");
+                date = payload.substring(index + 11, index + 30);
+            }
+        }
+
+        return date;
+    }
 };
