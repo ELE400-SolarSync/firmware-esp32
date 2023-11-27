@@ -56,33 +56,15 @@ class api_lib {
          * 
          * @param data data to send
          * @param data_len length of the data
-         * @return String tring return of the api call
+         * @return int code return by the api call
          */
-        String sendAmp(float data[], size_t data_len){
+        int sendAll(float data[], size_t data_len){
             String url;
 
             for(int i = 0; i < data_len; i++){
                 url = url + "&field" + i + "=" + String(data[i]);
             }
             
-            return getResponse(url);
-        }
-
-        String getDate(String timzeone = "America/Montreal") {
-            HTTPClient http_date;
-            http_date.begin("http://worldtimeapi.org/api/timezone/" + timzeone);
-
-            String date;
-            int httpCode = http_date.GET();
-            if (httpCode > 0) {
-                if (httpCode == HTTP_CODE_OK) {
-                    String payload = http_date.getString();
-                    int index = payload.indexOf("datetime");
-                    date = payload.substring(index + 11, index + 30);
-                    date.replace("T", " ");
-                }
-            }
-
-            return date;
+            return getCode(url);
         }
 };

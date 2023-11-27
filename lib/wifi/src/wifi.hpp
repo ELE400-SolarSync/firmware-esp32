@@ -31,6 +31,10 @@ class wifi_connection {
             return WiFi.status() == WL_CONNECTED;
         }
 
+        bool isConnected() const {
+            return WiFi.isConnected();
+        }
+
 /**
  * @brief Connect to the wifi
  * 
@@ -45,7 +49,7 @@ class wifi_connection {
             Serial.println("Connecting to WiFi ");
             WiFi.begin(ssid, password);
 
-            while (WiFi.status() != WL_CONNECTED && millis() - start > timeout_ms) {
+            while (WiFi.status() != WL_CONNECTED || millis() - start > timeout_ms) {
                 delay(500);
                 Serial.print(".");
             }

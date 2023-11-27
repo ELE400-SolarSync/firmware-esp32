@@ -12,17 +12,20 @@ enum state {
     CHECKING,
     FETCHING,
     SENDING,
+    ERROR,
     SLEEP
 };
 
 state current_state = INIT;
 
+unsigned long int start;
+
+float data[3] = {1.0, 2.0, 3.0};
+
 bool check, finish, sent = false;
 
 const int us_to_s_factor = 1000000;  /* Conversion factor for micro seconds to seconds */
-const int time_to_sleep = 5;        /* Time ESP32 will go to sleep (in seconds) */
-
-int log_test = 0;
+int time_to_sleep = 5;        /* Time ESP32 will go to sleep (in seconds) */
 
 // Can be used to store data in RTC memory during deep sleep
 // RTC_DATA_ATTR int bootCount = 0;
@@ -42,17 +45,77 @@ void setup() {
   Serial.begin(115200);
 
   logger.init(); 
+  logger.disableLoggingInSD();
+  logger.enableLoggingInMonitor();
+  logger.info("main", String(wifi.connect(10000)));
+  api.setHost("https://api.thingspeak.com/update?api_key=72ZH5DA3WVKUD5R5");
 
   // Set up deep sleep
   esp_sleep_enable_timer_wakeup(time_to_sleep * us_to_s_factor);
+  logger.info("SLEEP", get_wakeup_reason());
+
+  current_state = CHECKING;
 }
 
 void loop() {
   SerialEvent();
 
-  logger.info("main", "test " + String(log_test));
-  log_test++;
-  delay(1000);
+  start = millis();
+
+  switch (current_state) {
+    case CHECKING:
+      {
+        logger.info("main", "CHECKING");
+        if (!sd.isSDInserted()) {
+          logger.disableLoggingInSD();
+        }
+        else {
+          logger.enableLoggingInSD();
+          logger.warning("CHECKING", "SD Card is inserted");
+        }
+        if (wifi.isConnected()) {
+          current_state = FETCHING;
+        }
+        else {
+          logger.error("CHECKING", "Wifi is not connected");
+          current_state = ERROR;
+        }
+        break;
+      }
+
+    case FETCHING:
+      {
+        logger.info("main", "FETCHING");
+        current_state = SENDING;
+        break;
+      }
+
+    case SENDING:
+      {
+        logger.info("main", "SENDING");
+        if (api.sendAll(data, sizeof(data)/sizeof(float)) == 200) {
+          current_state = SLEEP;
+        }
+        break;
+      }
+
+    case ERROR:
+      {
+        logger.info("ERROR", "ERROR state");
+        break;
+      }
+
+    case SLEEP:
+      time_to_sleep = 60 - (start - millis()) * 1000;
+
+      esp_sleep_enable_timer_wakeup(time_to_sleep * us_to_s_factor);
+      logger.info("SLEEP", "Time to sleep: " + String(time_to_sleep) + " seconds");
+      esp_deep_sleep_start();
+      break;
+    default:
+      logger.info("DEFAULT", "DEFAULT state");
+      break;
+  }
 }
 
 // Functions
