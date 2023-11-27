@@ -1,0 +1,162 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="classwifi__connection" kind="class" language="C++" prot="public">
+    <compoundname>wifi_connection</compoundname>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classwifi__connection_1aea337f43249d215c0b3c1a676f3c32ba" prot="private" static="no" mutable="no">
+        <type>String</type>
+        <definition>String wifi_connection::ssid</definition>
+        <argsstring></argsstring>
+        <name>ssid</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/wifi/src/wifi.hpp" line="7" column="16" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/wifi/src/wifi.hpp" bodystart="7" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classwifi__connection_1a2240e97ffb9883bc3d94db814b425e44" prot="private" static="no" mutable="no">
+        <type>String</type>
+        <definition>String wifi_connection::password</definition>
+        <argsstring></argsstring>
+        <name>password</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/wifi/src/wifi.hpp" line="8" column="16" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/wifi/src/wifi.hpp" bodystart="8" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classwifi__connection_1aa69d981e27c2438a4933de0c2761cedb" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>wifi_connection::wifi_connection</definition>
+        <argsstring>(String ssid, String password)</argsstring>
+        <name>wifi_connection</name>
+        <param>
+          <type>String</type>
+          <declname>ssid</declname>
+        </param>
+        <param>
+          <type>String</type>
+          <declname>password</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/wifi/src/wifi.hpp" line="11" column="9" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/wifi/src/wifi.hpp" bodystart="11" bodyend="16"/>
+      </memberdef>
+      <memberdef kind="function" id="classwifi__connection_1a4df2439a851a544f5d07e65be73bb69c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void wifi_connection::setSSID</definition>
+        <argsstring>(String ssid)</argsstring>
+        <name>setSSID</name>
+        <param>
+          <type>String</type>
+          <declname>ssid</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/wifi/src/wifi.hpp" line="18" column="14" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/wifi/src/wifi.hpp" bodystart="18" bodyend="20"/>
+      </memberdef>
+      <memberdef kind="function" id="classwifi__connection_1af1a5f8c9b2a09f830a3675e0792eded1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void wifi_connection::setPassword</definition>
+        <argsstring>(String password)</argsstring>
+        <name>setPassword</name>
+        <param>
+          <type>String</type>
+          <declname>password</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/wifi/src/wifi.hpp" line="22" column="14" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/wifi/src/wifi.hpp" bodystart="22" bodyend="24"/>
+      </memberdef>
+      <memberdef kind="function" id="classwifi__connection_1acc6036c49974f5fdba7c76ea5987944b" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>String</type>
+        <definition>String wifi_connection::getIP</definition>
+        <argsstring>() const</argsstring>
+        <name>getIP</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/wifi/src/wifi.hpp" line="26" column="16" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/wifi/src/wifi.hpp" bodystart="26" bodyend="28"/>
+      </memberdef>
+      <memberdef kind="function" id="classwifi__connection_1ac88d5e9c734f8dd272cfc05a4c6bda08" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool wifi_connection::getStatus</definition>
+        <argsstring>() const</argsstring>
+        <name>getStatus</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/wifi/src/wifi.hpp" line="30" column="14" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/wifi/src/wifi.hpp" bodystart="30" bodyend="32"/>
+      </memberdef>
+      <memberdef kind="function" id="classwifi__connection_1a52afbfc28143e9cc24a8a7c0d7cadf02" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool wifi_connection::connect</definition>
+        <argsstring>(int timeout_ms)</argsstring>
+        <name>connect</name>
+        <param>
+          <type>int</type>
+          <declname>timeout_ms</declname>
+        </param>
+        <briefdescription>
+<para>Connect to the wifi. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>timeout_ms</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>time to wait for the wifi to connect </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>bool time to wait for the wifi to connect </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/wifi/src/wifi.hpp" line="40" column="14" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/wifi/src/wifi.hpp" bodystart="40" bodyend="54"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/wifi/src/wifi.hpp" line="5" column="1" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/wifi/src/wifi.hpp" bodystart="5" bodyend="55"/>
+    <listofallmembers>
+      <member refid="classwifi__connection_1a52afbfc28143e9cc24a8a7c0d7cadf02" prot="public" virt="non-virtual"><scope>wifi_connection</scope><name>connect</name></member>
+      <member refid="classwifi__connection_1acc6036c49974f5fdba7c76ea5987944b" prot="public" virt="non-virtual"><scope>wifi_connection</scope><name>getIP</name></member>
+      <member refid="classwifi__connection_1ac88d5e9c734f8dd272cfc05a4c6bda08" prot="public" virt="non-virtual"><scope>wifi_connection</scope><name>getStatus</name></member>
+      <member refid="classwifi__connection_1a2240e97ffb9883bc3d94db814b425e44" prot="private" virt="non-virtual"><scope>wifi_connection</scope><name>password</name></member>
+      <member refid="classwifi__connection_1af1a5f8c9b2a09f830a3675e0792eded1" prot="public" virt="non-virtual"><scope>wifi_connection</scope><name>setPassword</name></member>
+      <member refid="classwifi__connection_1a4df2439a851a544f5d07e65be73bb69c" prot="public" virt="non-virtual"><scope>wifi_connection</scope><name>setSSID</name></member>
+      <member refid="classwifi__connection_1aea337f43249d215c0b3c1a676f3c32ba" prot="private" virt="non-virtual"><scope>wifi_connection</scope><name>ssid</name></member>
+      <member refid="classwifi__connection_1aa69d981e27c2438a4933de0c2761cedb" prot="public" virt="non-virtual"><scope>wifi_connection</scope><name>wifi_connection</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

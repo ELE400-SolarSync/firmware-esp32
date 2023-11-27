@@ -1,7 +1,11 @@
 #include <Arduino.h>
-#include "../lib/sensors/src/voltage_current.hpp"
-#include "../lib/log/log.hpp"
-#include "esp_log.h"
+#include "../lib/api/src/api.hpp"
+#include "../lib/wifi/src/wifi.hpp"
+#include "../lib/sd/src/sdcustom.hpp"
+#include "../lib/log/src/log.hpp"
+
+// Global Variables
+const int debug = false;
 
 // const int battery_current_pin = A6;
 // const int battery_voltage_pin = A7;
@@ -27,29 +31,34 @@ VoltageSensor voltage_5v(voltage_pin_5v);
 CurrentSensor current_12v(current_pin_12v);
 VoltageSensor voltage_12v(voltage_pin_12v);
 
-// Objects
-myLogger logger("log.txt", "log/", myLogger::ERROR);
-
-// Global variables
 enum state {
     INIT,
     CHECKING,
     FETCHING,
     SENDING,
+    ERROR,
     SLEEP
 };
 
 state current_state = INIT;
 
+unsigned long int start;
+
+float data[3] = {1.0, 2.0, 3.0};
+
 bool check, finish, sent = false;
 
 const int us_to_s_factor = 1000000;  /* Conversion factor for micro seconds to seconds */
-const int time_to_sleep = 5;        /* Time ESP32 will go to sleep (in seconds) */
+int time_to_sleep = 5;        /* Time ESP32 will go to sleep (in seconds) */
 
 // Can be used to store data in RTC memory during deep sleep
 // RTC_DATA_ATTR int bootCount = 0;
 
-int i = 0;
+// Objects
+SDCustom sd(32);
+wifi_connection wifi("LakeLaogai", "thereisnowifiinbasingse");
+api_lib api;
+myLogger logger(sd);
 
 // Prototypes
 void SerialEvent();
@@ -58,6 +67,18 @@ String get_wakeup_reason();
 // Setup and Loop
 void setup() {
   Serial.begin(115200);
+
+  logger.init(); 
+  logger.disableLoggingInSD();
+  logger.enableLoggingInMonitor();
+  logger.info("main", String(wifi.connect(10000)));
+  api.setHost("https://api.thingspeak.com/update?api_key=72ZH5DA3WVKUD5R5");
+
+  // Set up deep sleep
+  esp_sleep_enable_timer_wakeup(time_to_sleep * us_to_s_factor);
+  logger.info("SLEEP", get_wakeup_reason());
+
+  current_state = CHECKING;
 
   // current_battery.setup();
   // voltage_battery.setup();
@@ -75,90 +96,77 @@ void setup() {
 void loop() {
   SerialEvent();
 
+  start = millis();
+
   switch (current_state) {
     case CHECKING:
-      Serial.println("CHECKING");
-      delay(5000);
-
-      check = true;
-
-      if (check) {
-        current_state = FETCHING;
-      } else {
-        current_state = SLEEP;
+      {
+        logger.info("main", "CHECKING");
+        if (!sd.isSDInserted()) {
+          logger.disableLoggingInSD();
+        }
+        else {
+          logger.enableLoggingInSD();
+          logger.warning("CHECKING", "SD Card is inserted");
+        }
+        if (wifi.isConnected()) {
+          current_state = FETCHING;
+        }
+        else {
+          logger.error("CHECKING", "Wifi is not connected");
+          current_state = ERROR;
+        }
+        break;
       }
 
-      break;
     case FETCHING:
-      Serial.println("FETCHING");
-      delay(5000);
-
-      finish = true;
-
-      if (finish) {
+      {
+        logger.info("main", "FETCHING");
         current_state = SENDING;
-      } else {
-        current_state = SLEEP;
+        break;
       }
 
-      break;
     case SENDING:
-      Serial.println("SENDING");
-      delay(5000);
-
-      sent = true;
-
-      if (sent) {
-        current_state = CHECKING;
-      } else {
-        current_state = SLEEP;
+      {
+        logger.info("main", "SENDING");
+        if (api.sendAll(data, sizeof(data)/sizeof(float)) == 200) {
+          current_state = SLEEP;
+        }
+        break;
       }
 
-      break;
+    case ERROR:
+      {
+        logger.info("ERROR", "ERROR state");
+        break;
+      }
+
     case SLEEP:
-      Serial.println("SLEEP");
-      Serial.flush(); 
+      time_to_sleep = 60 - (start - millis()) * 1000;
+
+      esp_sleep_enable_timer_wakeup(time_to_sleep * us_to_s_factor);
+      logger.info("SLEEP", "Time to sleep: " + String(time_to_sleep) + " seconds");
       esp_deep_sleep_start();
       break;
     default:
-      Serial.println("FAIL");
-      delay(5000);
+      logger.info("DEFAULT", "DEFAULT state");
       break;
   }
 }
 
-
 // Functions
 void SerialEvent() {
   while (Serial.available()) {
-    char inChar = (char)Serial.read();
-    switch (inChar) {
-      case 'c':
-        current_state = CHECKING;
-        break;
-      case 'f':
-        current_state = FETCHING;
-        break;
-      case 'a':
-        current_state = SENDING;
-        break;
-      case 's':
-        current_state = SLEEP;
-        Serial.println("ESP going to sleep for %s seconds" + String(time_to_sleep));
-        Serial.flush(); 
-        esp_deep_sleep_start();
-        break;
-      case 'l':
-        logger.enableLoggingInMonitor();
-        Serial.println("Logging enabled");
-        break;
-      case 'L':
-        Serial.println("Logging disabled");
-        logger.disableLoggingInMonitor();
-        break;
-      default:
-        break;
+    String inChar = Serial.readString();
+    if (inChar.indexOf("date") != -1) {
+      Serial.println("lol");
     }
+    // if (inChar.indexOf("terminal") != -1) {
+    //   if (inChar.indexOf("enable") != -1)
+    //     logger.enableLoggingInMonitor();
+    //   else if (inChar.indexOf("disable") != -1)
+    //     logger.disableLoggingInMonitor();
+    // }
   }
 }
 
