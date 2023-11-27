@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="Readme_8md" kind="file" language="Markdown">
+    <compoundname>Readme.md</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline><highlight class="normal">##<sp/>Documentation<sp/>project</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">How<sp/>to<sp/>generate<sp/>the<sp/>documentation<sp/>for<sp/>the<sp/>project.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>Commands</highlight></codeline>
+<codeline><highlight class="normal">```\bash</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>cd<sp/>docs</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>doxygen<sp/>Doxyfile.in</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>sphinx-build<sp/>-b<sp/>html<sp/>-Dbreathe_projects.solarsync=doc_out/xml<sp/>.<sp/>doc_out/sphinx/</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Documents<sp/>will<sp/>be<sp/>generated<sp/>in<sp/>the<sp/>build/docs/sphinx<sp/>folder.</highlight></codeline>
+    </programlisting>
+    <location file="Readme.md"/>
+  </compounddef>
+</doxygen>

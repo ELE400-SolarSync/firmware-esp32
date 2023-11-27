@@ -1,0 +1,12 @@
+How to generate the documentation for the project.\hypertarget{md_Readme_autotoc_md1}{}\doxysection{Commands}\label{md_Readme_autotoc_md1}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{\(\backslash\)bash\}}
+\DoxyCodeLine{ cd docs}
+\DoxyCodeLine{ doxygen Doxyfile.in}
+\DoxyCodeLine{ sphinx-\/build -\/b html -\/Dbreathe\_projects.solarsync=doc\_out/xml . doc\_out/sphinx/}
+
+\end{DoxyCode}
+
+
+Documents will be generated in the build/docs/sphinx folder. 

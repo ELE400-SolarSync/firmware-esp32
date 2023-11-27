@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="md_Readme" kind="page">
+    <compoundname>md_Readme</compoundname>
+    <title>Documentation project</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>How to generate the documentation for the project.</para>
+<sect1 id="md_Readme_1autotoc_md1">
+<title>Commands</title>
+<para><programlisting><codeline><highlight class="normal">{\bash}</highlight></codeline>
+<codeline><highlight class="normal"><sp/>cd<sp/>docs</highlight></codeline>
+<codeline><highlight class="normal"><sp/>doxygen<sp/>Doxyfile.in</highlight></codeline>
+<codeline><highlight class="normal"><sp/>sphinx-build<sp/>-b<sp/>html<sp/>-Dbreathe_projects.solarsync=doc_out/xml<sp/>.<sp/>doc_out/sphinx/</highlight></codeline>
+</programlisting></para>
+<para>Documents will be generated in the build/docs/sphinx folder. </para>
+</sect1>
+    </detaileddescription>
+    <location file="Readme.md"/>
+  </compounddef>
+</doxygen>
