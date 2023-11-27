@@ -1,4 +1,5 @@
 #include <Arduino.h>
+#include "../lib/dht/src/dht.hpp"
 #include "../lib/api/src/api.hpp"
 #include "../lib/wifi/src/wifi.hpp"
 #include "../lib/sd/src/sdcustom.hpp"
@@ -48,6 +49,10 @@ float data[3] = {1.0, 2.0, 3.0};
 
 bool check, finish, sent = false;
 
+const int dh11_pin = 4;             /* Pin where the DHT11 is connected */
+enum dht_data { hum, temp };        /* Indexes for the DHT11 values */
+float *dht_values;                  /* Array to store the DHT11 values */
+
 const int us_to_s_factor = 1000000;  /* Conversion factor for micro seconds to seconds */
 int time_to_sleep = 5;        /* Time ESP32 will go to sleep (in seconds) */
 
@@ -55,6 +60,7 @@ int time_to_sleep = 5;        /* Time ESP32 will go to sleep (in seconds) */
 // RTC_DATA_ATTR int bootCount = 0;
 
 // Objects
+DHTSensor dht_sensor(dh11_pin);
 SDCustom sd(32);
 wifi_connection wifi("LakeLaogai", "thereisnowifiinbasingse");
 api_lib api;
@@ -95,6 +101,8 @@ void setup() {
 
 void loop() {
   SerialEvent();
+
+  dht_values = dht_sensor.getValues();
 
   start = millis();
 
