@@ -36,7 +36,7 @@ unsigned long int start;
 
 float data[3] = {1.0, 2.0, 3.0};
 
-bool check, finish, sent = false;
+bool show_data = false;
 
 const int dh11_pin = 4;             /* Pin where the DHT11 is connected */
 enum dht_data { hum, temp };        /* Indexes for the DHT11 values */
@@ -44,9 +44,7 @@ float *dht_values;                  /* Array to store the DHT11 values */
 
 const int us_to_s_factor = 1000000;  /* Conversion factor for micro seconds to seconds */
 int time_to_sleep = 5;        /* Time ESP32 will go to sleep (in seconds) */
-
-// Can be used to store data in RTC memory during deep sleep
-// RTC_DATA_ATTR int bootCount = 0;
+const int time_period = 60;
 
 // Objects
 DHTSensor dht_sensor(dh11_pin);
@@ -54,6 +52,10 @@ SDCustom sd(32);
 wifi_connection wifi("LakeLaogai", "thereisnowifiinbasingse");
 api_lib api;
 myLogger logger(sd);
+
+// Can be used to store data in RTC memory during deep sleep
+RTC_DATA_ATTR int log_file = logger.getLogFile();
+RTC_DATA_ATTR int old_log = logger.getOldLogFile();
 
 // CurrentSensor current_battery(battery_current_pin);
 // VoltageSensor voltage_battery(battery_voltage_pin);
@@ -75,8 +77,12 @@ String get_wakeup_reason();
 void setup() {
   Serial.begin(115200);
 
+  logger.setLogFile(log_file);
+  logger.setOldLogFile(old_log);
   logger.init(); 
-  logger.setLevel(myLogger::DEBUG);
+  
+  logger.debug("SETUP", "Wifi status : " + String(wifi.connect(10000)));
+  
   logger.disableLoggingInSD();
   logger.enableLoggingInMonitor();
 
@@ -85,7 +91,7 @@ void setup() {
 
   // Set up deep sleep
   esp_sleep_enable_timer_wakeup(time_to_sleep * us_to_s_factor);
-  logger.info("SLEEP", get_wakeup_reason());
+  logger.info("SETUP", "Wakeup reason : " + get_wakeup_reason());
 
   current_state = CHECKING;
 
@@ -132,6 +138,7 @@ void loop() {
       {
         logger.info("FETCHING", "FETCHING");
         dht_values = dht_sensor.getValues();
+        
         if (dht_sensor.isCorrect_values(dht_values)) {
           logger.error("FETCHING", "DHT11 values are incorrect");
           current_state = ERROR;
@@ -165,11 +172,14 @@ void loop() {
       }
 
     case SLEEP:
-      time_to_sleep = 15 - (start - millis()) * 1000;
+      time_to_sleep = time_period - (start - millis()) * 1000;
 
       esp_sleep_enable_timer_wakeup(time_to_sleep * us_to_s_factor);
       logger.info("SLEEP", "Time to sleep: " + String(time_to_sleep) + " seconds");
+      
       esp_deep_sleep_start();
+      // esp_light_sleep_start();
+
       // delay(time_to_sleep * 1000);
       current_state = CHECKING;
       break;
@@ -186,12 +196,9 @@ void SerialEvent() {
     if (inChar.indexOf("date") != -1) {
       Serial.println("lol");
     }
-    // if (inChar.indexOf("terminal") != -1) {
-    //   if (inChar.indexOf("enable") != -1)
-    //     logger.enableLoggingInMonitor();
-    //   else if (inChar.indexOf("disable") != -1)
-    //     logger.disableLoggingInMonitor();
-    // }
+    if(inChar.indexOf("show_data") != -1){
+      show_data = !show_data;
+    }
   }
 }
 
