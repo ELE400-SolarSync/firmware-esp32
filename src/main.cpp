@@ -74,17 +74,17 @@ void setup() {
   logger.setLogFile(log_file);
   logger.setOldLogFile(old_log);
   logger.init(); 
-  
+
   logger.disableLoggingInSD();
   logger.enableLoggingInMonitor();
 
 
-  logger.info("main", String(wifi.connect(10000)));
+  logger.info("SETUP", "Wifi status : " + String(wifi.connect(10000)));
   api.setHost("https://api.thingspeak.com/update?api_key=72ZH5DA3WVKUD5R5");
 
   // Set up deep sleep
   esp_sleep_enable_timer_wakeup(time_to_sleep * us_to_s_factor);
-  logger.info("SLEEP", get_wakeup_reason());
+  logger.info("SETUP", "Wakeup reason : " + get_wakeup_reason());
 
   current_state = CHECKING;
 
