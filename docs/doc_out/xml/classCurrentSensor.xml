@@ -1,0 +1,116 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="classCurrentSensor" kind="class" language="C++" prot="public">
+    <compoundname>CurrentSensor</compoundname>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classCurrentSensor_1ae00b7dfc694bc5e33615e30d721bcc42" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int CurrentSensor::pin</definition>
+        <argsstring></argsstring>
+        <name>pin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/sensors/src/voltage_current.hpp" line="80" column="13" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/sensors/src/voltage_current.hpp" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classCurrentSensor_1ae0c137c14b003c82684f3d5928a01d61" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>CurrentSensor::CurrentSensor</definition>
+        <argsstring>(int pin)</argsstring>
+        <name>CurrentSensor</name>
+        <param>
+          <type>int</type>
+          <declname>pin</declname>
+        </param>
+        <briefdescription>
+<para>Construct a new Current Sensor object. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pin</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/sensors/src/voltage_current.hpp" line="50" column="9" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/sensors/src/voltage_current.hpp" bodystart="50" bodyend="52"/>
+      </memberdef>
+      <memberdef kind="function" id="classCurrentSensor_1a8ae1886601163983335879062e8a96b9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void CurrentSensor::setup</definition>
+        <argsstring>()</argsstring>
+        <name>setup</name>
+        <briefdescription>
+<para>Setup the pin as input. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/sensors/src/voltage_current.hpp" line="57" column="14" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/sensors/src/voltage_current.hpp" bodystart="57" bodyend="59"/>
+      </memberdef>
+      <memberdef kind="function" id="classCurrentSensor_1aa76c3de3b58eddefed70f813c8d9bb63" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>float</type>
+        <definition>float CurrentSensor::read</definition>
+        <argsstring>()</argsstring>
+        <name>read</name>
+        <briefdescription>
+<para>Read the raw value from the pin. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>float Value between 0 and 1023 </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/sensors/src/voltage_current.hpp" line="66" column="15" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/sensors/src/voltage_current.hpp" bodystart="66" bodyend="68"/>
+      </memberdef>
+      <memberdef kind="function" id="classCurrentSensor_1a19eee861e65982b0603f85898e83e621" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>float</type>
+        <definition>float CurrentSensor::readCurrent</definition>
+        <argsstring>(int param=2.5)</argsstring>
+        <name>readCurrent</name>
+        <param>
+          <type>int</type>
+          <declname>param</declname>
+          <defval>2.5</defval>
+        </param>
+        <briefdescription>
+<para>Read the current from the pin. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>float </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/sensors/src/voltage_current.hpp" line="75" column="15" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/sensors/src/voltage_current.hpp" bodystart="75" bodyend="77"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/sensors/src/voltage_current.hpp" line="43" column="1" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/sensors/src/voltage_current.hpp" bodystart="43" bodyend="81"/>
+    <listofallmembers>
+      <member refid="classCurrentSensor_1ae0c137c14b003c82684f3d5928a01d61" prot="public" virt="non-virtual"><scope>CurrentSensor</scope><name>CurrentSensor</name></member>
+      <member refid="classCurrentSensor_1ae00b7dfc694bc5e33615e30d721bcc42" prot="private" virt="non-virtual"><scope>CurrentSensor</scope><name>pin</name></member>
+      <member refid="classCurrentSensor_1aa76c3de3b58eddefed70f813c8d9bb63" prot="public" virt="non-virtual"><scope>CurrentSensor</scope><name>read</name></member>
+      <member refid="classCurrentSensor_1a19eee861e65982b0603f85898e83e621" prot="public" virt="non-virtual"><scope>CurrentSensor</scope><name>readCurrent</name></member>
+      <member refid="classCurrentSensor_1a8ae1886601163983335879062e8a96b9" prot="public" virt="non-virtual"><scope>CurrentSensor</scope><name>setup</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

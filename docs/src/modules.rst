@@ -1,3 +1,4 @@
+=======
 Modules
 =======
 
@@ -16,4 +17,34 @@ Wifi
 ----
 
 .. doxygenclass:: wifi_connection
+    :members:
+
+Dht
+---
+
+.. doxygenclass:: DHTSensor
+    :members:
+
+Logging
+-------
+
+.. doxygenclass:: myLogger
+    :members:
+
+SD
+--
+
+.. doxygenclass:: SDCustom
+    :members:
+
+Voltage Sensor
+--------------
+
+.. doxygenclass:: VoltageSensor
+    :members:
+
+Current Sensor
+--------------
+
+.. doxygenclass:: CurrentSensor
     :members:

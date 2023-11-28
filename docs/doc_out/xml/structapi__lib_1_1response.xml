@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structapi__lib_1_1response" kind="struct" language="C++" prot="public">
+    <compoundname>api_lib::response</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structapi__lib_1_1response_1a7c13b9ae968039f142e7e45ff60c1d14" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int api_lib::response::code</definition>
+        <argsstring></argsstring>
+        <name>code</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/api/src/api.hpp" line="9" column="17" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/api/src/api.hpp" bodystart="9" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structapi__lib_1_1response_1af49d5d3fbd1115eb621ac3c79c4316ae" prot="public" static="no" mutable="no">
+        <type>String</type>
+        <definition>String api_lib::response::data</definition>
+        <argsstring></argsstring>
+        <name>data</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/api/src/api.hpp" line="10" column="20" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/api/src/api.hpp" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/api/src/api.hpp" line="8" column="9" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/api/src/api.hpp" bodystart="8" bodyend="11"/>
+    <listofallmembers>
+      <member refid="structapi__lib_1_1response_1a7c13b9ae968039f142e7e45ff60c1d14" prot="public" virt="non-virtual"><scope>api_lib::response</scope><name>code</name></member>
+      <member refid="structapi__lib_1_1response_1af49d5d3fbd1115eb621ac3c79c4316ae" prot="public" virt="non-virtual"><scope>api_lib::response</scope><name>data</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

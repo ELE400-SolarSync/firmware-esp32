@@ -33,6 +33,10 @@ class myLogger {
             this->log_fullPath = String(log_file) + ".txt";
         }
 
+        /**
+         * @brief Initialise the logger
+         * 
+         */
         void init() {
             sd.begin();
 
@@ -42,8 +46,6 @@ class myLogger {
             }
 
             if (!sd.fileExists(log_fullPath)) {
-                Serial.println("File does not exist");
-                // sd.mkdir(String(log_path));
                 sd.createFile(log_fullPath);
             }
         }
@@ -84,22 +86,46 @@ class myLogger {
             this->logLevel = level;
         }
 
+        /**
+         * @brief Function to write error log
+         * 
+         * @param tag First part to identify where comes the log
+         * @param message 
+         */
         void error(String tag, String message) {
             log(buildlogFormat(tag, "E"), message.c_str());
         }
 
+        /**
+         * @brief Function to write warning log
+         * 
+         * @param tag First part to identify where comes the log
+         * @param message 
+         */
         void warning(String tag, String message) {
             if(logLevel <= WARN) {
                 log(buildlogFormat(tag, "W"), message.c_str());
             }
         }
 
+        /**
+         * @brief Function to write info log
+         * 
+         * @param tag First part to identify where comes the log
+         * @param message 
+         */
         void info(String tag, String message) {
             if(logLevel <= INFO){
                 log(buildlogFormat(tag, "I"), message.c_str());
             }
         }
 
+        /**
+         * @brief Function to write debug log
+         * 
+         * @param tag First part to identify where comes the log
+         * @param message 
+         */
         void debug(String tag, String message) {
             if(logLevel <= DEBUG){
                 log(buildlogFormat(tag, "D"), message.c_str());
@@ -122,6 +148,12 @@ class myLogger {
             SDToglle = false;
         }
 
+        /**
+         * @brief Main function to write the log
+         * 
+         * @param logFormat Format of the log
+         * @param message Message to log
+         */
         void log(String logFormat, String message) {
             if(SerialToglle) {
                 Serial.println(logFormat + message);
@@ -157,9 +189,9 @@ class myLogger {
         }
 
         /**
-         * @brief Roll the log
+         * @brief Roll the log, if size is too big or if there is too much files
          * 
-         * @param roll what to roll File or Folder
+         * @param roll Argument to know if we need to switch file or delete the oldest one
          */
         void logRoll(roll_t roll) {
             if(roll == SWITCH) {

@@ -11,6 +11,9 @@
 <codeline></codeline>
 <codeline><highlight class="normal">How<sp/>to<sp/>generate<sp/>the<sp/>documentation<sp/>for<sp/>the<sp/>project.</highlight></codeline>
 <codeline></codeline>
+<codeline><highlight class="normal">##<sp/>Tutorial</highlight></codeline>
+<codeline><highlight class="normal">Links<sp/>to<sp/>[tutorials](https://medium.com/@aytackahveci93/documenting-c-code-with-sphinx-d6315b338615)<sp/>on<sp/>how<sp/>to<sp/>generate<sp/>doc<sp/>for<sp/>the<sp/>project.</highlight></codeline>
+<codeline></codeline>
 <codeline><highlight class="normal">##<sp/>Commands</highlight></codeline>
 <codeline><highlight class="normal">```\bash</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>cd<sp/>docs</highlight></codeline>
@@ -18,7 +21,7 @@
 <codeline><highlight class="normal"><sp/><sp/>sphinx-build<sp/>-b<sp/>html<sp/>-Dbreathe_projects.solarsync=doc_out/xml<sp/>.<sp/>doc_out/sphinx/</highlight></codeline>
 <codeline><highlight class="normal">```</highlight></codeline>
 <codeline></codeline>
-<codeline><highlight class="normal">Documents<sp/>will<sp/>be<sp/>generated<sp/>in<sp/>the<sp/>build/docs/sphinx<sp/>folder.</highlight></codeline>
+<codeline><highlight class="normal">Documents<sp/>will<sp/>be<sp/>generated<sp/>in<sp/>the<sp/>docs/doc_out/sphinx/index.html.</highlight></codeline>
     </programlisting>
     <location file="Readme.md"/>
   </compounddef>

@@ -3,13 +3,23 @@
   <compounddef id="main_8cpp" kind="file" language="C++">
     <compoundname>main.cpp</compoundname>
     <includes local="no">Arduino.h</includes>
+    <includes refid="dht_8hpp" local="yes">../lib/dht/src/dht.hpp</includes>
     <includes refid="api_8hpp" local="yes">../lib/api/src/api.hpp</includes>
     <includes refid="wifi_8hpp" local="yes">../lib/wifi/src/wifi.hpp</includes>
+    <includes refid="sdcustom_8hpp" local="yes">../lib/sd/src/sdcustom.hpp</includes>
+    <includes refid="log_8hpp" local="yes">../lib/log/src/log.hpp</includes>
+    <includes refid="voltage__current_8hpp" local="yes">../lib/sensors/src/voltage_current.hpp</includes>
     <incdepgraph>
-      <node id="4">
-        <label>string</label>
+      <node id="12">
+        <label>SD.h</label>
+      </node>
+      <node id="11">
+        <label>SPI.h</label>
       </node>
       <node id="5">
+        <label>DHT.h</label>
+      </node>
+      <node id="7">
         <label>HTTPClient.h</label>
       </node>
       <node id="1">
@@ -21,59 +31,157 @@
         </childnode>
         <childnode refid="6" relation="include">
         </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
       </node>
       <node id="3">
-        <label>../lib/api/src/api.hpp</label>
-        <link refid="api_8hpp_source"/>
+        <label>../lib/dht/src/dht.hpp</label>
+        <link refid="dht_8hpp_source"/>
         <childnode refid="4" relation="include">
         </childnode>
         <childnode refid="5" relation="include">
         </childnode>
       </node>
+      <node id="14">
+        <label>esp_log.h</label>
+      </node>
+      <node id="6">
+        <label>../lib/api/src/api.hpp</label>
+        <link refid="api_8hpp_source"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>../lib/sd/src/sdcustom.hpp</label>
+        <link refid="sdcustom_8hpp_source"/>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>Adafruit_Sensor.h</label>
+      </node>
       <node id="2">
         <label>Arduino.h</label>
       </node>
-      <node id="6">
+      <node id="15">
+        <label>../lib/sensors/src/voltage_current.hpp</label>
+        <link refid="voltage__current_8hpp_source"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
         <label>../lib/wifi/src/wifi.hpp</label>
         <link refid="wifi_8hpp_source"/>
         <childnode refid="2" relation="include">
         </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
         <childnode refid="7" relation="include">
         </childnode>
-        <childnode refid="5" relation="include">
-        </childnode>
       </node>
-      <node id="7">
+      <node id="9">
         <label>WiFi.h</label>
       </node>
+      <node id="13">
+        <label>../lib/log/src/log.hpp</label>
+        <link refid="log_8hpp_source"/>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
     </incdepgraph>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="main_8cpp_1adc6e5733fc3c22f0a7b2914188c49c90" prot="public" static="no" strong="no">
+        <type></type>
+        <name>state</name>
+        <enumvalue id="main_8cpp_1adc6e5733fc3c22f0a7b2914188c49c90a0cb1b2c6a7db1f1084886c98909a3f36" prot="public">
+          <name>INIT</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="main_8cpp_1adc6e5733fc3c22f0a7b2914188c49c90af0d8c9f2399cff44724ae7be525c8e19" prot="public">
+          <name>CHECKING</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="main_8cpp_1adc6e5733fc3c22f0a7b2914188c49c90a314c66d3993def5d6224b9cff4d34a66" prot="public">
+          <name>FETCHING</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="main_8cpp_1adc6e5733fc3c22f0a7b2914188c49c90adfcb5fb1201d2110fa6604e4db15d459" prot="public">
+          <name>SENDING</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="main_8cpp_1adc6e5733fc3c22f0a7b2914188c49c90a2fd6f336d08340583bd620a7f5694c90" prot="public">
+          <name>ERROR</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="main_8cpp_1adc6e5733fc3c22f0a7b2914188c49c90ad6137abebe4fdc59e2f0f2c84bdbe3fa" prot="public">
+          <name>SLEEP</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/src/main.cpp" line="24" column="1" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/src/main.cpp" bodystart="24" bodyend="31"/>
+      </memberdef>
+      <memberdef kind="enum" id="main_8cpp_1a2b8aac164aaceb3a534012b0ee039685" prot="public" static="no" strong="no">
+        <type></type>
+        <name>dht_data</name>
+        <enumvalue id="main_8cpp_1a2b8aac164aaceb3a534012b0ee039685a045158f1ef747de153f2b4bc8522149d" prot="public">
+          <name>hum</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="main_8cpp_1a2b8aac164aaceb3a534012b0ee039685abae755da4e0fad737e044883808cfe7e" prot="public">
+          <name>temp</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/src/main.cpp" line="42" column="1" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/src/main.cpp" bodystart="42" bodyend="42"/>
+      </memberdef>
+      </sectiondef>
       <sectiondef kind="var">
-      <memberdef kind="variable" id="main_8cpp_1a5b66db9bb535aa0aff4c15415bb51f8a" prot="public" static="no" mutable="no">
-        <type><ref refid="classwifi__connection" kindref="compound">wifi_connection</ref></type>
-        <definition>wifi_connection wifi(&quot;LakeLaogai&quot;, &quot;thereisnowifiinbasingse&quot;)</definition>
-        <argsstring>(&quot;LakeLaogai&quot;, &quot;thereisnowifiinbasingse&quot;)</argsstring>
-        <name>wifi</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/src/main.cpp" line="6" column="17"/>
-      </memberdef>
-      <memberdef kind="variable" id="main_8cpp_1aaa4a6506433e578b91475a3dae642569" prot="public" static="no" mutable="no">
-        <type><ref refid="classapi__lib" kindref="compound">api_lib</ref></type>
-        <definition>api_lib api</definition>
-        <argsstring></argsstring>
-        <name>api</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/src/main.cpp" line="7" column="9" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/src/main.cpp" bodystart="7" bodyend="-1"/>
-      </memberdef>
       <memberdef kind="variable" id="main_8cpp_1a656b8d50e4036b8ae51663e47beea58d" prot="public" static="no" mutable="no">
         <type>const int</type>
         <definition>const int debug</definition>
@@ -88,18 +196,384 @@
         </inbodydescription>
         <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/src/main.cpp" line="10" column="11" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/src/main.cpp" bodystart="10" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="main_8cpp_1a5ab54995772ff96d303a45287001664f" prot="public" static="no" mutable="no">
-        <type>int</type>
-        <definition>int connection_status</definition>
+      <memberdef kind="variable" id="main_8cpp_1a6ba38afcefccacd90fe9b431ddf29c3b" prot="public" static="no" mutable="no">
+        <type>const int</type>
+        <definition>const int solar_current_pin</definition>
         <argsstring></argsstring>
-        <name>connection_status</name>
+        <name>solar_current_pin</name>
+        <initializer>= 36</initializer>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/src/main.cpp" line="12" column="5" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/src/main.cpp" bodystart="12" bodyend="-1"/>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/src/main.cpp" line="15" column="11" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/src/main.cpp" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="main_8cpp_1abd92c4770e9a60546b8eaca9cede2924" prot="public" static="no" mutable="no">
+        <type>const int</type>
+        <definition>const int solar_voltage_pin</definition>
+        <argsstring></argsstring>
+        <name>solar_voltage_pin</name>
+        <initializer>= 39</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/src/main.cpp" line="16" column="11" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/src/main.cpp" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="main_8cpp_1a27baf8a45da6dcca017536a90aab7c94" prot="public" static="no" mutable="no">
+        <type>const int</type>
+        <definition>const int current_pin_5v</definition>
+        <argsstring></argsstring>
+        <name>current_pin_5v</name>
+        <initializer>= 34</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/src/main.cpp" line="18" column="11" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/src/main.cpp" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="main_8cpp_1add741c54fef0b7fd62803743bf940fae" prot="public" static="no" mutable="no">
+        <type>const int</type>
+        <definition>const int voltage_pin_5v</definition>
+        <argsstring></argsstring>
+        <name>voltage_pin_5v</name>
+        <initializer>= 35</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/src/main.cpp" line="19" column="11" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/src/main.cpp" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="main_8cpp_1ab6c1b8bce29d0b257006a789a60ee233" prot="public" static="no" mutable="no">
+        <type>const int</type>
+        <definition>const int current_pin_12v</definition>
+        <argsstring></argsstring>
+        <name>current_pin_12v</name>
+        <initializer>= 32</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/src/main.cpp" line="21" column="11" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/src/main.cpp" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="main_8cpp_1ab19fd761356b8f1e519540002691bae8" prot="public" static="no" mutable="no">
+        <type>const int</type>
+        <definition>const int voltage_pin_12v</definition>
+        <argsstring></argsstring>
+        <name>voltage_pin_12v</name>
+        <initializer>= 33</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/src/main.cpp" line="22" column="11" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/src/main.cpp" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="main_8cpp_1a91fef3f23054f428342c0c39fbdcfade" prot="public" static="no" mutable="no">
+        <type>state</type>
+        <definition>state current_state</definition>
+        <argsstring></argsstring>
+        <name>current_state</name>
+        <initializer>= INIT</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/src/main.cpp" line="33" column="7" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/src/main.cpp" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="main_8cpp_1a93cdab0c7807a8e2eb9dffd189b409ef" prot="public" static="no" mutable="no">
+        <type>unsigned long int</type>
+        <definition>unsigned long int start</definition>
+        <argsstring></argsstring>
+        <name>start</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/src/main.cpp" line="35" column="19" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/src/main.cpp" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="main_8cpp_1a5fd2bfecc59545f7c8ae420c13aca500" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float data[3]</definition>
+        <argsstring>[3]</argsstring>
+        <name>data</name>
+        <initializer>= {1.0, 2.0, 3.0}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/src/main.cpp" line="37" column="7" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/src/main.cpp" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="main_8cpp_1af56a67b48df438851bd546da2d79e713" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool show_data</definition>
+        <argsstring></argsstring>
+        <name>show_data</name>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/src/main.cpp" line="39" column="6" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/src/main.cpp" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="main_8cpp_1a6433a0990e70c0f5a215a0418f00dc0c" prot="public" static="no" mutable="no">
+        <type>const int</type>
+        <definition>const int dh11_pin</definition>
+        <argsstring></argsstring>
+        <name>dh11_pin</name>
+        <initializer>= 4</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/src/main.cpp" line="41" column="11" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/src/main.cpp" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="main_8cpp_1af14d5d226fe3599c47b4e829f57037eb" prot="public" static="no" mutable="no">
+        <type>float *</type>
+        <definition>float* dht_values</definition>
+        <argsstring></argsstring>
+        <name>dht_values</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/src/main.cpp" line="43" column="7" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/src/main.cpp" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="main_8cpp_1a567db6392b90f85daf2048a6c65da3c5" prot="public" static="no" mutable="no">
+        <type>const int</type>
+        <definition>const int us_to_s_factor</definition>
+        <argsstring></argsstring>
+        <name>us_to_s_factor</name>
+        <initializer>= 1000000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/src/main.cpp" line="45" column="11" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/src/main.cpp" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="main_8cpp_1a35c9e7108a5130b509468cba37b6615a" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int time_to_sleep</definition>
+        <argsstring></argsstring>
+        <name>time_to_sleep</name>
+        <initializer>= 5</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/src/main.cpp" line="46" column="5" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/src/main.cpp" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="main_8cpp_1a69284b0c98536e354d795b3a279c55d9" prot="public" static="no" mutable="no">
+        <type>const int</type>
+        <definition>const int time_period</definition>
+        <argsstring></argsstring>
+        <name>time_period</name>
+        <initializer>= 60</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/src/main.cpp" line="47" column="11" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/src/main.cpp" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="main_8cpp_1a46e52692c0a7c37beb1628af3f5c7fca" prot="public" static="no" mutable="no">
+        <type><ref refid="classDHTSensor" kindref="compound">DHTSensor</ref></type>
+        <definition>DHTSensor dht_sensor(dh11_pin)</definition>
+        <argsstring>(dh11_pin)</argsstring>
+        <name>dht_sensor</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/src/main.cpp" line="50" column="11"/>
+      </memberdef>
+      <memberdef kind="variable" id="main_8cpp_1ada393cbc1f6d0addb4275e19f9852b22" prot="public" static="no" mutable="no">
+        <type><ref refid="classSDCustom" kindref="compound">SDCustom</ref></type>
+        <definition>SDCustom sd(32)</definition>
+        <argsstring>(32)</argsstring>
+        <name>sd</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/src/main.cpp" line="51" column="10"/>
+      </memberdef>
+      <memberdef kind="variable" id="main_8cpp_1a5b66db9bb535aa0aff4c15415bb51f8a" prot="public" static="no" mutable="no">
+        <type><ref refid="classwifi__connection" kindref="compound">wifi_connection</ref></type>
+        <definition>wifi_connection wifi(&quot;LakeLaogai&quot;, &quot;thereisnowifiinbasingse&quot;)</definition>
+        <argsstring>(&quot;LakeLaogai&quot;, &quot;thereisnowifiinbasingse&quot;)</argsstring>
+        <name>wifi</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/src/main.cpp" line="52" column="17"/>
+      </memberdef>
+      <memberdef kind="variable" id="main_8cpp_1aaa4a6506433e578b91475a3dae642569" prot="public" static="no" mutable="no">
+        <type><ref refid="classapi__lib" kindref="compound">api_lib</ref></type>
+        <definition>api_lib api</definition>
+        <argsstring></argsstring>
+        <name>api</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/src/main.cpp" line="53" column="9" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/src/main.cpp" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="main_8cpp_1a5da4dfda1fc0694c8123041effebdd37" prot="public" static="no" mutable="no">
+        <type><ref refid="classmyLogger" kindref="compound">myLogger</ref></type>
+        <definition>myLogger logger(sd)</definition>
+        <argsstring>(sd)</argsstring>
+        <name>logger</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/src/main.cpp" line="54" column="10"/>
+      </memberdef>
+      <memberdef kind="variable" id="main_8cpp_1a81d2ea58328ca6c1e11f7ee3c668a749" prot="public" static="no" mutable="no">
+        <type>RTC_DATA_ATTR int</type>
+        <definition>RTC_DATA_ATTR int log_file</definition>
+        <argsstring></argsstring>
+        <name>log_file</name>
+        <initializer>= logger.getLogFile()</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/src/main.cpp" line="57" column="19" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/src/main.cpp" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="main_8cpp_1a25b6e6d6279e23ab35b0f3011cb16a0f" prot="public" static="no" mutable="no">
+        <type>RTC_DATA_ATTR int</type>
+        <definition>RTC_DATA_ATTR int old_log</definition>
+        <argsstring></argsstring>
+        <name>old_log</name>
+        <initializer>= logger.getOldLogFile()</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/src/main.cpp" line="58" column="19" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/src/main.cpp" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="main_8cpp_1afc1b4e81cbcefde0de6aedaae082e689" prot="public" static="no" mutable="no">
+        <type><ref refid="classCurrentSensor" kindref="compound">CurrentSensor</ref></type>
+        <definition>CurrentSensor current_solar(solar_current_pin)</definition>
+        <argsstring>(solar_current_pin)</argsstring>
+        <name>current_solar</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/src/main.cpp" line="63" column="15"/>
+      </memberdef>
+      <memberdef kind="variable" id="main_8cpp_1a004e42bbc5249de9321153200f7e4090" prot="public" static="no" mutable="no">
+        <type><ref refid="classVoltageSensor" kindref="compound">VoltageSensor</ref></type>
+        <definition>VoltageSensor voltage_solar(solar_voltage_pin)</definition>
+        <argsstring>(solar_voltage_pin)</argsstring>
+        <name>voltage_solar</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/src/main.cpp" line="64" column="15"/>
+      </memberdef>
+      <memberdef kind="variable" id="main_8cpp_1a3c0e2bd79b2a29adfd30343b6638bcd6" prot="public" static="no" mutable="no">
+        <type><ref refid="classCurrentSensor" kindref="compound">CurrentSensor</ref></type>
+        <definition>CurrentSensor current_5v(current_pin_5v)</definition>
+        <argsstring>(current_pin_5v)</argsstring>
+        <name>current_5v</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/src/main.cpp" line="66" column="15"/>
+      </memberdef>
+      <memberdef kind="variable" id="main_8cpp_1aa0f7b393895ce07b481754a8a5a31184" prot="public" static="no" mutable="no">
+        <type><ref refid="classVoltageSensor" kindref="compound">VoltageSensor</ref></type>
+        <definition>VoltageSensor voltage_5v(voltage_pin_5v)</definition>
+        <argsstring>(voltage_pin_5v)</argsstring>
+        <name>voltage_5v</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/src/main.cpp" line="67" column="15"/>
+      </memberdef>
+      <memberdef kind="variable" id="main_8cpp_1a60183c2472dc5c9d87706847e2ac4448" prot="public" static="no" mutable="no">
+        <type><ref refid="classCurrentSensor" kindref="compound">CurrentSensor</ref></type>
+        <definition>CurrentSensor current_12v(current_pin_12v)</definition>
+        <argsstring>(current_pin_12v)</argsstring>
+        <name>current_12v</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/src/main.cpp" line="69" column="15"/>
+      </memberdef>
+      <memberdef kind="variable" id="main_8cpp_1a4fb70fb3879be33350d1a3fcb4cb4dd0" prot="public" static="no" mutable="no">
+        <type><ref refid="classVoltageSensor" kindref="compound">VoltageSensor</ref></type>
+        <definition>VoltageSensor voltage_12v(voltage_pin_12v)</definition>
+        <argsstring>(voltage_pin_12v)</argsstring>
+        <name>voltage_12v</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/src/main.cpp" line="70" column="15"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -114,7 +588,20 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/src/main.cpp" line="48" column="6" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/src/main.cpp" bodystart="48" bodyend="63" declfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/src/main.cpp" declline="16" declcolumn="6"/>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/src/main.cpp" line="193" column="6" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/src/main.cpp" bodystart="193" bodyend="203" declfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/src/main.cpp" declline="73" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="main_8cpp_1a73b1494c82884e261fd8a1163ebc2f63" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>String</type>
+        <definition>String get_wakeup_reason</definition>
+        <argsstring>()</argsstring>
+        <name>get_wakeup_reason</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/src/main.cpp" line="209" column="8" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/src/main.cpp" bodystart="209" bodyend="227" declfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/src/main.cpp" declline="74" declcolumn="8"/>
       </memberdef>
       <memberdef kind="function" id="main_8cpp_1a4fc01d736fe50cf5b977f755b675f11d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -127,7 +614,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/src/main.cpp" line="19" column="6" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/src/main.cpp" bodystart="19" bodyend="29"/>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/src/main.cpp" line="77" column="6" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/src/main.cpp" bodystart="77" bodyend="109"/>
       </memberdef>
       <memberdef kind="function" id="main_8cpp_1afe461d27b9c48d5921c00d521181f12f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -140,7 +627,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/src/main.cpp" line="31" column="6" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/src/main.cpp" bodystart="31" bodyend="45"/>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/src/main.cpp" line="111" column="6" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/src/main.cpp" bodystart="111" bodyend="190"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -149,68 +636,232 @@
     </detaileddescription>
     <programlisting>
 <codeline lineno="1"><highlight class="preprocessor">#include<sp/>&lt;Arduino.h&gt;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;../lib/api/src/api.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;../lib/wifi/src/wifi.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="4"><highlight class="normal"></highlight></codeline>
-<codeline lineno="5"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Objects</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="6"><highlight class="normal"><ref refid="classwifi__connection" kindref="compound">wifi_connection</ref><sp/>wifi(</highlight><highlight class="stringliteral">&quot;LakeLaogai&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;thereisnowifiinbasingse&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="7"><highlight class="normal"><ref refid="classapi__lib" kindref="compound">api_lib</ref><sp/>api;</highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;../lib/dht/src/dht.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;../lib/api/src/api.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;../lib/wifi/src/wifi.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;../lib/sd/src/sdcustom.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;../lib/log/src/log.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;../lib/sensors/src/voltage_current.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="8"><highlight class="normal"></highlight></codeline>
 <codeline lineno="9"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Global<sp/>Variables</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="10"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>debug<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="11"><highlight class="normal"></highlight></codeline>
-<codeline lineno="12"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>connection_status;</highlight></codeline>
-<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="comment">//<sp/>const<sp/>int<sp/>battery_current_pin<sp/>=<sp/>A6;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="comment">//<sp/>const<sp/>int<sp/>battery_voltage_pin<sp/>=<sp/>A7;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="14"><highlight class="normal"></highlight></codeline>
-<codeline lineno="15"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/>Prototyping</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="16"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>SerialEvent();</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>solar_current_pin<sp/>=<sp/>36;</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>solar_voltage_pin<sp/>=<sp/>39;</highlight></codeline>
 <codeline lineno="17"><highlight class="normal"></highlight></codeline>
-<codeline lineno="18"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Setup<sp/>and<sp/>Loop</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="19"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>setup()<sp/>{</highlight></codeline>
-<codeline lineno="20"><highlight class="normal"><sp/><sp/>Serial.begin(115200);</highlight></codeline>
-<codeline lineno="21"><highlight class="normal"></highlight></codeline>
-<codeline lineno="22"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal">(!Serial)<sp/>{</highlight></codeline>
-<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/>;</highlight></codeline>
-<codeline lineno="24"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="25"><highlight class="normal"><sp/><sp/>delay(1000);</highlight></codeline>
-<codeline lineno="26"><highlight class="normal"><sp/><sp/>connection_status<sp/>=<sp/>wifi.<ref refid="classwifi__connection_1a52afbfc28143e9cc24a8a7c0d7cadf02" kindref="member">connect</ref>(10000);</highlight></codeline>
-<codeline lineno="27"><highlight class="normal"></highlight></codeline>
-<codeline lineno="28"><highlight class="normal"><sp/><sp/>api.<ref refid="classapi__lib_1a2ae88643c58b39abed46e97d9048f0d8" kindref="member">setHost</ref>(</highlight><highlight class="stringliteral">&quot;https://api.thingspeak.com/update?api_key=72ZH5DA3WVKUD5R5&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="29"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="30"><highlight class="normal"></highlight></codeline>
-<codeline lineno="31"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>loop()<sp/>{</highlight></codeline>
-<codeline lineno="32"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>polling<sp/>for<sp/>serial<sp/>input</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="33"><highlight class="normal"><sp/><sp/>SerialEvent();</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>current_pin_5v<sp/>=<sp/>34;</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>voltage_pin_5v<sp/>=<sp/>35;</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>current_pin_12v<sp/>=<sp/>32;</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>voltage_pin_12v<sp/>=<sp/>33;</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>state<sp/>{</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/>INIT,</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/>CHECKING,</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/>FETCHING,</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/>SENDING,</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/>ERROR,</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/>SLEEP</highlight></codeline>
+<codeline lineno="31"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal">state<sp/>current_state<sp/>=<sp/>INIT;</highlight></codeline>
 <codeline lineno="34"><highlight class="normal"></highlight></codeline>
-<codeline lineno="35"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(debug)<sp/>{</highlight></codeline>
-<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/>Serial.print(</highlight><highlight class="stringliteral">&quot;Connection<sp/>status:<sp/>&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/>Serial.println(wifi.getStatus());</highlight></codeline>
-<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/>Serial.print(</highlight><highlight class="stringliteral">&quot;IP<sp/>Address:<sp/>&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/>Serial.println(wifi.getIP());</highlight></codeline>
-<codeline lineno="40"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="41"><highlight class="normal"></highlight></codeline>
-<codeline lineno="42"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>data[]<sp/>=<sp/>{1.0,<sp/>2.0,<sp/>3.0};</highlight></codeline>
-<codeline lineno="43"><highlight class="normal"><sp/><sp/>api.<ref refid="classapi__lib_1ab9b8efe44c87dcf29d6690f9a599752e" kindref="member">sendAmp</ref>(data,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(data)/</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(data[0]));</highlight></codeline>
-<codeline lineno="44"><highlight class="normal"><sp/><sp/>delay(1000);</highlight></codeline>
-<codeline lineno="45"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="46"><highlight class="normal"></highlight></codeline>
-<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Functions</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="48"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>SerialEvent()<sp/>{</highlight></codeline>
-<codeline lineno="49"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(Serial.available())<sp/>{</highlight></codeline>
-<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/>String<sp/>inChar<sp/>=<sp/>Serial.readString();</highlight></codeline>
-<codeline lineno="51"><highlight class="normal"></highlight></codeline>
-<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(inChar<sp/>==<sp/></highlight><highlight class="stringliteral">&quot;hello&quot;</highlight><highlight class="normal">)<sp/>{</highlight></codeline>
-<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>Serial.println(</highlight><highlight class="stringliteral">&quot;hello,<sp/>world!&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(inChar<sp/>==<sp/></highlight><highlight class="stringliteral">&quot;wifi_ip&quot;</highlight><highlight class="normal">)<sp/>{</highlight></codeline>
-<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>Serial.print(</highlight><highlight class="stringliteral">&quot;IP<sp/>Address:<sp/>&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>Serial.println(wifi.getIP());</highlight></codeline>
-<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
-<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>Serial.println(</highlight><highlight class="stringliteral">&quot;Command<sp/>not<sp/>found&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="62"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="63"><highlight class="normal">}<sp/></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>start;</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>data[3]<sp/>=<sp/>{1.0,<sp/>2.0,<sp/>3.0};</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>show_data<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>dh11_pin<sp/>=<sp/>4;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pin<sp/>where<sp/>the<sp/>DHT11<sp/>is<sp/>connected<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>dht_data<sp/>{<sp/>hum,<sp/>temp<sp/>};<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Indexes<sp/>for<sp/>the<sp/>DHT11<sp/>values<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>*dht_values;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Array<sp/>to<sp/>store<sp/>the<sp/>DHT11<sp/>values<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>us_to_s_factor<sp/>=<sp/>1000000;<sp/><sp/></highlight><highlight class="comment">/*<sp/>Conversion<sp/>factor<sp/>for<sp/>micro<sp/>seconds<sp/>to<sp/>seconds<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>time_to_sleep<sp/>=<sp/>5;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Time<sp/>ESP32<sp/>will<sp/>go<sp/>to<sp/>sleep<sp/>(in<sp/>seconds)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>time_period<sp/>=<sp/>60;</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Objects</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><ref refid="classDHTSensor" kindref="compound">DHTSensor</ref><sp/>dht_sensor(dh11_pin);</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><ref refid="classSDCustom" kindref="compound">SDCustom</ref><sp/>sd(32);</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><ref refid="classwifi__connection" kindref="compound">wifi_connection</ref><sp/>wifi(</highlight><highlight class="stringliteral">&quot;LakeLaogai&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;thereisnowifiinbasingse&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><ref refid="classapi__lib" kindref="compound">api_lib</ref><sp/>api;</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><ref refid="classmyLogger" kindref="compound">myLogger</ref><sp/>logger(sd);</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Can<sp/>be<sp/>used<sp/>to<sp/>store<sp/>data<sp/>in<sp/>RTC<sp/>memory<sp/>during<sp/>deep<sp/>sleep</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal">RTC_DATA_ATTR<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>log_file<sp/>=<sp/>logger.getLogFile();</highlight></codeline>
+<codeline lineno="58"><highlight class="normal">RTC_DATA_ATTR<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>old_log<sp/>=<sp/>logger.getOldLogFile();</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="comment">//<sp/>CurrentSensor<sp/>current_battery(battery_current_pin);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="comment">//<sp/>VoltageSensor<sp/>voltage_battery(battery_voltage_pin);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><ref refid="classCurrentSensor" kindref="compound">CurrentSensor</ref><sp/>current_solar(solar_current_pin);</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><ref refid="classVoltageSensor" kindref="compound">VoltageSensor</ref><sp/>voltage_solar(solar_voltage_pin);</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><ref refid="classCurrentSensor" kindref="compound">CurrentSensor</ref><sp/>current_5v(current_pin_5v);</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><ref refid="classVoltageSensor" kindref="compound">VoltageSensor</ref><sp/>voltage_5v(voltage_pin_5v);</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><ref refid="classCurrentSensor" kindref="compound">CurrentSensor</ref><sp/>current_12v(current_pin_12v);</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><ref refid="classVoltageSensor" kindref="compound">VoltageSensor</ref><sp/>voltage_12v(voltage_pin_12v);</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Prototypes</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>SerialEvent();</highlight></codeline>
+<codeline lineno="74"><highlight class="normal">String<sp/>get_wakeup_reason();</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Setup<sp/>and<sp/>Loop</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>setup()<sp/>{</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/>Serial.begin(115200);</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/>logger.setLogFile(log_file);</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/>logger.setOldLogFile(old_log);</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/>logger.<ref refid="classmyLogger_1ad23b181afe0eccf231701068912277f2" kindref="member">init</ref>();<sp/></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/>logger.<ref refid="classmyLogger_1a40c793a254de92079c7f499d03f48937" kindref="member">debug</ref>(</highlight><highlight class="stringliteral">&quot;SETUP&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;Wifi<sp/>status<sp/>:<sp/>&quot;</highlight><highlight class="normal"><sp/>+<sp/>String(wifi.<ref refid="classwifi__connection_1a52afbfc28143e9cc24a8a7c0d7cadf02" kindref="member">connect</ref>(10000)));</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/>logger.disableLoggingInSD();</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/>logger.enableLoggingInMonitor();</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/>wifi.<ref refid="classwifi__connection_1a52afbfc28143e9cc24a8a7c0d7cadf02" kindref="member">connect</ref>(10000);</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/>api.<ref refid="classapi__lib_1a2ae88643c58b39abed46e97d9048f0d8" kindref="member">setHost</ref>(</highlight><highlight class="stringliteral">&quot;https://api.thingspeak.com/update?api_key=72ZH5DA3WVKUD5R5&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Set<sp/>up<sp/>deep<sp/>sleep</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/>esp_sleep_enable_timer_wakeup(time_to_sleep<sp/>*<sp/>us_to_s_factor);</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/>logger.<ref refid="classmyLogger_1a8c6c7b9d1f97103979be317fe8fe83bf" kindref="member">info</ref>(</highlight><highlight class="stringliteral">&quot;SETUP&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;Wakeup<sp/>reason<sp/>:<sp/>&quot;</highlight><highlight class="normal"><sp/>+<sp/>get_wakeup_reason());</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/>current_state<sp/>=<sp/>CHECKING;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>current_battery.setup();</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>voltage_battery.setup();</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/>current_solar.<ref refid="classCurrentSensor_1a8ae1886601163983335879062e8a96b9" kindref="member">setup</ref>();</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/>voltage_solar.<ref refid="classVoltageSensor_1a33fcc58d10cb07ac560f1e65476895cb" kindref="member">setup</ref>();</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/>current_5v.<ref refid="classCurrentSensor_1a8ae1886601163983335879062e8a96b9" kindref="member">setup</ref>();</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/>voltage_5v.<ref refid="classVoltageSensor_1a33fcc58d10cb07ac560f1e65476895cb" kindref="member">setup</ref>();</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/>current_12v.<ref refid="classCurrentSensor_1a8ae1886601163983335879062e8a96b9" kindref="member">setup</ref>();</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/>voltage_12v.<ref refid="classVoltageSensor_1a33fcc58d10cb07ac560f1e65476895cb" kindref="member">setup</ref>();</highlight></codeline>
+<codeline lineno="109"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>loop()<sp/>{</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/>SerialEvent();</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/>start<sp/>=<sp/>millis();</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(current_state)<sp/>{</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>CHECKING:</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>logger.<ref refid="classmyLogger_1a8c6c7b9d1f97103979be317fe8fe83bf" kindref="member">info</ref>(</highlight><highlight class="stringliteral">&quot;CHECKING&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;CHECKING&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!sd.<ref refid="classSDCustom_1a4e7ea8dab9a1cd3930d3c735b2d49d86" kindref="member">isSDInserted</ref>())<sp/>{</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>logger.disableLoggingInSD();</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>logger.enableLoggingInSD();</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>logger.<ref refid="classmyLogger_1a18b71c939cf9dba82b82f50accee8ebe" kindref="member">warning</ref>(</highlight><highlight class="stringliteral">&quot;CHECKING&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;SD<sp/>Card<sp/>is<sp/>inserted&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(wifi.isConnected())<sp/>{</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>current_state<sp/>=<sp/>FETCHING;</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>logger.<ref refid="classmyLogger_1a17871fca537c8609a3ac8c7c2bb9719e" kindref="member">error</ref>(</highlight><highlight class="stringliteral">&quot;CHECKING&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;Wifi<sp/>is<sp/>not<sp/>connected&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>current_state<sp/>=<sp/>ERROR;</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>FETCHING:</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>logger.<ref refid="classmyLogger_1a8c6c7b9d1f97103979be317fe8fe83bf" kindref="member">info</ref>(</highlight><highlight class="stringliteral">&quot;FETCHING&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;FETCHING&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dht_values<sp/>=<sp/>dht_sensor.<ref refid="classDHTSensor_1a9985d82a04364cec6d944b89aebd3e6a" kindref="member">getValues</ref>();</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dht_sensor.<ref refid="classDHTSensor_1a96b074c0c0a7b95010bc49303d94b62c" kindref="member">isCorrect_values</ref>(dht_values))<sp/>{</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>logger.<ref refid="classmyLogger_1a17871fca537c8609a3ac8c7c2bb9719e" kindref="member">error</ref>(</highlight><highlight class="stringliteral">&quot;FETCHING&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;DHT11<sp/>values<sp/>are<sp/>incorrect&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>current_state<sp/>=<sp/>ERROR;</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>logger.<ref refid="classmyLogger_1a8c6c7b9d1f97103979be317fe8fe83bf" kindref="member">info</ref>(</highlight><highlight class="stringliteral">&quot;FETCHING&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;DHT11<sp/>values<sp/>are<sp/>correct&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>current_state<sp/>=<sp/>SENDING;</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>SENDING:</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>logger.<ref refid="classmyLogger_1a8c6c7b9d1f97103979be317fe8fe83bf" kindref="member">info</ref>(</highlight><highlight class="stringliteral">&quot;SENDING&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;SENDING&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>data[0]<sp/>=<sp/>dht_values[temp];</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>data[1]<sp/>=<sp/>dht_values[hum];</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structapi__lib_1_1response" kindref="compound">api_lib::response</ref><sp/>res;</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>res<sp/>=<sp/>api.<ref refid="classapi__lib_1accc43a805690ddfa8c4da98588b0ab24" kindref="member">sendAll</ref>(data,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(data)/</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal">));</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(res.code<sp/>==<sp/>200)<sp/>{</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>logger.<ref refid="classmyLogger_1a40c793a254de92079c7f499d03f48937" kindref="member">debug</ref>(</highlight><highlight class="stringliteral">&quot;SENDING&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;Return<sp/>message<sp/>:<sp/>&quot;</highlight><highlight class="normal"><sp/>+<sp/>res.data);</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>current_state<sp/>=<sp/>SLEEP;</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>ERROR:</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>logger.<ref refid="classmyLogger_1a8c6c7b9d1f97103979be317fe8fe83bf" kindref="member">info</ref>(</highlight><highlight class="stringliteral">&quot;ERROR&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;ERROR<sp/>state&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>current_state<sp/>=<sp/>SLEEP;</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>SLEEP:</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>time_to_sleep<sp/>=<sp/>time_period<sp/>-<sp/>(start<sp/>-<sp/>millis())<sp/>*<sp/>1000;</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"></highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>esp_sleep_enable_timer_wakeup(time_to_sleep<sp/>*<sp/>us_to_s_factor);</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>logger.<ref refid="classmyLogger_1a8c6c7b9d1f97103979be317fe8fe83bf" kindref="member">info</ref>(</highlight><highlight class="stringliteral">&quot;SLEEP&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;Time<sp/>to<sp/>sleep:<sp/>&quot;</highlight><highlight class="normal"><sp/>+<sp/>String(time_to_sleep)<sp/>+<sp/></highlight><highlight class="stringliteral">&quot;<sp/>seconds&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>esp_deep_sleep_start();</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>esp_light_sleep_start();</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="182"><highlight class="normal"></highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>delay(time_to_sleep<sp/>*<sp/>1000);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>current_state<sp/>=<sp/>CHECKING;</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>logger.<ref refid="classmyLogger_1a8c6c7b9d1f97103979be317fe8fe83bf" kindref="member">info</ref>(</highlight><highlight class="stringliteral">&quot;DEFAULT&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;DEFAULT<sp/>state&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="190"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"></highlight></codeline>
+<codeline lineno="192"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Functions</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="193"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>SerialEvent()<sp/>{</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(Serial.available())<sp/>{</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/>String<sp/>inChar<sp/>=<sp/>Serial.readString();</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(inChar.indexOf(</highlight><highlight class="stringliteral">&quot;date&quot;</highlight><highlight class="normal">)<sp/>!=<sp/>-1)<sp/>{</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>Serial.println(</highlight><highlight class="stringliteral">&quot;lol&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(inChar.indexOf(</highlight><highlight class="stringliteral">&quot;show_data&quot;</highlight><highlight class="normal">)<sp/>!=<sp/>-1){</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>show_data<sp/>=<sp/>!show_data;</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="203"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"></highlight></codeline>
+<codeline lineno="205"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="206"><highlight class="comment">Method<sp/>to<sp/>print<sp/>the<sp/>reason<sp/>by<sp/>which<sp/>ESP32</highlight></codeline>
+<codeline lineno="207"><highlight class="comment">has<sp/>been<sp/>awaken<sp/>from<sp/>sleep</highlight></codeline>
+<codeline lineno="208"><highlight class="comment">*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="209"><highlight class="normal">String<sp/>get_wakeup_reason(){</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/>esp_sleep_wakeup_cause_t<sp/>wakeup_reason;</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"></highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/>wakeup_reason<sp/>=<sp/>esp_sleep_get_wakeup_cause();</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"></highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/>String<sp/>reason;</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"></highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal">(wakeup_reason)</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>ESP_SLEEP_WAKEUP_EXT0<sp/>:<sp/>reason<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Wakeup<sp/>caused<sp/>by<sp/>external<sp/>signal<sp/>using<sp/>RTC_IO&quot;</highlight><highlight class="normal">;<sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>ESP_SLEEP_WAKEUP_EXT1<sp/>:<sp/>reason<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Wakeup<sp/>caused<sp/>by<sp/>external<sp/>signal<sp/>using<sp/>RTC_CNTL&quot;</highlight><highlight class="normal">;<sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>ESP_SLEEP_WAKEUP_TIMER<sp/>:<sp/>reason<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Wakeup<sp/>caused<sp/>by<sp/>timer&quot;</highlight><highlight class="normal">;<sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>ESP_SLEEP_WAKEUP_TOUCHPAD<sp/>:<sp/>reason<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Wakeup<sp/>caused<sp/>by<sp/>touchpad&quot;</highlight><highlight class="normal">;<sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>ESP_SLEEP_WAKEUP_ULP<sp/>:<sp/>reason<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Wakeup<sp/>caused<sp/>by<sp/>ULP<sp/>program&quot;</highlight><highlight class="normal">;<sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/>default<sp/>:<sp/>reason<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Wakeup<sp/>was<sp/>not<sp/>caused<sp/>by<sp/>deep<sp/>sleep:<sp/>%d\n&quot;</highlight><highlight class="normal">,wakeup_reason;<sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"></highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>reason;</highlight></codeline>
+<codeline lineno="227"><highlight class="normal">}</highlight></codeline>
     </programlisting>
     <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/src/main.cpp"/>
   </compounddef>

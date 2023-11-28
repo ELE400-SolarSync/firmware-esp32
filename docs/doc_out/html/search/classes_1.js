@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['wifi_5fconnection_9',['wifi_connection',['../classwifi__connection.html',1,'']]]
+  ['currentsensor_43',['CurrentSensor',['../classCurrentSensor.html',1,'']]]
 ];

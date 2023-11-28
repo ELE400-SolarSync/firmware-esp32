@@ -1,0 +1,183 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="test__sd_2test__main_8cpp" kind="file" language="C++">
+    <compoundname>test_main.cpp</compoundname>
+    <includes local="no">Arduino.h</includes>
+    <includes local="no">unity.h</includes>
+    <includes local="no">SPI.h</includes>
+    <includes local="yes">../lib/sd/src/sdcustom.hpp</includes>
+    <incdepgraph>
+      <node id="4">
+        <label>SPI.h</label>
+      </node>
+      <node id="5">
+        <label>../lib/sd/src/sdcustom.hpp</label>
+      </node>
+      <node id="3">
+        <label>unity.h</label>
+      </node>
+      <node id="2">
+        <label>Arduino.h</label>
+      </node>
+      <node id="1">
+        <label>/home/pierr/Documents/ETS/ele400/firmware-esp32/test/test_sd/test_main.cpp</label>
+        <link refid="test__sd_2test__main_8cpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="test__sd_2test__main_8cpp_1af72af5933831fc9eddf32aad106162c7" prot="public" static="no" mutable="no">
+        <type><ref refid="classSDCustom" kindref="compound">SDCustom</ref></type>
+        <definition>SDCustom sd</definition>
+        <argsstring></argsstring>
+        <name>sd</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/test/test_sd/test_main.cpp" line="6" column="10" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/test/test_sd/test_main.cpp" bodystart="6" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="test__sd_2test__main_8cpp_1a9def76705b9807f37efd5f6934d07de5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void test_sd_insert</definition>
+        <argsstring>(void)</argsstring>
+        <name>test_sd_insert</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/test/test_sd/test_main.cpp" line="8" column="6" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/test/test_sd/test_main.cpp" bodystart="8" bodyend="11"/>
+      </memberdef>
+      <memberdef kind="function" id="test__sd_2test__main_8cpp_1ae012a1b316f381f6c09ee6d963d9083a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void test_sd_writing</definition>
+        <argsstring>(void)</argsstring>
+        <name>test_sd_writing</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/test/test_sd/test_main.cpp" line="13" column="6" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/test/test_sd/test_main.cpp" bodystart="13" bodyend="20"/>
+      </memberdef>
+      <memberdef kind="function" id="test__sd_2test__main_8cpp_1a94313a3ac5d4545a4e229bb885f112be" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void test_sd_reading</definition>
+        <argsstring>(void)</argsstring>
+        <name>test_sd_reading</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/test/test_sd/test_main.cpp" line="22" column="6" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/test/test_sd/test_main.cpp" bodystart="22" bodyend="29"/>
+      </memberdef>
+      <memberdef kind="function" id="test__sd_2test__main_8cpp_1a4fc01d736fe50cf5b977f755b675f11d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void setup</definition>
+        <argsstring>()</argsstring>
+        <name>setup</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/test/test_sd/test_main.cpp" line="31" column="6" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/test/test_sd/test_main.cpp" bodystart="31" bodyend="41"/>
+      </memberdef>
+      <memberdef kind="function" id="test__sd_2test__main_8cpp_1afe461d27b9c48d5921c00d521181f12f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void loop</definition>
+        <argsstring>()</argsstring>
+        <name>loop</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/test/test_sd/test_main.cpp" line="43" column="6" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/test/test_sd/test_main.cpp" bodystart="43" bodyend="49"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&lt;Arduino.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;unity.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;SPI.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;../lib/sd/src/sdcustom.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"><ref refid="classSDCustom" kindref="compound">SDCustom</ref><sp/>sd;</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>test_sd_insert(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="9"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"><sp/><sp/>TEST_ASSERT_EQUAL_MESSAGE(</highlight><highlight class="keyword">true</highlight><highlight class="normal">,<sp/>sd.<ref refid="classSDCustom_1a4e7ea8dab9a1cd3930d3c735b2d49d86" kindref="member">isSDInserted</ref>(),<sp/></highlight><highlight class="stringliteral">&quot;No<sp/>SD<sp/>Detected.<sp/>Please<sp/>insert<sp/>one.&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="11"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>test_sd_writing(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="14"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!sd.<ref refid="classSDCustom_1ac3483af67b51d8d03bb933af0eb47b01" kindref="member">fileExists</ref>(</highlight><highlight class="stringliteral">&quot;esp32.txt&quot;</highlight><highlight class="normal">))<sp/>{</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/>sd.<ref refid="classSDCustom_1ab2bee3a392411f4ae3fafc58f84dbeaf" kindref="member">createFile</ref>(</highlight><highlight class="stringliteral">&quot;esp32.txt&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/>TEST_ASSERT_TRUE(sd.<ref refid="classSDCustom_1ac3483af67b51d8d03bb933af0eb47b01" kindref="member">fileExists</ref>(</highlight><highlight class="stringliteral">&quot;esp32.txt&quot;</highlight><highlight class="normal">));</highlight></codeline>
+<codeline lineno="20"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>test_sd_reading(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="23"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(sd.<ref refid="classSDCustom_1ac3483af67b51d8d03bb933af0eb47b01" kindref="member">fileExists</ref>(</highlight><highlight class="stringliteral">&quot;esp32.txt&quot;</highlight><highlight class="normal">))<sp/>{</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/>sd.<ref refid="classSDCustom_1ad04fd920060d2b842a139aa2a1f7e2bd" kindref="member">deleteFile</ref>(</highlight><highlight class="stringliteral">&quot;esp32.txt&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/>sd.<ref refid="classSDCustom_1a22e5759aa61495354905167a8d840563" kindref="member">writeFile</ref>(</highlight><highlight class="stringliteral">&quot;esp32.txt&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;Hello<sp/>World&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/>TEST_ASSERT_EQUAL_STRING(</highlight><highlight class="stringliteral">&quot;Hello<sp/>World\r\n&quot;</highlight><highlight class="normal">,<sp/>sd.<ref refid="classSDCustom_1ac1472fe69080f5179c4ffa224f3f803d" kindref="member">readFile</ref>(</highlight><highlight class="stringliteral">&quot;esp32.txt&quot;</highlight><highlight class="normal">).c_str());</highlight></codeline>
+<codeline lineno="29"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>setup()</highlight></codeline>
+<codeline lineno="32"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>NOTE!!!<sp/>Wait<sp/>for<sp/>&gt;2<sp/>secs</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>if<sp/>board<sp/>doesn&apos;t<sp/>support<sp/>software<sp/>reset<sp/>via<sp/>Serial.DTR/RTS</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/>delay(2000);</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/>sd.<ref refid="classSDCustom_1a5559ce3c0829b914c7567328b70b4156" kindref="member">begin</ref>();</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/>UNITY_BEGIN();<sp/></highlight><highlight class="comment">//<sp/>IMPORTANT<sp/>LINE!</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/></highlight></codeline>
+<codeline lineno="41"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>loop()</highlight></codeline>
+<codeline lineno="44"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/>RUN_TEST(test_sd_insert);</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/>RUN_TEST(test_sd_writing);</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/>RUN_TEST(test_sd_reading);</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/>UNITY_END();<sp/></highlight><highlight class="comment">//<sp/>stop<sp/>unit<sp/>testing</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/test/test_sd/test_main.cpp"/>
+  </compounddef>
+</doxygen>
