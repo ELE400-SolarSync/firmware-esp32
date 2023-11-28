@@ -6,26 +6,26 @@
 // const int battery_current_pin = A6;
 // const int battery_voltage_pin = A7;
 
-const int solar_current_pin = A2;
-const int solar_voltage_pin = A3;
+// const int solar_current_pin = A2;
+// const int solar_voltage_pin = A3;
 
-const int current_pin_5v = A4;
-const int voltage_pin_5v = A5;
+const int current_pin_5v = A0;
+const int voltage_pin_5v = A1;
 
-const int current_pin_12v = A0;
-const int voltage_pin_12v = A1;
+// const int current_pin_12v = A0;
+// const int voltage_pin_12v = A1;
 
 // CurrentSensor current_battery(battery_current_pin);
 // VoltageSensor voltage_battery(battery_voltage_pin);
 
-CurrentSensor current_solar(solar_current_pin);
-VoltageSensor voltage_solar(solar_voltage_pin);
+// CurrentSensor current_solar(solar_current_pin);
+// VoltageSensor voltage_solar(solar_voltage_pin);
 
 CurrentSensor current_5v(current_pin_5v);
 VoltageSensor voltage_5v(voltage_pin_5v);
 
-CurrentSensor current_12v(current_pin_12v);
-VoltageSensor voltage_12v(voltage_pin_12v);
+// CurrentSensor current_12v(current_pin_12v);
+// VoltageSensor voltage_12v(voltage_pin_12v);
 
 // Objects
 myLogger logger("log.txt", "log/", myLogger::ERROR);
@@ -59,18 +59,42 @@ String get_wakeup_reason();
 void setup() {
   Serial.begin(115200);
 
+  pinMode(19, OUTPUT);
+
   // current_battery.setup();
   // voltage_battery.setup();
 
-  current_solar.setup();
-  voltage_solar.setup();
+  // current_solar.setup();
+  // voltage_solar.setup();
 
   current_5v.setup();
   voltage_5v.setup();
 
-  current_12v.setup();
-  voltage_12v.setup();
+  // current_12v.setup();
+  // voltage_12v.setup();
 }
+
+// pins choice:
+// A0 -> voltage solar cell
+// A1 -> voltage 12V
+// A2 -> relay 1
+// A3 -> relay 2
+// A4 -> relay 3
+
+// relay choice
+    // 1 : voltage bat/5v
+    // 2 : current solar cell/12V
+    // 3 : current bat/5V
+
+// step 1:
+// switch for reading solar cell/battery
+// read solar cell
+// read battery
+
+// step 2:
+// switch for reading 12V and 5V
+// read 5V
+// read 12V
 
 void loop() {
   SerialEvent();
@@ -78,7 +102,7 @@ void loop() {
   switch (current_state) {
     case CHECKING:
       Serial.println("CHECKING");
-      delay(5000);
+      delay(1000);
 
       check = true;
 
@@ -91,7 +115,11 @@ void loop() {
       break;
     case FETCHING:
       Serial.println("FETCHING");
-      delay(5000);
+      Serial.println("5V voltage reading: " + String(voltage_5v.readVoltage()));
+      Serial.println("5V current reading: " + String(current_5v.readCurrent()));
+      digitalWrite(19, 0);
+      delay(1000);
+      digitalWrite(19, 1);
 
       finish = true;
 
@@ -104,7 +132,7 @@ void loop() {
       break;
     case SENDING:
       Serial.println("SENDING");
-      delay(5000);
+      delay(1000);
 
       sent = true;
 
@@ -144,7 +172,7 @@ void SerialEvent() {
         break;
       case 's':
         current_state = SLEEP;
-        Serial.println("ESP going to sleep for %s seconds" + String(time_to_sleep));
+        Serial.println("ESP going to sleep for " + String(time_to_sleep) + "seconds");
         Serial.flush(); 
         esp_deep_sleep_start();
         break;
