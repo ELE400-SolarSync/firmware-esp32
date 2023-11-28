@@ -3,6 +3,7 @@
 #include "../lib/wifi/src/wifi.hpp"
 #include "../lib/sd/src/sdcustom.hpp"
 #include "../lib/log/src/log.hpp"
+#include "../lib/sensors/src/voltage_current.hpp"
 
 // Global Variables
 const int debug = false;
@@ -50,15 +51,17 @@ bool check, finish, sent = false;
 
 const int us_to_s_factor = 1000000;  /* Conversion factor for micro seconds to seconds */
 int time_to_sleep = 5;        /* Time ESP32 will go to sleep (in seconds) */
-
-// Can be used to store data in RTC memory during deep sleep
-// RTC_DATA_ATTR int bootCount = 0;
+const int time_period = 60;
 
 // Objects
 SDCustom sd(32);
 wifi_connection wifi("LakeLaogai", "thereisnowifiinbasingse");
 api_lib api;
 myLogger logger(sd);
+
+// Can be used to store data in RTC memory during deep sleep
+RTC_DATA_ATTR int log_file = logger.getLogFile();
+RTC_DATA_ATTR int old_log = logger.getOldLogFile();
 
 // Prototypes
 void SerialEvent();
@@ -68,9 +71,14 @@ String get_wakeup_reason();
 void setup() {
   Serial.begin(115200);
 
+  logger.setLogFile(log_file);
+  logger.setOldLogFile(old_log);
   logger.init(); 
+  
   logger.disableLoggingInSD();
   logger.enableLoggingInMonitor();
+
+
   logger.info("main", String(wifi.connect(10000)));
   api.setHost("https://api.thingspeak.com/update?api_key=72ZH5DA3WVKUD5R5");
 
@@ -142,11 +150,14 @@ void loop() {
       }
 
     case SLEEP:
-      time_to_sleep = 60 - (start - millis()) * 1000;
+      time_to_sleep = time_period - (start - millis()) * 1000;
 
       esp_sleep_enable_timer_wakeup(time_to_sleep * us_to_s_factor);
       logger.info("SLEEP", "Time to sleep: " + String(time_to_sleep) + " seconds");
       esp_deep_sleep_start();
+      // esp_light_sleep_start();
+
+      delay(time_to_sleep * 1000);
       break;
     default:
       logger.info("DEFAULT", "DEFAULT state");
@@ -161,12 +172,6 @@ void SerialEvent() {
     if (inChar.indexOf("date") != -1) {
       Serial.println("lol");
     }
-    // if (inChar.indexOf("terminal") != -1) {
-    //   if (inChar.indexOf("enable") != -1)
-    //     logger.enableLoggingInMonitor();
-    //   else if (inChar.indexOf("disable") != -1)
-    //     logger.disableLoggingInMonitor();
-    // }
   }
 }
 

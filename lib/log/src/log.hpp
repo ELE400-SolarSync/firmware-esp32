@@ -9,14 +9,15 @@ class myLogger {
     private:
         int log_path;
         int log_file;
+        int oldest_log_file = 0;
         String log_fullPath;
         bool SerialToglle = true;
         bool SDToglle = true;
         SDCustom& sd;
 
         enum roll_t {
-            FILE,
-            FOLDER
+            SWITCH,
+            DELETE
         };
 
     public:
@@ -29,7 +30,7 @@ class myLogger {
         level_t logLevel;
 
         myLogger(SDCustom& sd, int log_file = 0, int log_path = 0, level_t level = INFO) : sd(sd), log_file(log_file), log_path(log_path), logLevel(level) {
-            this->log_fullPath = String(log_path) + "/" + String(log_file) + ".txt";
+            this->log_fullPath = String(log_file) + ".txt";
         }
 
         void init() {
@@ -43,7 +44,7 @@ class myLogger {
 
             if (!sd.fileExists(log_fullPath)) {
                 Serial.println("File does not exist");
-                sd.mkdir(String(log_path));
+                // sd.mkdir(String(log_path));
                 sd.createFile(log_fullPath);
             }
         }
@@ -54,6 +55,14 @@ class myLogger {
 
         int getLogFile() const {
             return log_file;
+        }
+
+        void setOldLogFile(int old_log) {
+            this->oldest_log_file = old_log;
+        }
+
+        int getOldLogFile() const {
+            return oldest_log_file;
         }
 
         void setLogPath(int log_path) {
@@ -122,21 +131,19 @@ class myLogger {
                     error("logger", "SD Card is not inserted");
                 }
                 else {
-                    if(true) {
-                        // SD card is full
-                        // Delete oldest file
+                    if(log_file > 30 * 1000) {
+                        // if there is more than 30 0000 (30Go) files in the folder (each files is 1Mo)
+                        logRoll(DELETE);
+                        sd.writeFile(String(log_file)+".txt", logFormat + message);                    
                     }
-                    else if((sd.openFile(log_fullPath).size() > 1000000) && (log_file == 9)) {
-                        // Folder is full
-                        logRoll(FOLDER);
-                    }
-                    else if (sd.openFile(log_fullPath).size() > 1000000) {
-                        // File is full
-                        logRoll(FILE);
+                    else if (sd.openFile(String(log_file)+".txt").size() > 1000000) {
+                        // if file is bigger than 1Mo
+                        logRoll(SWITCH);
+                        sd.writeFile(String(log_file)+".txt", logFormat + message);
                     }
                     else {
                         // Write to file
-                        sd.writeFile(log_fullPath, logFormat + message);
+                        sd.writeFile(String(log_file)+".txt", logFormat + message);
                     }
                 }
             }
@@ -152,17 +159,24 @@ class myLogger {
          * @param roll what to roll File or Folder
          */
         void logRoll(roll_t roll) {
-            if(roll == FILE) {
-                setLogFile(log_file + 1);
-                setLogFullPath();
-                sd.createFile(log_fullPath);
+            if(roll == SWITCH) {
+                createNewFile();
             }
-            else if(roll == FOLDER) {
-                setLogPath(log_path + 1);
-                setLogFile(0);
-                setLogFullPath();
-                sd.mkdir(String(log_path));
+            else if(roll == DELETE) {
+                deleteOldestFile();
+                createNewFile();
             }
+        }
+
+        void deleteOldestFile() {
+            sd.deleteFile(String(log_file)+".txt");
+            oldest_log_file++;
+        }
+
+        void createNewFile() {
+            setLogFile(log_file + 1);
+
+            sd.createFile(String(log_file)+".txt");
         }
 };
 
