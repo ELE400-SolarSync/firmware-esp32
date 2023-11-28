@@ -4,6 +4,7 @@
 #include "../lib/wifi/src/wifi.hpp"
 #include "../lib/sd/src/sdcustom.hpp"
 #include "../lib/log/src/log.hpp"
+#include "../lib/sensors/src/voltage_current.hpp"
 
 // Global Variables
 const int debug = false;
@@ -11,26 +12,14 @@ const int debug = false;
 // const int battery_current_pin = A6;
 // const int battery_voltage_pin = A7;
 
-const int solar_current_pin = A2;
-const int solar_voltage_pin = A3;
+const int solar_current_pin = 36;
+const int solar_voltage_pin = 39;
 
-const int current_pin_5v = A4;
-const int voltage_pin_5v = A5;
+const int current_pin_5v = 34;
+const int voltage_pin_5v = 35;
 
-const int current_pin_12v = A0;
-const int voltage_pin_12v = A1;
-
-// CurrentSensor current_battery(battery_current_pin);
-// VoltageSensor voltage_battery(battery_voltage_pin);
-
-CurrentSensor current_solar(solar_current_pin);
-VoltageSensor voltage_solar(solar_voltage_pin);
-
-CurrentSensor current_5v(current_pin_5v);
-VoltageSensor voltage_5v(voltage_pin_5v);
-
-CurrentSensor current_12v(current_pin_12v);
-VoltageSensor voltage_12v(voltage_pin_12v);
+const int current_pin_12v = 32;
+const int voltage_pin_12v = 33;
 
 enum state {
     INIT,
@@ -65,6 +54,18 @@ SDCustom sd(32);
 wifi_connection wifi("LakeLaogai", "thereisnowifiinbasingse");
 api_lib api;
 myLogger logger(sd);
+
+// CurrentSensor current_battery(battery_current_pin);
+// VoltageSensor voltage_battery(battery_voltage_pin);
+
+CurrentSensor current_solar(solar_current_pin);
+VoltageSensor voltage_solar(solar_voltage_pin);
+
+CurrentSensor current_5v(current_pin_5v);
+VoltageSensor voltage_5v(voltage_pin_5v);
+
+CurrentSensor current_12v(current_pin_12v);
+VoltageSensor voltage_12v(voltage_pin_12v);
 
 // Prototypes
 void SerialEvent();
@@ -102,8 +103,6 @@ void setup() {
 void loop() {
   SerialEvent();
 
-  dht_values = dht_sensor.getValues();
-
   start = millis();
 
   switch (current_state) {
@@ -130,13 +129,23 @@ void loop() {
     case FETCHING:
       {
         logger.info("main", "FETCHING");
-        current_state = SENDING;
+        dht_values = dht_sensor.getValues();
+        if (dht_sensor.isCorrect_values(dht_values)) {
+          logger.error("FETCHING", "DHT11 values are incorrect");
+          current_state = ERROR;
+        }
+        else {
+          logger.info("FETCHING", "DHT11 values are correct");
+          current_state = SENDING;
+        }
         break;
       }
 
     case SENDING:
       {
         logger.info("main", "SENDING");
+        data[0] = dht_values[temp];
+        data[1] = dht_values[hum];
         if (api.sendAll(data, sizeof(data)/sizeof(float)) == 200) {
           current_state = SLEEP;
         }
@@ -146,15 +155,17 @@ void loop() {
     case ERROR:
       {
         logger.info("ERROR", "ERROR state");
+        current_state = SLEEP;
         break;
       }
 
     case SLEEP:
-      time_to_sleep = 60 - (start - millis()) * 1000;
+      time_to_sleep = 15 - (start - millis()) * 1000;
 
       esp_sleep_enable_timer_wakeup(time_to_sleep * us_to_s_factor);
       logger.info("SLEEP", "Time to sleep: " + String(time_to_sleep) + " seconds");
       esp_deep_sleep_start();
+      current_state = CHECKING;
       break;
     default:
       logger.info("DEFAULT", "DEFAULT state");
