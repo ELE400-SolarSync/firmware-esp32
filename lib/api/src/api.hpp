@@ -5,6 +5,11 @@ class api_lib {
         String host;
 
     public:
+        struct response {
+            int code;
+            String data;
+        };
+
         /**
          * @brief Set the Host object (part of the resquestt with the data)
          * 
@@ -20,19 +25,23 @@ class api_lib {
          * @param url string to complete the host
          * @return String string return of the api call
          */
-        String getResponse(String url) {
+        response getResponse(String url) {
             HTTPClient http;
+
+            response res;
 
             String server_call = host + url;
             http.begin((server_call).c_str());
 
-            int httpCode = http.GET();
-            if (httpCode > 0) {
-                if (httpCode == HTTP_CODE_OK) {
-                    return http.getString();
+            res.code = http.GET();
+            if (res.code > 0) {
+                if (res.code == HTTP_CODE_OK) {
+                    res.data = http.getString();
+                    return res;
                 }
             }
-            return "";
+            res.data = "";
+            return res;
         }
 
         /**
@@ -58,13 +67,13 @@ class api_lib {
          * @param data_len length of the data
          * @return int code return by the api call
          */
-        int sendAll(float data[], size_t data_len){
+        response sendAll(float data[], size_t data_len){
             String url;
 
             for(int i = 0; i < data_len; i++){
                 url = url + "&field" + i + "=" + String(data[i]);
             }
             
-            return getCode(url);
+            return getResponse(url);
         }
 };

@@ -76,9 +76,11 @@ void setup() {
   Serial.begin(115200);
 
   logger.init(); 
+  logger.setLevel(myLogger::DEBUG);
   logger.disableLoggingInSD();
   logger.enableLoggingInMonitor();
-  logger.info("main", String(wifi.connect(10000)));
+
+  wifi.connect(10000);
   api.setHost("https://api.thingspeak.com/update?api_key=72ZH5DA3WVKUD5R5");
 
   // Set up deep sleep
@@ -108,7 +110,7 @@ void loop() {
   switch (current_state) {
     case CHECKING:
       {
-        logger.info("main", "CHECKING");
+        logger.info("CHECKING", "CHECKING");
         if (!sd.isSDInserted()) {
           logger.disableLoggingInSD();
         }
@@ -128,7 +130,7 @@ void loop() {
 
     case FETCHING:
       {
-        logger.info("main", "FETCHING");
+        logger.info("FETCHING", "FETCHING");
         dht_values = dht_sensor.getValues();
         if (dht_sensor.isCorrect_values(dht_values)) {
           logger.error("FETCHING", "DHT11 values are incorrect");
@@ -143,10 +145,13 @@ void loop() {
 
     case SENDING:
       {
-        logger.info("main", "SENDING");
+        logger.info("SENDING", "SENDING");
         data[0] = dht_values[temp];
         data[1] = dht_values[hum];
-        if (api.sendAll(data, sizeof(data)/sizeof(float)) == 200) {
+        api_lib::response res;
+        res = api.sendAll(data, sizeof(data)/sizeof(float));
+        if (res.code == 200) {
+          logger.debug("SENDING", "Return message : " + res.data);
           current_state = SLEEP;
         }
         break;
@@ -165,6 +170,7 @@ void loop() {
       esp_sleep_enable_timer_wakeup(time_to_sleep * us_to_s_factor);
       logger.info("SLEEP", "Time to sleep: " + String(time_to_sleep) + " seconds");
       esp_deep_sleep_start();
+      // delay(time_to_sleep * 1000);
       current_state = CHECKING;
       break;
     default:
