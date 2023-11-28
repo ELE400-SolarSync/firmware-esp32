@@ -49,6 +49,10 @@ class myLogger {
             }
         }
 
+        level_t getLevel() const {
+            return logLevel;
+        }
+
         int getLogPath() const {
             return log_path;
         }

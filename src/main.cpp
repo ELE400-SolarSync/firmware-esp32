@@ -47,7 +47,7 @@ unsigned long int start;
 
 float data[3] = {1.0, 2.0, 3.0};
 
-bool check, finish, sent = false;
+bool show_data = false;
 
 const int us_to_s_factor = 1000000;  /* Conversion factor for micro seconds to seconds */
 int time_to_sleep = 5;        /* Time ESP32 will go to sleep (in seconds) */
@@ -130,6 +130,12 @@ void loop() {
     case FETCHING:
       {
         logger.info("main", "FETCHING");
+        if(show_data){
+          myLogger::level_t level = logger.getLevel();
+          logger.setLevel(myLogger::DEBUG);
+          logger.debug("DATA", "Humidity : ");
+          logger.setLevel(level);
+      }
         current_state = SENDING;
         break;
       }
@@ -171,6 +177,9 @@ void SerialEvent() {
     String inChar = Serial.readString();
     if (inChar.indexOf("date") != -1) {
       Serial.println("lol");
+    }
+    if(inChar.indexOf("show_data") != -1){
+      show_data = !show_data;
     }
   }
 }
