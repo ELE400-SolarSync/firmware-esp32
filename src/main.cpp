@@ -1,4 +1,5 @@
 #include <Arduino.h>
+#include "../lib/dht/src/dht.hpp"
 #include "../lib/api/src/api.hpp"
 #include "../lib/wifi/src/wifi.hpp"
 #include "../lib/sd/src/sdcustom.hpp"
@@ -11,26 +12,14 @@ const int debug = false;
 // const int battery_current_pin = A6;
 // const int battery_voltage_pin = A7;
 
-const int solar_current_pin = A2;
-const int solar_voltage_pin = A3;
+const int solar_current_pin = 36;
+const int solar_voltage_pin = 39;
 
-const int current_pin_5v = A4;
-const int voltage_pin_5v = A5;
+const int current_pin_5v = 34;
+const int voltage_pin_5v = 35;
 
-const int current_pin_12v = A0;
-const int voltage_pin_12v = A1;
-
-// CurrentSensor current_battery(battery_current_pin);
-// VoltageSensor voltage_battery(battery_voltage_pin);
-
-CurrentSensor current_solar(solar_current_pin);
-VoltageSensor voltage_solar(solar_voltage_pin);
-
-CurrentSensor current_5v(current_pin_5v);
-VoltageSensor voltage_5v(voltage_pin_5v);
-
-CurrentSensor current_12v(current_pin_12v);
-VoltageSensor voltage_12v(voltage_pin_12v);
+const int current_pin_12v = 32;
+const int voltage_pin_12v = 33;
 
 enum state {
     INIT,
@@ -49,11 +38,16 @@ float data[3] = {1.0, 2.0, 3.0};
 
 bool show_data = false;
 
+const int dh11_pin = 4;             /* Pin where the DHT11 is connected */
+enum dht_data { hum, temp };        /* Indexes for the DHT11 values */
+float *dht_values;                  /* Array to store the DHT11 values */
+
 const int us_to_s_factor = 1000000;  /* Conversion factor for micro seconds to seconds */
 int time_to_sleep = 5;        /* Time ESP32 will go to sleep (in seconds) */
 const int time_period = 60;
 
 // Objects
+DHTSensor dht_sensor(dh11_pin);
 SDCustom sd(32);
 wifi_connection wifi("LakeLaogai", "thereisnowifiinbasingse");
 api_lib api;
@@ -62,6 +56,18 @@ myLogger logger(sd);
 // Can be used to store data in RTC memory during deep sleep
 RTC_DATA_ATTR int log_file = logger.getLogFile();
 RTC_DATA_ATTR int old_log = logger.getOldLogFile();
+
+// CurrentSensor current_battery(battery_current_pin);
+// VoltageSensor voltage_battery(battery_voltage_pin);
+
+CurrentSensor current_solar(solar_current_pin);
+VoltageSensor voltage_solar(solar_voltage_pin);
+
+CurrentSensor current_5v(current_pin_5v);
+VoltageSensor voltage_5v(voltage_pin_5v);
+
+CurrentSensor current_12v(current_pin_12v);
+VoltageSensor voltage_12v(voltage_pin_12v);
 
 // Prototypes
 void SerialEvent();
@@ -74,12 +80,13 @@ void setup() {
   logger.setLogFile(log_file);
   logger.setOldLogFile(old_log);
   logger.init(); 
-
+  
+  logger.debug("SETUP", "Wifi status : " + String(wifi.connect(10000)));
+  
   logger.disableLoggingInSD();
   logger.enableLoggingInMonitor();
 
-
-  logger.info("SETUP", "Wifi status : " + String(wifi.connect(10000)));
+  wifi.connect(10000);
   api.setHost("https://api.thingspeak.com/update?api_key=72ZH5DA3WVKUD5R5");
 
   // Set up deep sleep
@@ -109,7 +116,7 @@ void loop() {
   switch (current_state) {
     case CHECKING:
       {
-        logger.info("main", "CHECKING");
+        logger.info("CHECKING", "CHECKING");
         if (!sd.isSDInserted()) {
           logger.disableLoggingInSD();
         }
@@ -129,21 +136,29 @@ void loop() {
 
     case FETCHING:
       {
-        logger.info("main", "FETCHING");
-        if(show_data){
-          myLogger::level_t level = logger.getLevel();
-          logger.setLevel(myLogger::DEBUG);
-          logger.debug("DATA", "Humidity : ");
-          logger.setLevel(level);
-      }
-        current_state = SENDING;
+        logger.info("FETCHING", "FETCHING");
+        dht_values = dht_sensor.getValues();
+        
+        if (dht_sensor.isCorrect_values(dht_values)) {
+          logger.error("FETCHING", "DHT11 values are incorrect");
+          current_state = ERROR;
+        }
+        else {
+          logger.info("FETCHING", "DHT11 values are correct");
+          current_state = SENDING;
+        }
         break;
       }
 
     case SENDING:
       {
-        logger.info("main", "SENDING");
-        if (api.sendAll(data, sizeof(data)/sizeof(float)) == 200) {
+        logger.info("SENDING", "SENDING");
+        data[0] = dht_values[temp];
+        data[1] = dht_values[hum];
+        api_lib::response res;
+        res = api.sendAll(data, sizeof(data)/sizeof(float));
+        if (res.code == 200) {
+          logger.debug("SENDING", "Return message : " + res.data);
           current_state = SLEEP;
         }
         break;
@@ -152,6 +167,7 @@ void loop() {
     case ERROR:
       {
         logger.info("ERROR", "ERROR state");
+        current_state = SLEEP;
         break;
       }
 
@@ -160,10 +176,12 @@ void loop() {
 
       esp_sleep_enable_timer_wakeup(time_to_sleep * us_to_s_factor);
       logger.info("SLEEP", "Time to sleep: " + String(time_to_sleep) + " seconds");
+      
       esp_deep_sleep_start();
       // esp_light_sleep_start();
 
-      delay(time_to_sleep * 1000);
+      // delay(time_to_sleep * 1000);
+      current_state = CHECKING;
       break;
     default:
       logger.info("DEFAULT", "DEFAULT state");

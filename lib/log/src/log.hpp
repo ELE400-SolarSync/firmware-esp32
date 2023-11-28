@@ -35,7 +35,6 @@ class myLogger {
 
         void init() {
             sd.begin();
-            Serial.println(sd.fileExists(log_fullPath));
 
             if (!sd.isSDInserted()) {
                 SDToglle = false;
