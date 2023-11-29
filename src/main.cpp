@@ -21,17 +21,6 @@ const int voltage_pin_5v = A1;
 // const int current_pin_12v = A0;
 // const int voltage_pin_12v = A1;
 
-// CurrentSensor current_battery(battery_current_pin);
-// VoltageSensor voltage_battery(battery_voltage_pin);
-
-// CurrentSensor current_solar(solar_current_pin);
-// VoltageSensor voltage_solar(solar_voltage_pin);
-
-CurrentSensor current_5v(current_pin_5v);
-VoltageSensor voltage_5v(voltage_pin_5v);
-
-// CurrentSensor current_12v(current_pin_12v);
-
 const int current_pin_12v = 32;
 const int voltage_pin_12v = 33;
 
@@ -66,6 +55,15 @@ SDCustom sd(32);
 wifi_connection wifi("LakeLaogai", "thereisnowifiinbasingse");
 api_lib api;
 myLogger logger(sd);
+
+// CurrentSensor current_battery(battery_current_pin);
+// VoltageSensor voltage_battery(battery_voltage_pin);
+
+// CurrentSensor current_solar(solar_current_pin);
+// VoltageSensor voltage_solar(solar_voltage_pin);
+
+CurrentSensor current_5v(current_pin_5v);
+VoltageSensor voltage_5v(voltage_pin_5v);
 
 // Can be used to store data in RTC memory during deep sleep
 RTC_DATA_ATTR int log_file = logger.getLogFile();
