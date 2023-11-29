@@ -1,5 +1,12 @@
 #include <Arduino.h>
 
+#define ADC_CORRECTION_FACTOR 1.15
+#define ADC_BITS 4095.0
+#define ADC_MAX_VOLTAGE 3.3
+#define CURRENT_SENSOR_OFFSET 2.5
+#define VOLTAGE_SENSOR_MULTIPLIER 5.0
+#define CURRENT_SENSOR_MULTIPLIER 0.066
+
 class VoltageSensor {
   public:
     /**
@@ -20,11 +27,11 @@ class VoltageSensor {
 
     /**
      * @brief Read the raw value from the pin
-     * 
-     * @return float Value between 0 and 1023
+     *
+     * @return float Value between 0 and 4095
      */
     float read() {
-        return analogRead(pin);
+        return analogRead(pin) / ADC_CORRECTION_FACTOR;
     };
 
     /**
@@ -33,7 +40,7 @@ class VoltageSensor {
      * @return float 
      */
     float readVoltage() {
-        return read() / 1023.0; // real math : (5.0 * read() / 1023.0) / 5.0 
+        return ADC_MAX_VOLTAGE * VOLTAGE_SENSOR_MULTIPLIER * read() / ADC_BITS;
     };
 
   private:
@@ -61,10 +68,10 @@ class CurrentSensor {
         /**
          * @brief Read the raw value from the pin
          * 
-         * @return float Value between 0 and 1023
+         * @return float Value between 0 and 4095
          */
         float read() {
-            return analogRead(pin);
+            return analogRead(pin) / ADC_CORRECTION_FACTOR;
         };
     
         /**
@@ -72,8 +79,8 @@ class CurrentSensor {
          * 
          * @return float 
          */
-        float readCurrent(int param = 2.5) {
-            return (read() * (5.0 / 1023.0) - param) / 0.066;
+        float readCurrent(float param = CURRENT_SENSOR_OFFSET) {
+            return ((ADC_MAX_VOLTAGE * read() / ADC_BITS) - param) / CURRENT_SENSOR_MULTIPLIER;
         };
     
     private:

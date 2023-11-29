@@ -12,11 +12,25 @@ const int debug = false;
 // const int battery_current_pin = A6;
 // const int battery_voltage_pin = A7;
 
-const int solar_current_pin = 36;
-const int solar_voltage_pin = 39;
+// const int solar_current_pin = A2;
+// const int solar_voltage_pin = A3;
 
-const int current_pin_5v = 34;
-const int voltage_pin_5v = 35;
+const int current_pin_5v = A0;
+const int voltage_pin_5v = A1;
+
+// const int current_pin_12v = A0;
+// const int voltage_pin_12v = A1;
+
+// CurrentSensor current_battery(battery_current_pin);
+// VoltageSensor voltage_battery(battery_voltage_pin);
+
+// CurrentSensor current_solar(solar_current_pin);
+// VoltageSensor voltage_solar(solar_voltage_pin);
+
+CurrentSensor current_5v(current_pin_5v);
+VoltageSensor voltage_5v(voltage_pin_5v);
+
+// CurrentSensor current_12v(current_pin_12v);
 
 const int current_pin_12v = 32;
 const int voltage_pin_12v = 33;
@@ -93,20 +107,40 @@ void setup() {
   esp_sleep_enable_timer_wakeup(time_to_sleep * us_to_s_factor);
   logger.info("SETUP", "Wakeup reason : " + get_wakeup_reason());
 
-  current_state = CHECKING;
-
   // current_battery.setup();
   // voltage_battery.setup();
 
-  current_solar.setup();
-  voltage_solar.setup();
+  // current_solar.setup();
+  // voltage_solar.setup();
 
   current_5v.setup();
   voltage_5v.setup();
 
-  current_12v.setup();
-  voltage_12v.setup();
+  // current_12v.setup();
+  // voltage_12v.setup();
 }
+
+// pins choice:
+// A0 -> voltage solar cell
+// A1 -> voltage 12V
+// A2 -> relay 1
+// A3 -> relay 2
+// A4 -> relay 3
+
+// relay choice
+    // 1 : voltage bat/5v
+    // 2 : current solar cell/12V
+    // 3 : current bat/5V
+
+// step 1:
+// switch for reading solar cell/battery
+// read solar cell
+// read battery
+
+// step 2:
+// switch for reading 12V and 5V
+// read 5V
+// read 12V
 
 void loop() {
   SerialEvent();
@@ -114,7 +148,6 @@ void loop() {
   start = millis();
 
   switch (current_state) {
-    case CHECKING:
       {
         logger.info("CHECKING", "CHECKING");
         if (!sd.isSDInserted()) {
