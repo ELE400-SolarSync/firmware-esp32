@@ -1,0 +1,258 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="test__api_2test__main_8cpp" kind="file" language="C++">
+    <compoundname>test_main.cpp</compoundname>
+    <includes local="no">Arduino.h</includes>
+    <includes local="no">unity.h</includes>
+    <includes local="yes">../lib/api/src/api.hpp</includes>
+    <includes local="yes">../lib/wifi/src/wifi.hpp</includes>
+    <incdepgraph>
+      <node id="4">
+        <label>../lib/api/src/api.hpp</label>
+      </node>
+      <node id="5">
+        <label>../lib/wifi/src/wifi.hpp</label>
+      </node>
+      <node id="3">
+        <label>unity.h</label>
+      </node>
+      <node id="2">
+        <label>Arduino.h</label>
+      </node>
+      <node id="1">
+        <label>/home/pierr/Documents/ETS/ele400/firmware-esp32/test/test_api/test_main.cpp</label>
+        <link refid="test__api_2test__main_8cpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="test__api_2test__main_8cpp_1a541f63be932ede3565aeaaf39e9634f8" prot="public" static="no" mutable="no">
+        <type>const String</type>
+        <definition>const String api_url</definition>
+        <argsstring></argsstring>
+        <name>api_url</name>
+        <initializer>= &quot;https://randomuser.me/api/&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/test/test_api/test_main.cpp" line="6" column="14" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/test/test_api/test_main.cpp" bodystart="6" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="test__api_2test__main_8cpp_1ab89a4ec9e24f2d941247970161d31da8" prot="public" static="no" mutable="no">
+        <type>const String</type>
+        <definition>const String wifi_ssid</definition>
+        <argsstring></argsstring>
+        <name>wifi_ssid</name>
+        <initializer>= &quot;LakeLaogai&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/test/test_api/test_main.cpp" line="7" column="14" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/test/test_api/test_main.cpp" bodystart="7" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="test__api_2test__main_8cpp_1ac7e7b3e06f1fe3fcf2e522416256f248" prot="public" static="no" mutable="no">
+        <type>const String</type>
+        <definition>const String wifi_password</definition>
+        <argsstring></argsstring>
+        <name>wifi_password</name>
+        <initializer>= &quot;thereisnowifiinbasingse&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/test/test_api/test_main.cpp" line="8" column="14" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/test/test_api/test_main.cpp" bodystart="8" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="test__api_2test__main_8cpp_1a0d726520373d91052848ef84255963a4" prot="public" static="no" mutable="no">
+        <type><ref refid="classwifi__connection" kindref="compound">wifi_connection</ref></type>
+        <definition>wifi_connection wifi(wifi_ssid, wifi_password)</definition>
+        <argsstring>(wifi_ssid, wifi_password)</argsstring>
+        <name>wifi</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/test/test_api/test_main.cpp" line="10" column="17"/>
+      </memberdef>
+      <memberdef kind="variable" id="test__api_2test__main_8cpp_1aaa4a6506433e578b91475a3dae642569" prot="public" static="no" mutable="no">
+        <type><ref refid="classapi__lib" kindref="compound">api_lib</ref></type>
+        <definition>api_lib api</definition>
+        <argsstring></argsstring>
+        <name>api</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/test/test_api/test_main.cpp" line="12" column="9" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/test/test_api/test_main.cpp" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="test__api_2test__main_8cpp_1a95c834d6178047ce9e1bce7cbfea2836" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void setUp</definition>
+        <argsstring>(void)</argsstring>
+        <name>setUp</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/test/test_api/test_main.cpp" line="14" column="6" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/test/test_api/test_main.cpp" bodystart="14" bodyend="17"/>
+      </memberdef>
+      <memberdef kind="function" id="test__api_2test__main_8cpp_1a9909011e5fea0c018842eec4d93d0662" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void tearDown</definition>
+        <argsstring>(void)</argsstring>
+        <name>tearDown</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/test/test_api/test_main.cpp" line="19" column="6" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/test/test_api/test_main.cpp" bodystart="19" bodyend="22"/>
+      </memberdef>
+      <memberdef kind="function" id="test__api_2test__main_8cpp_1ac58fefe6fe4a3a1ae30099d0376b0352" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void test_api_call</definition>
+        <argsstring>(void)</argsstring>
+        <name>test_api_call</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/test/test_api/test_main.cpp" line="24" column="6" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/test/test_api/test_main.cpp" bodystart="24" bodyend="28"/>
+      </memberdef>
+      <memberdef kind="function" id="test__api_2test__main_8cpp_1ad3b8f9412ae1849348d81e09366d25fa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void test_wifi_connection</definition>
+        <argsstring>(void)</argsstring>
+        <name>test_wifi_connection</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/test/test_api/test_main.cpp" line="30" column="6" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/test/test_api/test_main.cpp" bodystart="30" bodyend="34"/>
+      </memberdef>
+      <memberdef kind="function" id="test__api_2test__main_8cpp_1a4fc01d736fe50cf5b977f755b675f11d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void setup</definition>
+        <argsstring>()</argsstring>
+        <name>setup</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/test/test_api/test_main.cpp" line="36" column="6" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/test/test_api/test_main.cpp" bodystart="36" bodyend="46"/>
+      </memberdef>
+      <memberdef kind="function" id="test__api_2test__main_8cpp_1afe461d27b9c48d5921c00d521181f12f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void loop</definition>
+        <argsstring>()</argsstring>
+        <name>loop</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/test/test_api/test_main.cpp" line="48" column="6" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/test/test_api/test_main.cpp" bodystart="48" bodyend="53"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&lt;Arduino.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;unity.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;../lib/api/src/api.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;../lib/wifi/src/wifi.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>String<sp/>api_url<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;https://randomuser.me/api/&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>String<sp/>wifi_ssid<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;LakeLaogai&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>String<sp/>wifi_password<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;thereisnowifiinbasingse&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"><ref refid="classwifi__connection" kindref="compound">wifi_connection</ref><sp/>wifi(wifi_ssid,<sp/>wifi_password);</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><ref refid="classapi__lib" kindref="compound">api_lib</ref><sp/>api;</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>setUp(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="15"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>set<sp/>stuff<sp/>up<sp/>here</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>tearDown(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="20"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>clean<sp/>stuff<sp/>up<sp/>here</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>test_api_call(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="25"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/>api.<ref refid="classapi__lib_1a2ae88643c58b39abed46e97d9048f0d8" kindref="member">setHost</ref>(</highlight><highlight class="stringliteral">&quot;&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/>TEST_ASSERT_EQUAL(200,<sp/>api.<ref refid="classapi__lib_1a4e4ef2d4e421740991d278c53f857f66" kindref="member">getCode</ref>(api_url));</highlight></codeline>
+<codeline lineno="28"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>test_wifi_connection(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="31"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/>delay(1000);</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/>TEST_ASSERT_TRUE(wifi.getStatus());</highlight></codeline>
+<codeline lineno="34"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>setup()</highlight></codeline>
+<codeline lineno="37"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>NOTE!!!<sp/>Wait<sp/>for<sp/>&gt;2<sp/>secs</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>if<sp/>board<sp/>doesn&apos;t<sp/>support<sp/>software<sp/>reset<sp/>via<sp/>Serial.DTR/RTS</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/>delay(2000);</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/>wifi.<ref refid="classwifi__connection_1a52afbfc28143e9cc24a8a7c0d7cadf02" kindref="member">connect</ref>(10000);</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/>UNITY_BEGIN();<sp/></highlight><highlight class="comment">//<sp/>IMPORTANT<sp/>LINE!</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/></highlight></codeline>
+<codeline lineno="46"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>loop()</highlight></codeline>
+<codeline lineno="49"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/>RUN_TEST(test_wifi_connection);</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/>RUN_TEST(test_api_call);</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/>UNITY_END();<sp/></highlight><highlight class="comment">//<sp/>stop<sp/>unit<sp/>testing</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/test/test_api/test_main.cpp"/>
+  </compounddef>
+</doxygen>

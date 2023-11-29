@@ -1,7 +1,13 @@
 #include <Arduino.h>
+#include "../lib/dht/src/dht.hpp"
+#include "../lib/api/src/api.hpp"
+#include "../lib/wifi/src/wifi.hpp"
+#include "../lib/sd/src/sdcustom.hpp"
+#include "../lib/log/src/log.hpp"
 #include "../lib/sensors/src/voltage_current.hpp"
-#include "../lib/log/log.hpp"
-#include "esp_log.h"
+
+// Global Variables
+const int debug = false;
 
 // const int battery_current_pin = A6;
 // const int battery_voltage_pin = A7;
@@ -25,31 +31,57 @@ CurrentSensor current_5v(current_pin_5v);
 VoltageSensor voltage_5v(voltage_pin_5v);
 
 // CurrentSensor current_12v(current_pin_12v);
-// VoltageSensor voltage_12v(voltage_pin_12v);
 
-// Objects
-myLogger logger("log.txt", "log/", myLogger::ERROR);
+const int current_pin_12v = 32;
+const int voltage_pin_12v = 33;
 
-// Global variables
 enum state {
     INIT,
     CHECKING,
     FETCHING,
     SENDING,
+    ERROR,
     SLEEP
 };
 
 state current_state = INIT;
 
-bool check, finish, sent = false;
+unsigned long int start;
+
+float data[3] = {1.0, 2.0, 3.0};
+
+bool show_data = false;
+
+const int dh11_pin = 4;             /* Pin where the DHT11 is connected */
+enum dht_data { hum, temp };        /* Indexes for the DHT11 values */
+float *dht_values;                  /* Array to store the DHT11 values */
 
 const int us_to_s_factor = 1000000;  /* Conversion factor for micro seconds to seconds */
-const int time_to_sleep = 5;        /* Time ESP32 will go to sleep (in seconds) */
+int time_to_sleep = 5;        /* Time ESP32 will go to sleep (in seconds) */
+const int time_period = 60;
+
+// Objects
+DHTSensor dht_sensor(dh11_pin);
+SDCustom sd(32);
+wifi_connection wifi("LakeLaogai", "thereisnowifiinbasingse");
+api_lib api;
+myLogger logger(sd);
 
 // Can be used to store data in RTC memory during deep sleep
-// RTC_DATA_ATTR int bootCount = 0;
+RTC_DATA_ATTR int log_file = logger.getLogFile();
+RTC_DATA_ATTR int old_log = logger.getOldLogFile();
 
-int i = 0;
+// CurrentSensor current_battery(battery_current_pin);
+// VoltageSensor voltage_battery(battery_voltage_pin);
+
+CurrentSensor current_solar(solar_current_pin);
+VoltageSensor voltage_solar(solar_voltage_pin);
+
+CurrentSensor current_5v(current_pin_5v);
+VoltageSensor voltage_5v(voltage_pin_5v);
+
+CurrentSensor current_12v(current_pin_12v);
+VoltageSensor voltage_12v(voltage_pin_12v);
 
 // Prototypes
 void SerialEvent();
@@ -59,7 +91,21 @@ String get_wakeup_reason();
 void setup() {
   Serial.begin(115200);
 
-  pinMode(19, OUTPUT);
+  logger.setLogFile(log_file);
+  logger.setOldLogFile(old_log);
+  logger.init(); 
+  
+  logger.debug("SETUP", "Wifi status : " + String(wifi.connect(10000)));
+  
+  logger.disableLoggingInSD();
+  logger.enableLoggingInMonitor();
+
+  wifi.connect(10000);
+  api.setHost("https://api.thingspeak.com/update?api_key=72ZH5DA3WVKUD5R5");
+
+  // Set up deep sleep
+  esp_sleep_enable_timer_wakeup(time_to_sleep * us_to_s_factor);
+  logger.info("SETUP", "Wakeup reason : " + get_wakeup_reason());
 
   // current_battery.setup();
   // voltage_battery.setup();
@@ -99,93 +145,92 @@ void setup() {
 void loop() {
   SerialEvent();
 
+  start = millis();
+
   switch (current_state) {
-    case CHECKING:
-      Serial.println("CHECKING");
-      delay(1000);
-
-      check = true;
-
-      if (check) {
-        current_state = FETCHING;
-      } else {
-        current_state = SLEEP;
+      {
+        logger.info("CHECKING", "CHECKING");
+        if (!sd.isSDInserted()) {
+          logger.disableLoggingInSD();
+        }
+        else {
+          logger.enableLoggingInSD();
+          logger.warning("CHECKING", "SD Card is inserted");
+        }
+        if (wifi.isConnected()) {
+          current_state = FETCHING;
+        }
+        else {
+          logger.error("CHECKING", "Wifi is not connected");
+          current_state = ERROR;
+        }
+        break;
       }
 
-      break;
     case FETCHING:
-      Serial.println("FETCHING");
-      Serial.println("5V voltage reading: " + String(voltage_5v.readVoltage()));
-      Serial.println("5V current reading: " + String(current_5v.readCurrent()));
-      digitalWrite(19, 0);
-      delay(1000);
-      digitalWrite(19, 1);
-
-      finish = true;
-
-      if (finish) {
-        current_state = SENDING;
-      } else {
-        current_state = SLEEP;
+      {
+        logger.info("FETCHING", "FETCHING");
+        dht_values = dht_sensor.getValues();
+        
+        if (dht_sensor.isCorrect_values(dht_values)) {
+          logger.error("FETCHING", "DHT11 values are incorrect");
+          current_state = ERROR;
+        }
+        else {
+          logger.info("FETCHING", "DHT11 values are correct");
+          current_state = SENDING;
+        }
+        break;
       }
 
-      break;
     case SENDING:
-      Serial.println("SENDING");
-      delay(1000);
-
-      sent = true;
-
-      if (sent) {
-        current_state = CHECKING;
-      } else {
-        current_state = SLEEP;
+      {
+        logger.info("SENDING", "SENDING");
+        data[0] = dht_values[temp];
+        data[1] = dht_values[hum];
+        api_lib::response res;
+        res = api.sendAll(data, sizeof(data)/sizeof(float));
+        if (res.code == 200) {
+          logger.debug("SENDING", "Return message : " + res.data);
+          current_state = SLEEP;
+        }
+        break;
       }
 
-      break;
+    case ERROR:
+      {
+        logger.info("ERROR", "ERROR state");
+        current_state = SLEEP;
+        break;
+      }
+
     case SLEEP:
-      Serial.println("SLEEP");
-      Serial.flush(); 
+      time_to_sleep = time_period - (start - millis()) * 1000;
+
+      esp_sleep_enable_timer_wakeup(time_to_sleep * us_to_s_factor);
+      logger.info("SLEEP", "Time to sleep: " + String(time_to_sleep) + " seconds");
+      
       esp_deep_sleep_start();
+      // esp_light_sleep_start();
+
+      // delay(time_to_sleep * 1000);
+      current_state = CHECKING;
       break;
     default:
-      Serial.println("FAIL");
-      delay(5000);
+      logger.info("DEFAULT", "DEFAULT state");
       break;
   }
 }
 
-
 // Functions
 void SerialEvent() {
   while (Serial.available()) {
-    char inChar = (char)Serial.read();
-    switch (inChar) {
-      case 'c':
-        current_state = CHECKING;
-        break;
-      case 'f':
-        current_state = FETCHING;
-        break;
-      case 'a':
-        current_state = SENDING;
-        break;
-      case 's':
-        current_state = SLEEP;
-        Serial.println("ESP going to sleep for " + String(time_to_sleep) + "seconds");
-        Serial.flush(); 
-        esp_deep_sleep_start();
-        break;
-      case 'l':
-        logger.enableLoggingInMonitor();
-        Serial.println("Logging enabled");
-        break;
-      case 'L':
-        Serial.println("Logging disabled");
-        logger.disableLoggingInMonitor();
-        break;
-      default:
-        break;
+    String inChar = Serial.readString();
+    if (inChar.indexOf("date") != -1) {
+      Serial.println("lol");
+    }
+    if(inChar.indexOf("show_data") != -1){
+      show_data = !show_data;
     }
   }
 }

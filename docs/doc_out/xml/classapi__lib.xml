@@ -1,0 +1,167 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="classapi__lib" kind="class" language="C++" prot="public">
+    <compoundname>api_lib</compoundname>
+    <innerclass refid="structapi__lib_1_1response" prot="public">api_lib::response</innerclass>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classapi__lib_1a8021f6321559556c3cce5614dd181c9d" prot="private" static="no" mutable="no">
+        <type>String</type>
+        <definition>String api_lib::host</definition>
+        <argsstring></argsstring>
+        <name>host</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/api/src/api.hpp" line="5" column="16" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/api/src/api.hpp" bodystart="5" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classapi__lib_1a2ae88643c58b39abed46e97d9048f0d8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void api_lib::setHost</definition>
+        <argsstring>(String host)</argsstring>
+        <name>setHost</name>
+        <param>
+          <type>String</type>
+          <declname>host</declname>
+        </param>
+        <briefdescription>
+<para>Set the Host object (part of the resquestt with the data) </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>host</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/api/src/api.hpp" line="18" column="14" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/api/src/api.hpp" bodystart="18" bodyend="20"/>
+      </memberdef>
+      <memberdef kind="function" id="classapi__lib_1aa2d3cdb9cd6c49b59a04398dba839c82" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structapi__lib_1_1response" kindref="compound">response</ref></type>
+        <definition>response api_lib::getResponse</definition>
+        <argsstring>(String url)</argsstring>
+        <name>getResponse</name>
+        <param>
+          <type>String</type>
+          <declname>url</declname>
+        </param>
+        <briefdescription>
+<para>Send data to the host + url. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>url</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>string to complete the host </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>String string return of the api call </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/api/src/api.hpp" line="28" column="18" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/api/src/api.hpp" bodystart="28" bodyend="45"/>
+      </memberdef>
+      <memberdef kind="function" id="classapi__lib_1a4e4ef2d4e421740991d278c53f857f66" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int api_lib::getCode</definition>
+        <argsstring>(String url)</argsstring>
+        <name>getCode</name>
+        <param>
+          <type>String</type>
+          <declname>url</declname>
+        </param>
+        <briefdescription>
+<para>Send data to the host + url and return the code. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>url</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>string to complete the host </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>int api code </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/api/src/api.hpp" line="53" column="13" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/api/src/api.hpp" bodystart="53" bodyend="61"/>
+      </memberdef>
+      <memberdef kind="function" id="classapi__lib_1accc43a805690ddfa8c4da98588b0ab24" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structapi__lib_1_1response" kindref="compound">response</ref></type>
+        <definition>response api_lib::sendAll</definition>
+        <argsstring>(float data[], size_t data_len)</argsstring>
+        <name>sendAll</name>
+        <param>
+          <type>float</type>
+          <declname>data</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>data_len</declname>
+        </param>
+        <briefdescription>
+<para>send multiple data according to thinspeak atemplate /!\ look at AZURE template </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>data to send </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>data_len</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>length of the data </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>int code return by the api call </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/api/src/api.hpp" line="70" column="18" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/api/src/api.hpp" bodystart="70" bodyend="78"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/api/src/api.hpp" line="3" column="1" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/api/src/api.hpp" bodystart="3" bodyend="79"/>
+    <listofallmembers>
+      <member refid="classapi__lib_1a4e4ef2d4e421740991d278c53f857f66" prot="public" virt="non-virtual"><scope>api_lib</scope><name>getCode</name></member>
+      <member refid="classapi__lib_1aa2d3cdb9cd6c49b59a04398dba839c82" prot="public" virt="non-virtual"><scope>api_lib</scope><name>getResponse</name></member>
+      <member refid="classapi__lib_1a8021f6321559556c3cce5614dd181c9d" prot="private" virt="non-virtual"><scope>api_lib</scope><name>host</name></member>
+      <member refid="classapi__lib_1accc43a805690ddfa8c4da98588b0ab24" prot="public" virt="non-virtual"><scope>api_lib</scope><name>sendAll</name></member>
+      <member refid="classapi__lib_1a2ae88643c58b39abed46e97d9048f0d8" prot="public" virt="non-virtual"><scope>api_lib</scope><name>setHost</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="md__home_pierr_Documents_ETS_ele400_firmware_esp32_lib_log_doc_README" kind="page">
+    <compoundname>md__home_pierr_Documents_ETS_ele400_firmware_esp32_lib_log_doc_README</compoundname>
+    <title>README</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>We will assume that we are doing 1Mo log file max. We will store up to 1Go of log files in each folder. If we reach the max size of the sd (-10%), we will delete the oldest log files. Then we just keep incrementing the log file number.</para>
+<para>Command to generate the doc: <programlisting filename=".bash"><codeline><highlight class="normal">cd<sp/>docs</highlight></codeline>
+<codeline><highlight class="normal">doxygen<sp/>Doxyfile.in</highlight></codeline>
+<codeline><highlight class="normal">sphinx-build<sp/>-b<sp/>html<sp/>-Dbreathe_projects.solarsync=doc_out/xml<sp/>.<sp/>doc_out/sphinx/</highlight></codeline>
+</programlisting> </para>
+    </detaileddescription>
+    <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/log/doc/README.md"/>
+  </compounddef>
+</doxygen>

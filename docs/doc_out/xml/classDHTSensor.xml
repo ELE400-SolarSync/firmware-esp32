@@ -1,0 +1,177 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="classDHTSensor" kind="class" language="C++" prot="public">
+    <compoundname>DHTSensor</compoundname>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classDHTSensor_1a3c09e49456ce157ef648016660055b0f" prot="private" static="no" mutable="no">
+        <type>DHT</type>
+        <definition>DHT DHTSensor::dht_sen</definition>
+        <argsstring></argsstring>
+        <name>dht_sen</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/dht/src/dht.hpp" line="6" column="13" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/dht/src/dht.hpp" bodystart="6" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classDHTSensor_1a962044c43751bdc02f5d2ff558086565" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int DHTSensor::pin</definition>
+        <argsstring></argsstring>
+        <name>pin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/dht/src/dht.hpp" line="7" column="13" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/dht/src/dht.hpp" bodystart="7" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classDHTSensor_1abcf69115ab7bb660d0dff3618d489113" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>DHTSensor::DHTSensor</definition>
+        <argsstring>(int pin)</argsstring>
+        <name>DHTSensor</name>
+        <param>
+          <type>int</type>
+          <declname>pin</declname>
+        </param>
+        <briefdescription>
+<para>Construct a new <ref refid="classDHTSensor" kindref="compound">DHTSensor</ref> object. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pin</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>DHT11 pin </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/dht/src/dht.hpp" line="15" column="9" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/dht/src/dht.hpp" bodystart="15" bodyend="17"/>
+      </memberdef>
+      <memberdef kind="function" id="classDHTSensor_1a27315daa48138acbc74f5ba5d7fdea4e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>float</type>
+        <definition>float DHTSensor::getHumidity</definition>
+        <argsstring>()</argsstring>
+        <name>getHumidity</name>
+        <briefdescription>
+<para>Get the Humidity object. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>float Humidity value </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/dht/src/dht.hpp" line="24" column="15" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/dht/src/dht.hpp" bodystart="24" bodyend="26"/>
+      </memberdef>
+      <memberdef kind="function" id="classDHTSensor_1a29cf4b3cb0a0578ca18164e44fa24edc" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>float</type>
+        <definition>float DHTSensor::getTemperature</definition>
+        <argsstring>()</argsstring>
+        <name>getTemperature</name>
+        <briefdescription>
+<para>Get the Temperature object. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>float Temperature value </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/dht/src/dht.hpp" line="33" column="15" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/dht/src/dht.hpp" bodystart="33" bodyend="35"/>
+      </memberdef>
+      <memberdef kind="function" id="classDHTSensor_1a9985d82a04364cec6d944b89aebd3e6a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>float *</type>
+        <definition>float* DHTSensor::getValues</definition>
+        <argsstring>()</argsstring>
+        <name>getValues</name>
+        <briefdescription>
+<para>Get the Values object. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>float* Humidity and Temperature values </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/dht/src/dht.hpp" line="42" column="15" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/dht/src/dht.hpp" bodystart="42" bodyend="47"/>
+      </memberdef>
+      <memberdef kind="function" id="classDHTSensor_1a96b074c0c0a7b95010bc49303d94b62c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool DHTSensor::isCorrect_values</definition>
+        <argsstring>(float *values)</argsstring>
+        <name>isCorrect_values</name>
+        <param>
+          <type>float *</type>
+          <declname>values</declname>
+        </param>
+        <briefdescription>
+<para>Check if the values are correct. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>values</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Array of values </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>bool True if values are correct </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/dht/src/dht.hpp" line="55" column="14" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/dht/src/dht.hpp" bodystart="55" bodyend="57"/>
+      </memberdef>
+      <memberdef kind="function" id="classDHTSensor_1ab24536d847e43464e9560adbaf9f8931" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool DHTSensor::isReady</definition>
+        <argsstring>()</argsstring>
+        <name>isReady</name>
+        <briefdescription>
+<para>Check if the sensor is ready. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>bool True if the sensor is ready </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/dht/src/dht.hpp" line="64" column="14" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/dht/src/dht.hpp" bodystart="64" bodyend="66"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/dht/src/dht.hpp" line="4" column="1" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/dht/src/dht.hpp" bodystart="4" bodyend="67"/>
+    <listofallmembers>
+      <member refid="classDHTSensor_1a3c09e49456ce157ef648016660055b0f" prot="private" virt="non-virtual"><scope>DHTSensor</scope><name>dht_sen</name></member>
+      <member refid="classDHTSensor_1abcf69115ab7bb660d0dff3618d489113" prot="public" virt="non-virtual"><scope>DHTSensor</scope><name>DHTSensor</name></member>
+      <member refid="classDHTSensor_1a27315daa48138acbc74f5ba5d7fdea4e" prot="public" virt="non-virtual"><scope>DHTSensor</scope><name>getHumidity</name></member>
+      <member refid="classDHTSensor_1a29cf4b3cb0a0578ca18164e44fa24edc" prot="public" virt="non-virtual"><scope>DHTSensor</scope><name>getTemperature</name></member>
+      <member refid="classDHTSensor_1a9985d82a04364cec6d944b89aebd3e6a" prot="public" virt="non-virtual"><scope>DHTSensor</scope><name>getValues</name></member>
+      <member refid="classDHTSensor_1a96b074c0c0a7b95010bc49303d94b62c" prot="public" virt="non-virtual"><scope>DHTSensor</scope><name>isCorrect_values</name></member>
+      <member refid="classDHTSensor_1ab24536d847e43464e9560adbaf9f8931" prot="public" virt="non-virtual"><scope>DHTSensor</scope><name>isReady</name></member>
+      <member refid="classDHTSensor_1a962044c43751bdc02f5d2ff558086565" prot="private" virt="non-virtual"><scope>DHTSensor</scope><name>pin</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>
