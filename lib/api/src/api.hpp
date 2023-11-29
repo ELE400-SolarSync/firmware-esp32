@@ -13,7 +13,7 @@ class api_lib {
         /**
          * @brief Set the Host object (part of the resquestt with the data)
          * 
-         * @param host 
+         * @param host hostname
          */
         void setHost(String host) {
             this->host = host;
