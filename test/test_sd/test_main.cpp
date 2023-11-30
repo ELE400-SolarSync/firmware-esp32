@@ -3,7 +3,7 @@
 #include <SPI.h>
 #include "../lib/sd/src/sdcustom.hpp"
 
-SDCustom sd;
+SDCustom sd(16);
 
 void test_sd_insert(void)
 {
