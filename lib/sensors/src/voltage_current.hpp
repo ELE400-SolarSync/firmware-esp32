@@ -1,6 +1,13 @@
 #include <Arduino.h>
 
 class VoltageSensor {
+    private:
+    int pin;
+    const int adc_bits = 4095;
+    const int adc_max_voltage = 3.3;
+    const int voltage_sensor_multiplier = 5;
+    const int adc_correction_factor = 1.15;
+
   public:
     /**
      * @brief Construct a new Voltage Sensor object
@@ -35,16 +42,17 @@ class VoltageSensor {
     float readVoltage() {
         return adc_max_voltage * voltage_sensor_multiplier * read() / adc_bits;
     };
-
-  private:
-    int pin;
-    const int adc_bits = 4095;
-    const int adc_max_voltage = 3.3;
-    const int voltage_sensor_multiplier = 5;
-    const int adc_correction_factor = 1.15;
 };
 
 class CurrentSensor {
+    private:
+        int pin;
+        const int adc_bits = 4095;
+        const int adc_max_voltage = 3.3;
+        const int current_sensor_multiplier = 0.066;
+        const int adc_correction_factor = 1.15;
+        const int current_sensor_offset = 2.5;
+
     public:
         /**
          * @brief Construct a new Current Sensor object
@@ -76,15 +84,7 @@ class CurrentSensor {
          * 
          * @return float 
          */
-        float readCurrent(float param = current_sensor_offset) {
-            return ((adc_max_voltage * read() / adc_bits) - param) / current_sensor_multiplier;
+        float readCurrent() {
+            return ((adc_max_voltage * read() / adc_bits) - current_sensor_offset) / current_sensor_multiplier;
         };
-    
-    private:
-        int pin;
-        const int adc_bits = 4095;
-        const int adc_max_voltage = 3.3;
-        const int current_sensor_multiplier = 0.066;
-        const int adc_correction_factor = 1.15;
-        const int current_sensor_offset = 2.5;
 };
