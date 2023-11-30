@@ -51,7 +51,22 @@ void loop() {
   log_info[1] = log_info[1] + 2;
   Serial.println("Boot number: " + String(log_info[0]) + ", " + String(log_info[1]));
 
-  deepSleep(15);
+ 
+    case SLEEP:
+      time_to_sleep = time_period - (start - millis()) * 1000;
+
+      esp_sleep_enable_timer_wakeup(time_to_sleep * us_to_s_factor);
+      logger.info("SLEEP", "Time to sleep: " + String(time_to_sleep) + " seconds");
+      
+      // log_file = logger.getLogFile();
+      // old_log = logger.getOldLogFile();
+      log_file = 12;  
+      deepsleep(15);
+      break;
+    default:
+      logger.debug("DEFAULT", "DEFAULT state");
+      break;
+  }
 }
 
 /***********************************************************/
