@@ -30,7 +30,8 @@ class api_lib {
 
             response res;
 
-            String server_call = host + url;
+            String server_call = host + url + "/";
+
             http.begin((server_call).c_str());
 
             res.code = http.GET();
@@ -73,7 +74,7 @@ class api_lib {
             for(int i = 0; i < data_len; i++){
                 url = url + "&field" + i + "=" + String(data[i]);
             }
-            
+
             return getResponse(url);
         }
 };
