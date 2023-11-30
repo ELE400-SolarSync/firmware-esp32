@@ -6,24 +6,25 @@
 #include "../lib/log/src/log.hpp"
 #include "../lib/sensors/src/voltage_current.hpp"
 
-// Global Variables
-const int debug = false;
-
-// const int battery_current_pin = A6;
-// const int battery_voltage_pin = A7;
-
-// const int solar_current_pin = A2;
-// const int solar_voltage_pin = A3;
-
-const int current_pin_5v = A0;
-const int voltage_pin_5v = A1;
-
-// const int current_pin_12v = A0;
-// const int voltage_pin_12v = A1;
-
+/***********************************************************/
+/****************** Global variable ************************/
+/***********************************************************/
+// Voltage and current
 const int current_pin_12v = 32;
 const int voltage_pin_12v = 33;
 
+const int current_pin_5v = 34;
+const int voltage_pin_5v = 35;
+
+const int current_pin_solar = 36;
+const int voltage_pin_solar = 39;
+
+const int current_pin_battery = 25;
+const int voltage_pin_battery = 26;
+
+const int relay_pin = 27;
+
+// State machine
 enum state {
     INIT,
     CHECKING,
@@ -32,71 +33,68 @@ enum state {
     ERROR,
     SLEEP
 };
-
 state current_state = INIT;
 
-unsigned long int start;
-
-float data[3] = {1.0, 2.0, 3.0};
-
+// Debug
 bool show_data = false;
+const int sd_size = 32;
 
-const int dh11_pin = 4;             /* Pin where the DHT11 is connected */
-enum dht_data { hum, temp };        /* Indexes for the DHT11 values */
-float *dht_values;                  /* Array to store the DHT11 values */
+// DHT11
+const int dh11_pin = 4;
+enum dht_data { hum, temp };
+float *dht_values;
 
-const int us_to_s_factor = 1000000;  /* Conversion factor for micro seconds to seconds */
-int time_to_sleep = 5;        /* Time ESP32 will go to sleep (in seconds) */
+// Deep sleep
+unsigned long int start;
+const int us_to_s_factor = 1000000;
+int time_to_sleep = 5;
 const int time_period = 60;
 
-// Objects
-DHTSensor dht_sensor(dh11_pin);
-SDCustom sd(32);
-wifi_connection wifi("LakeLaogai", "thereisnowifiinbasingse");
+/***********************************************************/
+/********************* Objects *****************************/
+/***********************************************************/
+wifi_connection wifi("Siri-al_killer", "15112001");
 api_lib api;
+
+SDCustom sd(sd_size);
 myLogger logger(sd);
 
-// CurrentSensor current_battery(battery_current_pin);
-// VoltageSensor voltage_battery(battery_voltage_pin);
-
-// CurrentSensor current_solar(solar_current_pin);
-// VoltageSensor voltage_solar(solar_voltage_pin);
-
-CurrentSensor current_5v(current_pin_5v);
-VoltageSensor voltage_5v(voltage_pin_5v);
-
-// Can be used to store data in RTC memory during deep sleep
-RTC_DATA_ATTR int log_file = logger.getLogFile();
-RTC_DATA_ATTR int old_log = logger.getOldLogFile();
-
-// CurrentSensor current_battery(battery_current_pin);
-// VoltageSensor voltage_battery(battery_voltage_pin);
-
-CurrentSensor current_solar(solar_current_pin);
-VoltageSensor voltage_solar(solar_voltage_pin);
-
-CurrentSensor current_5v(current_pin_5v);
-VoltageSensor voltage_5v(voltage_pin_5v);
+DHTSensor dht_sensor(dh11_pin);
 
 CurrentSensor current_12v(current_pin_12v);
 VoltageSensor voltage_12v(voltage_pin_12v);
 
-// Prototypes
+// Can be used to store data in RTC memory during deep sleep
+RTC_DATA_ATTR int log_file = logger.getLogFile();
+// RTC_DATA_ATTR int old_log = logger.getOldLogFile();
+
+/***********************************************************/
+/********************* Prototype ***************************/
+/***********************************************************/
 void SerialEvent();
 String get_wakeup_reason();
 
-// Setup and Loop
+void setModemSleep();
+void wakeModemSleep();
+
+/***********************************************************/
+/****************** Setup and Looop ************************/
+/***********************************************************/
 void setup() {
   Serial.begin(115200);
+  Serial.println(log_file);
 
+  // Set up logger
   logger.setLogFile(log_file);
-  logger.setOldLogFile(old_log);
+  logger.setOldLogFile(0);
   logger.init(); 
-  
-  logger.debug("SETUP", "Wifi status : " + String(wifi.connect(10000)));
-  
+  logger.setLevel(myLogger::level_t::DEBUG);
+
   logger.disableLoggingInSD();
   logger.enableLoggingInMonitor();
+  
+  // Set up wifi
+  logger.debug("SETUP", "Wifi status : " + String(wifi.connect(10000)));
 
   wifi.connect(10000);
   api.setHost("https://api.thingspeak.com/update?api_key=72ZH5DA3WVKUD5R5");
@@ -105,17 +103,11 @@ void setup() {
   esp_sleep_enable_timer_wakeup(time_to_sleep * us_to_s_factor);
   logger.info("SETUP", "Wakeup reason : " + get_wakeup_reason());
 
-  // current_battery.setup();
-  // voltage_battery.setup();
+  // Setup sensors
+  current_12v.setup();
+  voltage_12v.setup();
 
-  // current_solar.setup();
-  // voltage_solar.setup();
-
-  current_5v.setup();
-  voltage_5v.setup();
-
-  // current_12v.setup();
-  // voltage_12v.setup();
+  current_state = CHECKING;
 }
 
 // pins choice:
@@ -126,9 +118,9 @@ void setup() {
 // A4 -> relay 3
 
 // relay choice
-    // 1 : voltage bat/5v
-    // 2 : current solar cell/12V
-    // 3 : current bat/5V
+  // 1 : voltage bat/5v
+  // 2 : current solar cell/12V
+  // 3 : current bat/5V
 
 // step 1:
 // switch for reading solar cell/battery
@@ -141,21 +133,26 @@ void setup() {
 // read 12V
 
 void loop() {
+  setModemSleep();
   SerialEvent();
 
   start = millis();
 
   switch (current_state) {
+    case CHECKING:
       {
         logger.info("CHECKING", "CHECKING");
         if (!sd.isSDInserted()) {
           logger.disableLoggingInSD();
+          logger.error("CHECKING", "SD Card is not inserted");
         }
         else {
           logger.enableLoggingInSD();
-          logger.warning("CHECKING", "SD Card is inserted");
+          logger.debug("CHECKING", "SD Card is inserted");
         }
+
         if (wifi.isConnected()) {
+          logger.debug("CHECKING", "Wifi is connected");
           current_state = FETCHING;
         }
         else {
@@ -175,7 +172,7 @@ void loop() {
           current_state = ERROR;
         }
         else {
-          logger.info("FETCHING", "DHT11 values are correct");
+          logger.debug("FETCHING", "DHT11 values are correct");
           current_state = SENDING;
         }
         break;
@@ -184,6 +181,8 @@ void loop() {
     case SENDING:
       {
         logger.info("SENDING", "SENDING");
+        float *data;
+
         data[0] = dht_values[temp];
         data[1] = dht_values[hum];
         api_lib::response res;
@@ -208,19 +207,23 @@ void loop() {
       esp_sleep_enable_timer_wakeup(time_to_sleep * us_to_s_factor);
       logger.info("SLEEP", "Time to sleep: " + String(time_to_sleep) + " seconds");
       
+      // log_file = logger.getLogFile();
+      // old_log = logger.getOldLogFile();
+      log_file = 12;
+      wifi.disconnect();
+      esp_wifi_stop();
       esp_deep_sleep_start();
       // esp_light_sleep_start();
-
-      // delay(time_to_sleep * 1000);
-      current_state = CHECKING;
       break;
     default:
-      logger.info("DEFAULT", "DEFAULT state");
+      logger.debug("DEFAULT", "DEFAULT state");
       break;
   }
 }
 
-// Functions
+/***********************************************************/
+/********************* Functions ***************************/
+/***********************************************************/
 void SerialEvent() {
   while (Serial.available()) {
     String inChar = Serial.readString();
@@ -255,4 +258,17 @@ String get_wakeup_reason(){
   }
 
   return reason;
+}
+
+void setModemSleep() {
+    WiFi.setSleep(true);
+    if (!setCpuFrequencyMhz(40)){
+        Serial2.println("Not valid frequency!");
+    }
+    // Use this if 40Mhz is not supported
+    // setCpuFrequencyMhz(80);
+}
+
+void wakeModemSleep() {
+    setCpuFrequencyMhz(240);
 }
