@@ -12,6 +12,8 @@ const int us_to_s_factor = 1000000;
 int time_to_sleep = 5;
 const int time_period = 60;
 
+RTC_DATA_ATTR int log_info[2] = {0, 0};
+
 /***********************************************************/
 /********************* Objects *****************************/
 /***********************************************************/
@@ -34,16 +36,20 @@ void setup() {
 
   wifi.connect(20);
 
-  Serial.print("Wifi  status:");
+  Serial.print("Wifi  status: ");
   Serial.println(wifi.getStatus());
 
   api.setHost("https://api.thingspeak.com/update?api_key=72ZH5DA3WVKUD5R5");
 }
 
 void loop() {
-  float data[1] = {1.0};
-  api_lib::response res = api.sendAll(data, 1);
-  Serial.println(res.data);
+  // float data[1] = {1.0};
+  // api_lib::response res = api.sendAll(data, 1);
+  // Serial.println(res.data);
+
+  log_info[0] = log_info[0] + 1;
+  log_info[1] = log_info[1] + 2;
+  Serial.println("Boot number: " + String(log_info[0]) + ", " + String(log_info[1]));
 
   deepSleep(15);
 }
