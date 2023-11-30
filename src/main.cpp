@@ -1,10 +1,48 @@
 #include <Arduino.h>
 #include "../lib/api/src/api.hpp"
 #include "../lib/wifi/src/wifi.hpp"
+#include "../lib/sd/src/sdcustom.hpp"
+#include "../lib/log/src/log.hpp"
+#include "../lib/sensors/src/voltage_current.hpp"
+#include "../lib/sensors/src/dht.hpp"
 
 /***********************************************************/
 /****************** Global variable ************************/
 /***********************************************************/
+// Voltage and current
+const int current_pin_12v = 32;
+const int voltage_pin_12v = 33;
+
+const int current_pin_5v = 34;
+const int voltage_pin_5v = 35;
+
+const int current_pin_solar = 36;
+const int voltage_pin_solar = 39;
+
+const int current_pin_battery = 25;
+const int voltage_pin_battery = 26;
+
+const int relay_pin = 27;
+
+// State machine
+enum state {
+    INIT,
+    CHECKING,
+    FETCHING,
+    SENDING,
+    ERROR,
+    SLEEP
+};
+state current_state = INIT;
+
+// Debug
+bool show_data = false;
+const int sd_size = 32;
+
+// DHT11
+const int dh11_pin = 4;
+enum dht_data { hum, temp };
+float *dht_values;
 
 // Deep sleep
 unsigned long int start;
@@ -20,59 +58,156 @@ RTC_DATA_ATTR int log_info[2] = {0, 0};
 wifi_connection wifi("Siri-al_killer", "15112001");
 api_lib api;
 
+SDCustom sd(sd_size);
+myLogger logger(sd);
+
+DHTSensor dht_sensor(dh11_pin);
+
+CurrentSensor current_12v(current_pin_12v);
+VoltageSensor voltage_12v(voltage_pin_12v);
+
 /***********************************************************/
 /********************* Prototype ***************************/
 /***********************************************************/
 void deepSleep(int sleepTime);
 String get_wakeup_reason();
+void SerialEvent();
 
 /***********************************************************/
 /****************** Setup and Looop ************************/
 /***********************************************************/
-HTTPClient http;
 void setup() {
   Serial.begin(115200);
-  Serial.println(get_wakeup_reason());
 
-  wifi.connect(20);
+  // Set up logger
+  logger.setLogFile(log_info[0]);
+  logger.setOldLogFile(log_info[1]);
+  logger.setOldLogFile(0);
+  logger.init(); 
+  logger.setLevel(myLogger::level_t::DEBUG);
 
-  Serial.print("Wifi  status: ");
-  Serial.println(wifi.getStatus());
+  logger.disableLoggingInSD();
+  logger.enableLoggingInMonitor();
+  
+  // Set up wifi
+  logger.debug("SETUP", "Wifi status : " + String(wifi.connect(10000)));
 
+  wifi.connect(10000);
   api.setHost("https://api.thingspeak.com/update?api_key=72ZH5DA3WVKUD5R5");
+
+  // Set up deep sleep
+  logger.info("SETUP", "Wakeup reason : " + get_wakeup_reason());
+
+  // Setup sensors
+  current_12v.setup();
+  voltage_12v.setup();
+
+  current_state = CHECKING;
 }
 
-void loop() {
-  // float data[1] = {1.0};
-  // api_lib::response res = api.sendAll(data, 1);
-  // Serial.println(res.data);
+void loop() 
+{
+  SerialEvent();
 
-  log_info[0] = log_info[0] + 1;
-  log_info[1] = log_info[1] + 2;
-  Serial.println("Boot number: " + String(log_info[0]) + ", " + String(log_info[1]));
+  start = millis();
 
- 
+  switch (current_state) {
+    case CHECKING:
+      {
+        logger.info("CHECKING", "CHECKING");
+        if (!sd.isSDInserted()) {
+          logger.disableLoggingInSD();
+          logger.error("CHECKING", "SD Card is not inserted");
+        }
+        else {
+          logger.enableLoggingInSD();
+          logger.debug("CHECKING", "SD Card is inserted");
+        }
+
+        if (wifi.isConnected()) {
+          logger.debug("CHECKING", "Wifi is connected");
+          current_state = FETCHING;
+        }
+        else {
+          logger.error("CHECKING", "Wifi is not connected");
+          current_state = ERROR;
+        }
+        break;
+      }
+
+    case FETCHING:
+      {
+        logger.info("FETCHING", "FETCHING");
+        dht_values = dht_sensor.getValues();
+        
+        if (dht_sensor.isCorrect_values(dht_values)) {
+          logger.error("FETCHING", "DHT11 values are incorrect");
+          current_state = ERROR;
+        }
+        else {
+          logger.debug("FETCHING", "DHT11 values are correct");
+          current_state = SENDING;
+        }
+        break;
+      }
+
+    case SENDING:
+      {
+        logger.info("SENDING", "SENDING");
+        float *data;
+
+        data[0] = dht_values[temp];
+        data[1] = dht_values[hum];
+        api_lib::response res;
+        res = api.sendAll(data, sizeof(data)/sizeof(float));
+        if (res.code == 200) {
+          logger.debug("SENDING", "Return message : " + res.data);
+          current_state = SLEEP;
+        }
+        break;
+      }
+
+    case ERROR:
+      {
+        logger.info("ERROR", "ERROR state");
+        current_state = SLEEP;
+        break;
+      }
+
     case SLEEP:
+    {
       time_to_sleep = time_period - (start - millis()) * 1000;
 
       esp_sleep_enable_timer_wakeup(time_to_sleep * us_to_s_factor);
       logger.info("SLEEP", "Time to sleep: " + String(time_to_sleep) + " seconds");
       
-      // log_file = logger.getLogFile();
-      // old_log = logger.getOldLogFile();
-      log_file = 12;  
-      deepsleep(15);
+      log_info[0] = logger.getLogFile();
+      log_info[1] = logger.getOldLogFile();
+      deepSleep(time_to_sleep);
       break;
     default:
       logger.debug("DEFAULT", "DEFAULT state");
       break;
+    }
   }
 }
 
 /***********************************************************/
 /********************* Functions ***************************/
 /***********************************************************/
-String get_wakeup_reason(){
+void SerialEvent() {
+  while (Serial.available()) {
+    String inChar = Serial.readString();
+    if (inChar.indexOf("date") != -1) {
+      Serial.println("lol");
+    }
+    if(inChar.indexOf("show_data") != -1){
+      show_data = !show_data;
+    }
+  }
+}
+
+String get_wakeup_reason() {
   esp_sleep_wakeup_cause_t wakeup_reason;
 
   wakeup_reason = esp_sleep_get_wakeup_cause();
