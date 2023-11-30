@@ -4,8 +4,8 @@
 #include "../lib/wifi/src/wifi.hpp"
 
 const String api_url = "https://randomuser.me/api/";
-const String wifi_ssid = "LakeLaogai";
-const String wifi_password = "thereisnowifiinbasingse";
+const String wifi_ssid = "Siri-al_killer";
+const String wifi_password = "15112001";
 
 wifi_connection wifi(wifi_ssid, wifi_password);
 

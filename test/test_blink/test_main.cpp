@@ -1,7 +1,7 @@
 #include <Arduino.h>
 #include <unity.h>
 
-const int LED_BUILTIN = 2;
+const int LED = 8;
 
 void setUp(void)
 {
@@ -15,19 +15,19 @@ void tearDown(void)
 
 void test_led_builtin_pin_number(void)
 {
-  TEST_ASSERT_EQUAL(2, LED_BUILTIN);
+  TEST_ASSERT_EQUAL(8, LED);
 }
 
 void test_led_state_high(void)
 {
-  digitalWrite(LED_BUILTIN, HIGH);
-  TEST_ASSERT_EQUAL(HIGH, digitalRead(LED_BUILTIN));
+  digitalWrite(LED, HIGH);
+  TEST_ASSERT_EQUAL(HIGH, digitalRead(LED));
 }
 
 void test_led_state_low(void)
 {
-  digitalWrite(LED_BUILTIN, LOW);
-  TEST_ASSERT_EQUAL(LOW, digitalRead(LED_BUILTIN));
+  digitalWrite(LED, LOW);
+  TEST_ASSERT_EQUAL(LOW, digitalRead(LED));
 }
 
 void setup()
@@ -36,7 +36,7 @@ void setup()
   // if board doesn't support software reset via Serial.DTR/RTS
   delay(2000);
 
-  pinMode(LED_BUILTIN, OUTPUT);
+  pinMode(LED, OUTPUT);
 
   UNITY_BEGIN(); // IMPORTANT LINE!
   RUN_TEST(test_led_builtin_pin_number);
