@@ -53,7 +53,7 @@ class DHTSensor {
          * @return bool True if values are correct
          */
         bool isCorrect_values(float *values) {
-            return isnan(values[0]) && isnan(values[1]);
+            return !(isnan(values[0]) || isnan(values[1]));
         }
 
         /**
