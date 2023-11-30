@@ -210,8 +210,6 @@ void loop() {
       // log_file = logger.getLogFile();
       // old_log = logger.getOldLogFile();
       log_file = 12;
-      wifi.disconnect();
-      esp_wifi_stop();
       esp_deep_sleep_start();
       // esp_light_sleep_start();
       break;
