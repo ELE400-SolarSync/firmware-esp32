@@ -35,12 +35,12 @@ class wifi_connection {
             return WiFi.isConnected();
         }
 
-/**
- * @brief Connect to the wifi
- * 
- * @param timeout_ms time to wait for the wifi to connect
- * @return bool time to wait for the wifi to connect 
- */
+        /**
+         * @brief Connect to the wifi
+         * 
+         * @param timeout_ms time to wait for the wifi to connect
+         * @return bool time to wait for the wifi to connect 
+         */
         bool connect(int timeout_ms) {
             unsigned long start = millis();
 
@@ -55,5 +55,9 @@ class wifi_connection {
             }
 
             return WiFi.status() == WL_CONNECTED;
-        }        
+        }
+
+        bool disconnect() {
+            return WiFi.disconnect();
+        }      
 };
