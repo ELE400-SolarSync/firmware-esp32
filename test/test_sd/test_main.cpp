@@ -24,8 +24,8 @@ void test_sd_reading(void)
   if(sd.fileExists("esp32.txt")) {
     sd.deleteFile("esp32.txt");
   }
-  sd.writeFile("esp32.txt", "Hello World");
-  TEST_ASSERT_EQUAL_STRING("Hello World\r\n", sd.readFile("esp32.txt").c_str());
+  sd.writeFile("esp32.txt", "Hello World!");
+  TEST_ASSERT_EQUAL_STRING("Hello World!\r\n", sd.readFile("esp32.txt").c_str());
 }
 
 void setup()
