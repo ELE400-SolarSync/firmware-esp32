@@ -24,3 +24,4 @@ sphinxcontrib-serializinghtml==1.1.9
 typeguard==4.1.5
 typing_extensions==4.8.0
 urllib3==2.1.0
+breathe==4.35.0
