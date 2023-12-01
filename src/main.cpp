@@ -6,23 +6,33 @@
 #include "../lib/sensors/src/voltage_current.hpp"
 #include "../lib/sensors/src/dht.hpp"
 
+#include "esp_wifi.h"
+
 /***********************************************************/
 /****************** Global variable ************************/
 /***********************************************************/
 // Voltage and current
-const int current_pin_12v = 32;
-const int voltage_pin_12v = 33;
+const int current_pin_12v = A2;
+const int voltage_pin_12v = A1;
 
-const int current_pin_5v = 34;
-const int voltage_pin_5v = 35;
+const int current_pin_5v = A3;
+const int voltage_pin_5v = A4;
 
-const int current_pin_solar = 36;
-const int voltage_pin_solar = 39;
+const int current_pin_solar = A2;
+const int voltage_pin_solar = A0;
 
-const int current_pin_battery = 25;
-const int voltage_pin_battery = 26;
+const int current_pin_battery = A3;
+const int voltage_pin_battery = A4;
 
-const int relay_pin = 27;
+const int relay_pin = 9;
+
+enum v_c_data { v_12v, c_12v, v_5v, c_5v, v_solar, c_solar, v_battery, c_battery };
+float *v_c_values;
+
+enum pow_data { p_12v, p_5v, p_solar, p_battery };
+float *pow_values;
+
+float bat_level;
 
 // State machine
 enum state {
@@ -65,6 +75,15 @@ DHTSensor dht_sensor(dh11_pin);
 
 CurrentSensor current_12v(current_pin_12v);
 VoltageSensor voltage_12v(voltage_pin_12v);
+
+CurrentSensor current_5v(current_pin_5v);
+VoltageSensor volatage_5v(voltage_pin_5v);
+
+CurrentSensor current_solar(current_pin_solar);
+VoltageSensor voltage_solar(voltage_pin_solar);
+
+CurrentSensor current_battery(current_pin_battery);
+VoltageSensor voltage_battery(voltage_pin_battery);
 
 /***********************************************************/
 /********************* Prototype ***************************/
@@ -138,7 +157,29 @@ void loop()
     case FETCHING:
       {
         logger.info("FETCHING", "FETCHING");
+
         dht_values = dht_sensor.getValues();
+
+        digitalWrite(relay_pin, LOW);
+        delay(500);
+        v_c_values[c_12v] = current_12v.readCurrent();
+        v_c_values[v_12v] = voltage_12v.readVoltage();
+        v_c_values[c_solar] = current_solar.readCurrent();
+        v_c_values[v_solar] = voltage_solar.readVoltage();
+
+        digitalWrite(relay_pin, HIGH);
+        delay(500);
+        v_c_values[v_5v] = volatage_5v.readVoltage();
+        v_c_values[v_battery] = voltage_battery.readVoltage();
+        v_c_values[c_5v] = current_5v.readCurrent();
+        v_c_values[c_battery] = current_battery.readCurrent();
+
+        pow_values[p_12v] = v_c_values[c_12v] * v_c_values[v_12v];
+        pow_values[p_solar] = v_c_values[c_solar] * v_c_values[v_solar];
+        pow_values[p_5v] = v_c_values[c_5v] * v_c_values[v_5v];
+        pow_values[p_battery] = v_c_values[c_battery] * v_c_values[v_battery];
+
+        bat_level = current_battery.getBatLevel(v_c_values[c_battery], v_c_values[v_battery]);
         
         if (dht_sensor.isCorrect_values(dht_values)) {
           logger.error("FETCHING", "DHT11 values are incorrect");
@@ -154,10 +195,12 @@ void loop()
     case SENDING:
       {
         logger.info("SENDING", "SENDING");
+
         float *data;
 
         data[0] = dht_values[temp];
         data[1] = dht_values[hum];
+
         api_lib::response res;
         res = api.sendAll(data, sizeof(data)/sizeof(float));
         if (res.code == 200) {
