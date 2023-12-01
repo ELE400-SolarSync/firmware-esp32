@@ -22,7 +22,7 @@ This project is an ESP32 firmware designed to fetch data from a solar panel sens
 
 ### Installation
 
-1. Clone this repository to your local machine.
+1. Clone this repository to your local machine
 
     ```bash
     git clone https://github.com/ELE400-SolarSync/firmware-esp32.git
