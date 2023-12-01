@@ -8,6 +8,7 @@ SolarSync Documentation
   src/installation
   src/modules
   src/usage
+  src/hardware
 
 Firmware Documentation for Solar-Powered IoT Device
 ===================================================
