@@ -13,10 +13,10 @@ class api_lib {
             String data;
         };
 
-        void setHost(String host) {};
-        response getResponse(String url) {};
-        int getCode(String url) {};
-        response sendAll(float data[], size_t data_len) {};
+        void setHost(String host);
+        response getResponse(String url);
+        int getCode(String url);
+        response sendAll(float data[], size_t data_len);
         
 };
 

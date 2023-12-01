@@ -15,7 +15,7 @@ void api_lib::setHost(String host) {
  * @param url string to complete the host
  * @return String string return of the api call
  */
-response api_lib::getResponse(String url) {
+api_lib::response api_lib::getResponse(String url) {
     HTTPClient http;
 
     response res;
@@ -58,7 +58,7 @@ int api_lib::getCode(String url) {
  * @param data_len length of the data
  * @return int code return by the api call
  */
-response api_lib::sendAll(float data[], size_t data_len){
+api_lib::response api_lib::sendAll(float data[], size_t data_len){
     String url;
 
     for(int i = 0; i < data_len; i++){
