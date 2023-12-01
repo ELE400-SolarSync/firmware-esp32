@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['voltagesensor_48',['VoltageSensor',['../classVoltageSensor.html',1,'']]]
+  ['voltagesensor_50',['VoltageSensor',['../classVoltageSensor.html',1,'']]]
 ];

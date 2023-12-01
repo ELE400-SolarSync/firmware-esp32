@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>SolarSync: /home/pierr/Documents/ETS/ele400/firmware-esp32/lib/dht/src/dht.hpp Source File</title>
+<title>SolarSync: /home/pierr/Documents/ETS/ele400/firmware-esp32/lib/sensors/src/dht.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -62,7 +62,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_97aefd0d527b934f1d99a682da8fe6a9.html">lib</a></li><li class="navelem"><a class="el" href="dir_558e145bb65385bc95d2a1d9b795e566.html">dht</a></li><li class="navelem"><a class="el" href="dir_fc2902e240ca1e587473f7ac5f28b30d.html">src</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_97aefd0d527b934f1d99a682da8fe6a9.html">lib</a></li><li class="navelem"><a class="el" href="dir_8e8d3f8a7229d305c4a382105247b2c4.html">sensors</a></li><li class="navelem"><a class="el" href="dir_86ba89456099fea6e81eaf35d59178b3.html">src</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -99,7 +99,7 @@ $(function() {
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        }</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
 <div class="line"><a name="l00055"></a><span class="lineno"><a class="line" href="classDHTSensor.html#a96b074c0c0a7b95010bc49303d94b62c">   55</a></span>&#160;        <span class="keywordtype">bool</span> <a class="code" href="classDHTSensor.html#a96b074c0c0a7b95010bc49303d94b62c">isCorrect_values</a>(<span class="keywordtype">float</span> *values) {</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;            <span class="keywordflow">return</span> isnan(values[0]) &amp;&amp; isnan(values[1]);</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;            <span class="keywordflow">return</span> !(isnan(values[0]) || isnan(values[1]));</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        }</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
 <div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="classDHTSensor.html#ab24536d847e43464e9560adbaf9f8931">   64</a></span>&#160;        <span class="keywordtype">bool</span> <a class="code" href="classDHTSensor.html#ab24536d847e43464e9560adbaf9f8931">isReady</a>() {</div>

@@ -32,7 +32,7 @@
 <sect2 id="md__home_pierr_Documents_ETS_ele400_firmware_esp32_README_1autotoc_md8">
 <title>Installation</title>
 <para><orderedlist>
-<listitem><para>Clone this repository to your local machine.</para>
+<listitem><para>Clone this repository to your local machine</para>
 <para>```bash git clone <ulink url="https://github.com/ELE400-SolarSync/firmware-esp32.git">https://github.com/ELE400-SolarSync/firmware-esp32.git</ulink> ```</para>
 </listitem><listitem><para>Upload the firmware to your ESP32 device using PlatformIO.</para>
 <para>```bash pio run -t upload ```</para>

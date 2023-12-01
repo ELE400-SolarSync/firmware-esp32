@@ -31,7 +31,7 @@
 <codeline></codeline>
 <codeline><highlight class="normal">###<sp/>Installation</highlight></codeline>
 <codeline></codeline>
-<codeline><highlight class="normal">1.<sp/>Clone<sp/>this<sp/>repository<sp/>to<sp/>your<sp/>local<sp/>machine.</highlight></codeline>
+<codeline><highlight class="normal">1.<sp/>Clone<sp/>this<sp/>repository<sp/>to<sp/>your<sp/>local<sp/>machine</highlight></codeline>
 <codeline></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>```bash</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>git<sp/>clone<sp/>https://github.com/ELE400-SolarSync/firmware-esp32.git</highlight></codeline>

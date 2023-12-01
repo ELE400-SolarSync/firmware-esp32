@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="myNeoPixel_8cpp" kind="file" language="C++">
+    <compoundname>myNeoPixel.cpp</compoundname>
+    <includes refid="myNeoPixel_8hpp" local="yes">myNeoPixel.hpp</includes>
+    <incdepgraph>
+      <node id="1">
+        <label>/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/led/src/myNeoPixel.cpp</label>
+        <link refid="myNeoPixel_8cpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>Arduino.h</label>
+      </node>
+      <node id="2">
+        <label>myNeoPixel.hpp</label>
+        <link refid="myNeoPixel_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>Adafruit_NeoPixel.h</label>
+      </node>
+    </incdepgraph>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&quot;myNeoPixel.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal">MyNeoPixel::MyNeoPixel()<sp/>:<sp/>strip(1,<sp/>8,<sp/>NEO_GRB<sp/>+<sp/>NEO_KHZ800)<sp/>{}</highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>MyNeoPixel::begin()<sp/>{</highlight></codeline>
+<codeline lineno="6"><highlight class="normal"><sp/><sp/>strip.begin();</highlight></codeline>
+<codeline lineno="7"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>MyNeoPixel::setGreen(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>brightness)<sp/>{</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"><sp/><sp/>strip.setPixelColor(0,<sp/>strip.Color(0,<sp/>brightness,<sp/>0));</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"><sp/><sp/>strip.show();</highlight></codeline>
+<codeline lineno="12"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>MyNeoPixel::setRed(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>brightness)<sp/>{</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/>strip.setPixelColor(0,<sp/>strip.Color(brightness,<sp/>0,<sp/>0));</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/>strip.show();</highlight></codeline>
+<codeline lineno="17"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>MyNeoPixel::setBlue(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>brightness)<sp/>{</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/>strip.setPixelColor(0,<sp/>strip.Color(0,<sp/>0,<sp/>brightness));</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/>strip.show();</highlight></codeline>
+<codeline lineno="22"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/led/src/myNeoPixel.cpp"/>
+  </compounddef>
+</doxygen>

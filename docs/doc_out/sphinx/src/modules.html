@@ -7,6 +7,7 @@
   <title>Modules &mdash; Python  documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/solarsync_favicon.png"/>
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -27,12 +28,13 @@
   <div class="wy-grid-for-nav">
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
+        <div class="wy-side-nav-search"  style="background: #829F93" >
 
           
           
-          <a href="../index.html" class="icon icon-home">
-            Python
+          <a href="../index.html">
+            
+              <img src="../_static/solarsync_logo.png" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -120,7 +122,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#_CPPv4N13CurrentSensor13CurrentSensorEi"><code class="docutils literal notranslate"><span class="pre">CurrentSensor::CurrentSensor()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#_CPPv4N13CurrentSensor5setupEv"><code class="docutils literal notranslate"><span class="pre">CurrentSensor::setup()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#_CPPv4N13CurrentSensor4readEv"><code class="docutils literal notranslate"><span class="pre">CurrentSensor::read()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N13CurrentSensor11readCurrentEi"><code class="docutils literal notranslate"><span class="pre">CurrentSensor::readCurrent()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N13CurrentSensor11readCurrentEv"><code class="docutils literal notranslate"><span class="pre">CurrentSensor::readCurrent()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -128,13 +130,14 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="manuel.html">Manuel</a></li>
 </ul>
 
         </div>
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #829F93" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">Python</a>
       </nav>
@@ -249,7 +252,7 @@
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N15wifi_connection7connectEi">
-<span id="_CPPv3N15wifi_connection7connectEi"></span><span id="_CPPv2N15wifi_connection7connectEi"></span><span id="wifi_connection::connect__i"></span><span class="target" id="classwifi__connection_1a52afbfc28143e9cc24a8a7c0d7cadf02"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">connect</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">timeout_ms</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N15wifi_connection7connectEi" title="Link to this definition"></a><br /></dt>
+<span id="_CPPv3N15wifi_connection7connectEi"></span><span id="_CPPv2N15wifi_connection7connectEi"></span><span id="wifi_connection::connect__i"></span><span class="target" id="classwifi__connection_1a33816fba6968e02098085e7d6c52708b"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">connect</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">max_attempts</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N15wifi_connection7connectEi" title="Link to this definition"></a><br /></dt>
 <dd><p>Connect to the wifi. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -606,7 +609,7 @@
 <dd><p>Read the raw value from the pin. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float Value between 0 and 1023 </p>
+<dd class="field-odd"><p>float Value between 0 and 4095 </p>
 </dd>
 </dl>
 </dd></dl>
@@ -656,14 +659,14 @@
 <dd><p>Read the raw value from the pin. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float Value between 0 and 1023 </p>
+<dd class="field-odd"><p>float Value between 0 and 4095 </p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N13CurrentSensor11readCurrentEi">
-<span id="_CPPv3N13CurrentSensor11readCurrentEi"></span><span id="_CPPv2N13CurrentSensor11readCurrentEi"></span><span id="CurrentSensor::readCurrent__i"></span><span class="target" id="classCurrentSensor_1a19eee861e65982b0603f85898e83e621"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">readCurrent</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">param</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">2.5</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N13CurrentSensor11readCurrentEi" title="Link to this definition"></a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N13CurrentSensor11readCurrentEv">
+<span id="_CPPv3N13CurrentSensor11readCurrentEv"></span><span id="_CPPv2N13CurrentSensor11readCurrentEv"></span><span id="CurrentSensor::readCurrent"></span><span class="target" id="classCurrentSensor_1a3441c04ba6860118f8ceb9e34611b3c4"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">readCurrent</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N13CurrentSensor11readCurrentEv" title="Link to this definition"></a><br /></dt>
 <dd><p>Read the current from the pin. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -689,7 +692,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright .</p>
+    <p>&#169; Copyright - 2023 SolarSync.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

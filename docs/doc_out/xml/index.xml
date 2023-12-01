@@ -9,10 +9,15 @@
   </compound>
   <compound refid="classCurrentSensor" kind="class"><name>CurrentSensor</name>
     <member refid="classCurrentSensor_1ae00b7dfc694bc5e33615e30d721bcc42" kind="variable"><name>pin</name></member>
+    <member refid="classCurrentSensor_1a034ddeef640cf4cecc259d8c5215b581" kind="variable"><name>adc_bits</name></member>
+    <member refid="classCurrentSensor_1a2c2083152cd69c4dd61baff041b7ad5d" kind="variable"><name>adc_max_voltage</name></member>
+    <member refid="classCurrentSensor_1ae1f929bbe5895c0f32d76e4ac7bb45c5" kind="variable"><name>current_sensor_multiplier</name></member>
+    <member refid="classCurrentSensor_1a7810a21e502a156a14a30f0682e5dab4" kind="variable"><name>adc_correction_factor</name></member>
+    <member refid="classCurrentSensor_1a9ddb7841c1eb8ddb934415f450bc7e3d" kind="variable"><name>current_sensor_offset</name></member>
     <member refid="classCurrentSensor_1ae0c137c14b003c82684f3d5928a01d61" kind="function"><name>CurrentSensor</name></member>
     <member refid="classCurrentSensor_1a8ae1886601163983335879062e8a96b9" kind="function"><name>setup</name></member>
     <member refid="classCurrentSensor_1aa76c3de3b58eddefed70f813c8d9bb63" kind="function"><name>read</name></member>
-    <member refid="classCurrentSensor_1a19eee861e65982b0603f85898e83e621" kind="function"><name>readCurrent</name></member>
+    <member refid="classCurrentSensor_1a3441c04ba6860118f8ceb9e34611b3c4" kind="function"><name>readCurrent</name></member>
   </compound>
   <compound refid="classDHTSensor" kind="class"><name>DHTSensor</name>
     <member refid="classDHTSensor_1a3c09e49456ce157ef648016660055b0f" kind="variable"><name>dht_sen</name></member>
@@ -66,6 +71,14 @@
     <member refid="classmyLogger_1ae45b9bf34211c752ecf50d55f6f3588b" kind="function"><name>deleteOldestFile</name></member>
     <member refid="classmyLogger_1aff9c31db40b2335c966f452ef7706e37" kind="function"><name>createNewFile</name></member>
   </compound>
+  <compound refid="classMyNeoPixel" kind="class"><name>MyNeoPixel</name>
+    <member refid="classMyNeoPixel_1aa326416680c797afe9746c0cf33bb55e" kind="variable"><name>strip</name></member>
+    <member refid="classMyNeoPixel_1a8d27e1db73aa21aadae1c735f16631db" kind="function"><name>MyNeoPixel</name></member>
+    <member refid="classMyNeoPixel_1a63e839f063598cbcde6f975dd485d9e5" kind="function"><name>begin</name></member>
+    <member refid="classMyNeoPixel_1a0b9a08d4ddf7e550abe9432bfeb449b6" kind="function"><name>setGreen</name></member>
+    <member refid="classMyNeoPixel_1a0c7fc2f4e4a9315e7acc71bd7b7a812e" kind="function"><name>setRed</name></member>
+    <member refid="classMyNeoPixel_1abaa0b01eb338d9fe9e1f0730f4e07dd3" kind="function"><name>setBlue</name></member>
+  </compound>
   <compound refid="structapi__lib_1_1response" kind="struct"><name>api_lib::response</name>
     <member refid="structapi__lib_1_1response_1a7c13b9ae968039f142e7e45ff60c1d14" kind="variable"><name>code</name></member>
     <member refid="structapi__lib_1_1response_1af49d5d3fbd1115eb621ac3c79c4316ae" kind="variable"><name>data</name></member>
@@ -91,6 +104,10 @@
   </compound>
   <compound refid="classVoltageSensor" kind="class"><name>VoltageSensor</name>
     <member refid="classVoltageSensor_1ad8aca7cae50226a54b0559f385b79ab9" kind="variable"><name>pin</name></member>
+    <member refid="classVoltageSensor_1ac057321a9880b364fc7a5945df15f000" kind="variable"><name>adc_bits</name></member>
+    <member refid="classVoltageSensor_1ad52e4101e3cef64346860c5454529d89" kind="variable"><name>adc_max_voltage</name></member>
+    <member refid="classVoltageSensor_1a5de9205abd86f5585ef041ad4c1cc143" kind="variable"><name>voltage_sensor_multiplier</name></member>
+    <member refid="classVoltageSensor_1ade929b270602776c982a850a04271812" kind="variable"><name>adc_correction_factor</name></member>
     <member refid="classVoltageSensor_1a4bf70c1dcefabfbf22d0e9507e4856fc" kind="function"><name>VoltageSensor</name></member>
     <member refid="classVoltageSensor_1a33fcc58d10cb07ac560f1e65476895cb" kind="function"><name>setup</name></member>
     <member refid="classVoltageSensor_1a1d75b018df31ff876f43aac2ad92b2fe" kind="function"><name>read</name></member>
@@ -105,7 +122,9 @@
     <member refid="classwifi__connection_1acc6036c49974f5fdba7c76ea5987944b" kind="function"><name>getIP</name></member>
     <member refid="classwifi__connection_1ac88d5e9c734f8dd272cfc05a4c6bda08" kind="function"><name>getStatus</name></member>
     <member refid="classwifi__connection_1ab19d4ae507d1c5f570747d5ba9f9b0a8" kind="function"><name>isConnected</name></member>
-    <member refid="classwifi__connection_1a52afbfc28143e9cc24a8a7c0d7cadf02" kind="function"><name>connect</name></member>
+    <member refid="classwifi__connection_1a33816fba6968e02098085e7d6c52708b" kind="function"><name>connect</name></member>
+    <member refid="classwifi__connection_1a1e7b220d4c84b42ed783167e47a4121e" kind="function"><name>disconnect</name></member>
+    <member refid="classwifi__connection_1af71be567d9bd98961a01d5c7c582b24f" kind="function"><name>setModeOff</name></member>
   </compound>
   <compound refid="namespaceconf" kind="namespace"><name>conf</name>
     <member refid="conf_8py_1ae475e080536acb271a0a0efe56c3ba42" kind="variable"><name>extensions</name></member>
@@ -117,7 +136,9 @@
   </compound>
   <compound refid="api_8hpp" kind="file"><name>api.hpp</name>
   </compound>
-  <compound refid="dht_8hpp" kind="file"><name>dht.hpp</name>
+  <compound refid="myNeoPixel_8cpp" kind="file"><name>myNeoPixel.cpp</name>
+  </compound>
+  <compound refid="myNeoPixel_8hpp" kind="file"><name>myNeoPixel.hpp</name>
   </compound>
   <compound refid="lib_2log_2doc_2README_8md" kind="file"><name>README.md</name>
   </compound>
@@ -127,6 +148,8 @@
     <member refid="log_8hpp_1a234718feb78dab9dbe22c4ec6950efc8" kind="define"><name>LOG_H</name></member>
   </compound>
   <compound refid="sdcustom_8hpp" kind="file"><name>sdcustom.hpp</name>
+  </compound>
+  <compound refid="dht_8hpp" kind="file"><name>dht.hpp</name>
   </compound>
   <compound refid="voltage__current_8hpp" kind="file"><name>voltage_current.hpp</name>
   </compound>
@@ -143,37 +166,35 @@
     <member refid="main_8cpp_1a2b8aac164aaceb3a534012b0ee039685" kind="enum"><name>dht_data</name></member>
     <member refid="main_8cpp_1a2b8aac164aaceb3a534012b0ee039685a045158f1ef747de153f2b4bc8522149d" kind="enumvalue"><name>hum</name></member>
     <member refid="main_8cpp_1a2b8aac164aaceb3a534012b0ee039685abae755da4e0fad737e044883808cfe7e" kind="enumvalue"><name>temp</name></member>
-    <member refid="main_8cpp_1a656b8d50e4036b8ae51663e47beea58d" kind="variable"><name>debug</name></member>
-    <member refid="main_8cpp_1a6ba38afcefccacd90fe9b431ddf29c3b" kind="variable"><name>solar_current_pin</name></member>
-    <member refid="main_8cpp_1abd92c4770e9a60546b8eaca9cede2924" kind="variable"><name>solar_voltage_pin</name></member>
-    <member refid="main_8cpp_1a27baf8a45da6dcca017536a90aab7c94" kind="variable"><name>current_pin_5v</name></member>
-    <member refid="main_8cpp_1add741c54fef0b7fd62803743bf940fae" kind="variable"><name>voltage_pin_5v</name></member>
     <member refid="main_8cpp_1ab6c1b8bce29d0b257006a789a60ee233" kind="variable"><name>current_pin_12v</name></member>
     <member refid="main_8cpp_1ab19fd761356b8f1e519540002691bae8" kind="variable"><name>voltage_pin_12v</name></member>
+    <member refid="main_8cpp_1a27baf8a45da6dcca017536a90aab7c94" kind="variable"><name>current_pin_5v</name></member>
+    <member refid="main_8cpp_1add741c54fef0b7fd62803743bf940fae" kind="variable"><name>voltage_pin_5v</name></member>
+    <member refid="main_8cpp_1a9bdda6b6c0515f6c6305c5bedf3b2681" kind="variable"><name>current_pin_solar</name></member>
+    <member refid="main_8cpp_1a0bb557c9c97474fe3d444597e76474ae" kind="variable"><name>voltage_pin_solar</name></member>
+    <member refid="main_8cpp_1a8cb9833b5623af50ef6f9739fb404cd3" kind="variable"><name>current_pin_battery</name></member>
+    <member refid="main_8cpp_1ae3aab624789216b2824f6db0a1afac2d" kind="variable"><name>voltage_pin_battery</name></member>
+    <member refid="main_8cpp_1aa8e9209f005f4c4b1ca6e950c0abdb47" kind="variable"><name>relay_pin</name></member>
     <member refid="main_8cpp_1a91fef3f23054f428342c0c39fbdcfade" kind="variable"><name>current_state</name></member>
-    <member refid="main_8cpp_1a93cdab0c7807a8e2eb9dffd189b409ef" kind="variable"><name>start</name></member>
-    <member refid="main_8cpp_1a5fd2bfecc59545f7c8ae420c13aca500" kind="variable"><name>data</name></member>
     <member refid="main_8cpp_1af56a67b48df438851bd546da2d79e713" kind="variable"><name>show_data</name></member>
+    <member refid="main_8cpp_1af160844e59accfb2748f513411e55725" kind="variable"><name>sd_size</name></member>
     <member refid="main_8cpp_1a6433a0990e70c0f5a215a0418f00dc0c" kind="variable"><name>dh11_pin</name></member>
     <member refid="main_8cpp_1af14d5d226fe3599c47b4e829f57037eb" kind="variable"><name>dht_values</name></member>
+    <member refid="main_8cpp_1a93cdab0c7807a8e2eb9dffd189b409ef" kind="variable"><name>start</name></member>
     <member refid="main_8cpp_1a567db6392b90f85daf2048a6c65da3c5" kind="variable"><name>us_to_s_factor</name></member>
     <member refid="main_8cpp_1a35c9e7108a5130b509468cba37b6615a" kind="variable"><name>time_to_sleep</name></member>
     <member refid="main_8cpp_1a69284b0c98536e354d795b3a279c55d9" kind="variable"><name>time_period</name></member>
-    <member refid="main_8cpp_1a46e52692c0a7c37beb1628af3f5c7fca" kind="variable"><name>dht_sensor</name></member>
-    <member refid="main_8cpp_1ada393cbc1f6d0addb4275e19f9852b22" kind="variable"><name>sd</name></member>
-    <member refid="main_8cpp_1a5b66db9bb535aa0aff4c15415bb51f8a" kind="variable"><name>wifi</name></member>
+    <member refid="main_8cpp_1aec5f2fb4a0765ffcece948f54aafe458" kind="variable"><name>log_info</name></member>
+    <member refid="main_8cpp_1a49ced89738689327d75f765eca5ce1ed" kind="variable"><name>wifi</name></member>
     <member refid="main_8cpp_1aaa4a6506433e578b91475a3dae642569" kind="variable"><name>api</name></member>
+    <member refid="main_8cpp_1a444485cdf049a95fde9ad505e8a82c47" kind="variable"><name>sd</name></member>
     <member refid="main_8cpp_1a5da4dfda1fc0694c8123041effebdd37" kind="variable"><name>logger</name></member>
-    <member refid="main_8cpp_1a81d2ea58328ca6c1e11f7ee3c668a749" kind="variable"><name>log_file</name></member>
-    <member refid="main_8cpp_1a25b6e6d6279e23ab35b0f3011cb16a0f" kind="variable"><name>old_log</name></member>
-    <member refid="main_8cpp_1afc1b4e81cbcefde0de6aedaae082e689" kind="variable"><name>current_solar</name></member>
-    <member refid="main_8cpp_1a004e42bbc5249de9321153200f7e4090" kind="variable"><name>voltage_solar</name></member>
-    <member refid="main_8cpp_1a3c0e2bd79b2a29adfd30343b6638bcd6" kind="variable"><name>current_5v</name></member>
-    <member refid="main_8cpp_1aa0f7b393895ce07b481754a8a5a31184" kind="variable"><name>voltage_5v</name></member>
+    <member refid="main_8cpp_1a46e52692c0a7c37beb1628af3f5c7fca" kind="variable"><name>dht_sensor</name></member>
     <member refid="main_8cpp_1a60183c2472dc5c9d87706847e2ac4448" kind="variable"><name>current_12v</name></member>
     <member refid="main_8cpp_1a4fb70fb3879be33350d1a3fcb4cb4dd0" kind="variable"><name>voltage_12v</name></member>
-    <member refid="main_8cpp_1ae85f069042042f486771e16e80d4ab4d" kind="function"><name>SerialEvent</name></member>
+    <member refid="main_8cpp_1a6064b01c8aec8e446d40ef94187a2638" kind="function"><name>deepSleep</name></member>
     <member refid="main_8cpp_1a73b1494c82884e261fd8a1163ebc2f63" kind="function"><name>get_wakeup_reason</name></member>
+    <member refid="main_8cpp_1ae85f069042042f486771e16e80d4ab4d" kind="function"><name>SerialEvent</name></member>
     <member refid="main_8cpp_1a4fc01d736fe50cf5b977f755b675f11d" kind="function"><name>setup</name></member>
     <member refid="main_8cpp_1afe461d27b9c48d5921c00d521181f12f" kind="function"><name>loop</name></member>
   </compound>
@@ -191,7 +212,7 @@
     <member refid="test__api_2test__main_8cpp_1afe461d27b9c48d5921c00d521181f12f" kind="function"><name>loop</name></member>
   </compound>
   <compound refid="test__blink_2test__main_8cpp" kind="file"><name>test_main.cpp</name>
-    <member refid="test__blink_2test__main_8cpp_1a8603b3fef2feef8e4fa66e6312573833" kind="variable"><name>LED_BUILTIN</name></member>
+    <member refid="test__blink_2test__main_8cpp_1a734029c5fc6508cd75bf19cd7f52b66d" kind="variable"><name>LED</name></member>
     <member refid="test__blink_2test__main_8cpp_1af27e3188294c2df66d975b74a09c001d" kind="variable"><name>i</name></member>
     <member refid="test__blink_2test__main_8cpp_1a7a73978df916cacd1d18bb2cd811e56c" kind="variable"><name>max_blinks</name></member>
     <member refid="test__blink_2test__main_8cpp_1a95c834d6178047ce9e1bce7cbfea2836" kind="function"><name>setUp</name></member>
@@ -203,7 +224,7 @@
     <member refid="test__blink_2test__main_8cpp_1afe461d27b9c48d5921c00d521181f12f" kind="function"><name>loop</name></member>
   </compound>
   <compound refid="test__sd_2test__main_8cpp" kind="file"><name>test_main.cpp</name>
-    <member refid="test__sd_2test__main_8cpp_1af72af5933831fc9eddf32aad106162c7" kind="variable"><name>sd</name></member>
+    <member refid="test__sd_2test__main_8cpp_1acfe557a16e24a3391a416adbf24a1046" kind="variable"><name>sd</name></member>
     <member refid="test__sd_2test__main_8cpp_1a9def76705b9807f37efd5f6934d07de5" kind="function"><name>test_sd_insert</name></member>
     <member refid="test__sd_2test__main_8cpp_1ae012a1b316f381f6c09ee6d963d9083a" kind="function"><name>test_sd_writing</name></member>
     <member refid="test__sd_2test__main_8cpp_1a94313a3ac5d4545a4e229bb885f112be" kind="function"><name>test_sd_reading</name></member>
@@ -218,9 +239,9 @@
   </compound>
   <compound refid="dir_a4f29b99a4f7418161f089241a24c9b5" kind="dir"><name>/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/api</name>
   </compound>
-  <compound refid="dir_558e145bb65385bc95d2a1d9b795e566" kind="dir"><name>/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/dht</name>
-  </compound>
   <compound refid="dir_cb6e6f7f66a70f25fe0e380d28b17263" kind="dir"><name>/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/log/doc</name>
+  </compound>
+  <compound refid="dir_231168ed9b0b7c941d780bd744c392b8" kind="dir"><name>/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/led</name>
   </compound>
   <compound refid="dir_97aefd0d527b934f1d99a682da8fe6a9" kind="dir"><name>/home/pierr/Documents/ETS/ele400/firmware-esp32/lib</name>
   </compound>
@@ -240,7 +261,7 @@
   </compound>
   <compound refid="dir_ee916b3140d7d267b4d7d60656674c85" kind="dir"><name>/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/log/src</name>
   </compound>
-  <compound refid="dir_fc2902e240ca1e587473f7ac5f28b30d" kind="dir"><name>/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/dht/src</name>
+  <compound refid="dir_299bfcde406592c7d878195a72712180" kind="dir"><name>/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/led/src</name>
   </compound>
   <compound refid="dir_529252f5f107614a91ab6ef263d85844" kind="dir"><name>/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/api/src</name>
   </compound>

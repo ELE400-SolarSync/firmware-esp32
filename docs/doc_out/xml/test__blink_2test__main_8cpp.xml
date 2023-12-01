@@ -21,12 +21,12 @@
       </node>
     </incdepgraph>
       <sectiondef kind="var">
-      <memberdef kind="variable" id="test__blink_2test__main_8cpp_1a8603b3fef2feef8e4fa66e6312573833" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="test__blink_2test__main_8cpp_1a734029c5fc6508cd75bf19cd7f52b66d" prot="public" static="no" mutable="no">
         <type>const int</type>
-        <definition>const int LED_BUILTIN</definition>
+        <definition>const int LED</definition>
         <argsstring></argsstring>
-        <name>LED_BUILTIN</name>
-        <initializer>= 2</initializer>
+        <name>LED</name>
+        <initializer>= 8</initializer>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -180,7 +180,7 @@
 <codeline lineno="1"><highlight class="preprocessor">#include<sp/>&lt;Arduino.h&gt;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;unity.h&gt;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="3"><highlight class="normal"></highlight></codeline>
-<codeline lineno="4"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>LED_BUILTIN<sp/>=<sp/>2;</highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>LED<sp/>=<sp/>8;</highlight></codeline>
 <codeline lineno="5"><highlight class="normal"></highlight></codeline>
 <codeline lineno="6"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>setUp(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
 <codeline lineno="7"><highlight class="normal">{</highlight></codeline>
@@ -194,19 +194,19 @@
 <codeline lineno="15"><highlight class="normal"></highlight></codeline>
 <codeline lineno="16"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>test_led_builtin_pin_number(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
 <codeline lineno="17"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="18"><highlight class="normal"><sp/><sp/>TEST_ASSERT_EQUAL(2,<sp/>LED_BUILTIN);</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/>TEST_ASSERT_EQUAL(8,<sp/>LED);</highlight></codeline>
 <codeline lineno="19"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="20"><highlight class="normal"></highlight></codeline>
 <codeline lineno="21"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>test_led_state_high(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
 <codeline lineno="22"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="23"><highlight class="normal"><sp/><sp/>digitalWrite(LED_BUILTIN,<sp/>HIGH);</highlight></codeline>
-<codeline lineno="24"><highlight class="normal"><sp/><sp/>TEST_ASSERT_EQUAL(HIGH,<sp/>digitalRead(LED_BUILTIN));</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/>digitalWrite(LED,<sp/>HIGH);</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/>TEST_ASSERT_EQUAL(HIGH,<sp/>digitalRead(LED));</highlight></codeline>
 <codeline lineno="25"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="26"><highlight class="normal"></highlight></codeline>
 <codeline lineno="27"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>test_led_state_low(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
 <codeline lineno="28"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="29"><highlight class="normal"><sp/><sp/>digitalWrite(LED_BUILTIN,<sp/>LOW);</highlight></codeline>
-<codeline lineno="30"><highlight class="normal"><sp/><sp/>TEST_ASSERT_EQUAL(LOW,<sp/>digitalRead(LED_BUILTIN));</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/>digitalWrite(LED,<sp/>LOW);</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/>TEST_ASSERT_EQUAL(LOW,<sp/>digitalRead(LED));</highlight></codeline>
 <codeline lineno="31"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="32"><highlight class="normal"></highlight></codeline>
 <codeline lineno="33"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>setup()</highlight></codeline>
@@ -215,7 +215,7 @@
 <codeline lineno="36"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>if<sp/>board<sp/>doesn&apos;t<sp/>support<sp/>software<sp/>reset<sp/>via<sp/>Serial.DTR/RTS</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="37"><highlight class="normal"><sp/><sp/>delay(2000);</highlight></codeline>
 <codeline lineno="38"><highlight class="normal"></highlight></codeline>
-<codeline lineno="39"><highlight class="normal"><sp/><sp/>pinMode(LED_BUILTIN,<sp/>OUTPUT);</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/>pinMode(LED,<sp/>OUTPUT);</highlight></codeline>
 <codeline lineno="40"><highlight class="normal"></highlight></codeline>
 <codeline lineno="41"><highlight class="normal"><sp/><sp/>UNITY_BEGIN();<sp/></highlight><highlight class="comment">//<sp/>IMPORTANT<sp/>LINE!</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="42"><highlight class="normal"><sp/><sp/>RUN_TEST(test_led_builtin_pin_number);</highlight></codeline>

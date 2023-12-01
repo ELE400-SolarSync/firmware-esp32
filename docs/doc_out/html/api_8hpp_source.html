@@ -91,45 +91,46 @@ $(function() {
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;            <a class="code" href="structapi__lib_1_1response.html">response</a> res;</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;            String server_call = host + url;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;            http.begin((server_call).c_str());</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;            res.code = http.GET();</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;            <span class="keywordflow">if</span> (res.code &gt; 0) {</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;                <span class="keywordflow">if</span> (res.code == HTTP_CODE_OK) {</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;                    res.data = http.getString();</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;                    <span class="keywordflow">return</span> res;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;                }</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;            }</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;            res.data = <span class="stringliteral">&quot;&quot;</span>;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;            <span class="keywordflow">return</span> res;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        }</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="classapi__lib.html#a4e4ef2d4e421740991d278c53f857f66">   53</a></span>&#160;        <span class="keywordtype">int</span> <a class="code" href="classapi__lib.html#a4e4ef2d4e421740991d278c53f857f66">getCode</a>(String url) {</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            HTTPClient http;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;            String server_call = host + url;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;            http.begin((server_call).c_str());</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;            <span class="keywordtype">int</span> httpCode = http.GET();</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;            <span class="keywordflow">return</span> httpCode;</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        }</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
-<div class="line"><a name="l00070"></a><span class="lineno"><a class="line" href="classapi__lib.html#accc43a805690ddfa8c4da98588b0ab24">   70</a></span>&#160;        <a class="code" href="structapi__lib_1_1response.html">response</a> <a class="code" href="classapi__lib.html#accc43a805690ddfa8c4da98588b0ab24">sendAll</a>(<span class="keywordtype">float</span> data[], <span class="keywordtype">size_t</span> data_len){</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;            String url;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;            <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i = 0; i &lt; data_len; i++){</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                url = url + <span class="stringliteral">&quot;&amp;field&quot;</span> + i + <span class="stringliteral">&quot;=&quot;</span> + String(data[i]);</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;            }</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;            </div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="classapi__lib.html#aa2d3cdb9cd6c49b59a04398dba839c82">getResponse</a>(url);</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        }</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;};</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;            String server_call = host + url + <span class="stringliteral">&quot;/&quot;</span>;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;            http.begin((server_call).c_str());</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;            res.code = http.GET();</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;            <span class="keywordflow">if</span> (res.code &gt; 0) {</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;                <span class="keywordflow">if</span> (res.code == HTTP_CODE_OK) {</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;                    res.data = http.getString();</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;                    <span class="keywordflow">return</span> res;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;                }</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;            }</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;            res.data = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;            <span class="keywordflow">return</span> res;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        }</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="classapi__lib.html#a4e4ef2d4e421740991d278c53f857f66">   54</a></span>&#160;        <span class="keywordtype">int</span> <a class="code" href="classapi__lib.html#a4e4ef2d4e421740991d278c53f857f66">getCode</a>(String url) {</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;            HTTPClient http;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;            String server_call = host + url;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;            http.begin((server_call).c_str());</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;            <span class="keywordtype">int</span> httpCode = http.GET();</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;            <span class="keywordflow">return</span> httpCode;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        }</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
+<div class="line"><a name="l00071"></a><span class="lineno"><a class="line" href="classapi__lib.html#accc43a805690ddfa8c4da98588b0ab24">   71</a></span>&#160;        <a class="code" href="structapi__lib_1_1response.html">response</a> <a class="code" href="classapi__lib.html#accc43a805690ddfa8c4da98588b0ab24">sendAll</a>(<span class="keywordtype">float</span> data[], <span class="keywordtype">size_t</span> data_len){</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;            String url;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;            <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i = 0; i &lt; data_len; i++){</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;                url = url + <span class="stringliteral">&quot;&amp;field&quot;</span> + i + <span class="stringliteral">&quot;=&quot;</span> + String(data[i]);</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;            }</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="classapi__lib.html#aa2d3cdb9cd6c49b59a04398dba839c82">getResponse</a>(url);</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        }</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;};</div>
 <div class="ttc" id="aclassapi__lib_html"><div class="ttname"><a href="classapi__lib.html">api_lib</a></div><div class="ttdef"><b>Definition:</b> api.hpp:3</div></div>
 <div class="ttc" id="aclassapi__lib_html_a2ae88643c58b39abed46e97d9048f0d8"><div class="ttname"><a href="classapi__lib.html#a2ae88643c58b39abed46e97d9048f0d8">api_lib::setHost</a></div><div class="ttdeci">void setHost(String host)</div><div class="ttdoc">Set the Host object (part of the resquestt with the data)</div><div class="ttdef"><b>Definition:</b> api.hpp:18</div></div>
-<div class="ttc" id="aclassapi__lib_html_a4e4ef2d4e421740991d278c53f857f66"><div class="ttname"><a href="classapi__lib.html#a4e4ef2d4e421740991d278c53f857f66">api_lib::getCode</a></div><div class="ttdeci">int getCode(String url)</div><div class="ttdoc">Send data to the host + url and return the code.</div><div class="ttdef"><b>Definition:</b> api.hpp:53</div></div>
+<div class="ttc" id="aclassapi__lib_html_a4e4ef2d4e421740991d278c53f857f66"><div class="ttname"><a href="classapi__lib.html#a4e4ef2d4e421740991d278c53f857f66">api_lib::getCode</a></div><div class="ttdeci">int getCode(String url)</div><div class="ttdoc">Send data to the host + url and return the code.</div><div class="ttdef"><b>Definition:</b> api.hpp:54</div></div>
 <div class="ttc" id="aclassapi__lib_html_aa2d3cdb9cd6c49b59a04398dba839c82"><div class="ttname"><a href="classapi__lib.html#aa2d3cdb9cd6c49b59a04398dba839c82">api_lib::getResponse</a></div><div class="ttdeci">response getResponse(String url)</div><div class="ttdoc">Send data to the host + url.</div><div class="ttdef"><b>Definition:</b> api.hpp:28</div></div>
-<div class="ttc" id="aclassapi__lib_html_accc43a805690ddfa8c4da98588b0ab24"><div class="ttname"><a href="classapi__lib.html#accc43a805690ddfa8c4da98588b0ab24">api_lib::sendAll</a></div><div class="ttdeci">response sendAll(float data[], size_t data_len)</div><div class="ttdoc">send multiple data according to thinspeak atemplate /!\ look at AZURE template</div><div class="ttdef"><b>Definition:</b> api.hpp:70</div></div>
+<div class="ttc" id="aclassapi__lib_html_accc43a805690ddfa8c4da98588b0ab24"><div class="ttname"><a href="classapi__lib.html#accc43a805690ddfa8c4da98588b0ab24">api_lib::sendAll</a></div><div class="ttdeci">response sendAll(float data[], size_t data_len)</div><div class="ttdoc">send multiple data according to thinspeak atemplate /!\ look at AZURE template</div><div class="ttdef"><b>Definition:</b> api.hpp:71</div></div>
 <div class="ttc" id="astructapi__lib_1_1response_html"><div class="ttname"><a href="structapi__lib_1_1response.html">api_lib::response</a></div><div class="ttdef"><b>Definition:</b> api.hpp:8</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
