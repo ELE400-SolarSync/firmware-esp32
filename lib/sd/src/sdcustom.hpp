@@ -145,11 +145,11 @@ class SDCustom {
         };
 
     private:
-        int SD_MISO = 19;
-        int SD_MOSI = 23;
-        int SD_SCLK = 18;
-        int SD_CS = 5;
-        int SD_DET = 22;
+        int SD_MISO = 5;
+        int SD_MOSI = 7;
+        int SD_SCLK = 6;
+        int SD_CS = 18;
+        int SD_DET = 19;
 };
 
 #endif // SDCUSTOM_H
