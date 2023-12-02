@@ -120,8 +120,6 @@ void setup() {
   digitalWrite(relay_output_pin, HIGH);
 
   // Set up logger
-  logger.setLogFile(log_info[0]);
-  logger.setOldLogFile(log_info[1]);
   logger.setOldLogFile(0);
   logger.init(); 
   logger.setLevel(myLogger::level_t::DEBUG);
@@ -213,10 +211,10 @@ void loop()
       bat_level = current_battery.getBatLevel(v_c_values[c_battery], v_c_values[v_battery]);
 
       if (dht_sensor.isCorrect_values(dht_values)) {
-        logger.error("FETCHING", "DHT11 values are incorrect");
+        logger.debug("FETCHING", "DHT11 values are correct");
       }
       else {
-        logger.debug("FETCHING", "DHT11 values are correct");
+        logger.error("FETCHING", "DHT11 values are incorrect");
       }
       current_state = SENDING;
       break;
@@ -309,7 +307,7 @@ void loop()
       log_info[0] = logger.getLogFile();
       log_info[1] = logger.getOldLogFile();
       // deepSleep(time_to_sleep);
-      delay(5000);
+      delay(15000);
       current_state = CHECKING;
       break;
 
@@ -332,9 +330,11 @@ void SerialEvent() {
 
     if(inChar.indexOf("output") != -1){
       if(inChar.indexOf("on") != -1){
+        logger.debug("SerialEvent", "Output on");
         digitalWrite(relay_output_pin, HIGH);
       }
       else if(inChar.indexOf("off") != -1){
+        logger.debug("SerialEvent", "Output off");
         digitalWrite(relay_output_pin, LOW);
       }
     }

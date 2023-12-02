@@ -167,12 +167,14 @@ class myLogger {
                 }
                 else {
                     if(log_file > 30 * 1000) {
-                        // if there is more than 30 0000 (30Go) files in the folder (each files is 1Mo)
+                        // if there is more than 30 000 (30Go) files in the folder (each files is 1Mo)
+                        debug("logger", "Delete oldest file");
                         logRoll(DELETE);
                         sd.writeFile(String(log_file)+".txt", logFormat + message);                    
                     }
                     else if (sd.openFile(String(log_file)+".txt").size() > 1000000) {
                         // if file is bigger than 1Mo
+                        debug("logger", "Switch file");
                         logRoll(SWITCH);
                         sd.writeFile(String(log_file)+".txt", logFormat + message);
                     }
