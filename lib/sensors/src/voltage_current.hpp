@@ -47,11 +47,11 @@ class VoltageSensor {
 class CurrentSensor {
     private:
         int pin;
-        const int adc_bits = 4095;
-        const int adc_max_voltage = 3.3;
-        const int current_sensor_multiplier = 0.066;
-        const int adc_correction_factor = 1.15;
-        const int current_sensor_offset = 2.5;
+        const float adc_bits = 4095.0;
+        const float adc_max_voltage = 3.3;
+        const float current_sensor_multiplier = 0.066;
+        const float adc_correction_factor = 1.15;
+        const float current_sensor_offset = 2.5;
 
     public:
         /**
