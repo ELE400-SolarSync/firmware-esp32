@@ -6,8 +6,6 @@
 #include "../lib/sensors/src/voltage_current.hpp"
 #include "../lib/sensors/src/dht.hpp"
 
-#include "esp_wifi.h"
-
 /***********************************************************/
 /****************** Global variable ************************/
 /***********************************************************/
@@ -27,12 +25,19 @@ const int voltage_pin_battery = A4;
 const int relay_pin = 9;
 
 enum v_c_data { v_12v, c_12v, v_5v, c_5v, v_solar, c_solar, v_battery, c_battery };
-float *v_c_values;
+float v_c_values[8];
 
 enum pow_data { p_12v, p_5v, p_solar, p_battery };
-float *pow_values;
+float pow_values[4];
 
 float bat_level;
+
+// API
+float all_data[15];
+api_lib::response res;
+
+// Relay for the output
+const int relay_output_pin = 8;
 
 // State machine
 enum state {
@@ -45,20 +50,31 @@ enum state {
 };
 state current_state = INIT;
 
+enum errors_t {
+  NONE,
+  SD_NOT_INSERTED,
+  WIFI_NOT_CONNECTED,
+  DHT11_VALUES_INCORRECT,
+  FETCHING_ERROR
+};
+
+error_t current_error = NONE;
+
 // Debug
 bool show_data = false;
 const int sd_size = 32;
 
 // DHT11
-const int dh11_pin = 4;
+const int dh11_pin = 10;
 enum dht_data { hum, temp };
-float *dht_values;
+float dht_values[2];
+unsigned long start_dht;
 
 // Deep sleep
-unsigned long int start;
-const int us_to_s_factor = 1000000;
+unsigned long start;
+const int s_to_us_factor = 1000000;
 int time_to_sleep = 5;
-const int time_period = 60;
+const int time_period = 15;
 
 RTC_DATA_ATTR int log_info[2] = {0, 0};
 
@@ -98,6 +114,11 @@ void SerialEvent();
 void setup() {
   Serial.begin(115200);
 
+  pinMode(relay_pin, OUTPUT);
+  pinMode(relay_output_pin, OUTPUT);
+
+  digitalWrite(relay_output_pin, HIGH);
+
   // Set up logger
   logger.setLogFile(log_info[0]);
   logger.setOldLogFile(log_info[1]);
@@ -105,7 +126,7 @@ void setup() {
   logger.init(); 
   logger.setLevel(myLogger::level_t::DEBUG);
 
-  logger.disableLoggingInSD();
+  logger.enableLoggingInSD();
   logger.enableLoggingInMonitor();
   
   // Set up wifi
@@ -128,110 +149,173 @@ void loop()
 {
   SerialEvent();
 
-  start = millis();
-
   switch (current_state) {
     case CHECKING:
-      {
-        logger.info("CHECKING", "CHECKING");
-        if (!sd.isSDInserted()) {
-          logger.disableLoggingInSD();
-          logger.error("CHECKING", "SD Card is not inserted");
-        }
-        else {
-          logger.enableLoggingInSD();
-          logger.debug("CHECKING", "SD Card is inserted");
-        }
+      start = millis();
 
-        if (wifi.isConnected()) {
-          logger.debug("CHECKING", "Wifi is connected");
-          current_state = FETCHING;
-        }
-        else {
-          logger.error("CHECKING", "Wifi is not connected");
-          current_state = ERROR;
-        }
-        break;
+      logger.info("CHECKING", "CHECKING");
+      if (!sd.isSDInserted()) {
+        logger.disableLoggingInSD();
+        logger.error("CHECKING", "SD Card is not inserted");
       }
+      else {
+        logger.enableLoggingInSD();
+        logger.debug("CHECKING", "SD Card is inserted");
+      }
+
+      if (wifi.isConnected()) {
+        logger.debug("CHECKING", "Wifi is connected");
+        current_state = FETCHING;
+      }
+      else {
+        logger.error("CHECKING", "Wifi is not connected");
+        current_state = ERROR;
+        current_error = WIFI_NOT_CONNECTED;
+      }
+      break;
+    
 
     case FETCHING:
-      {
-        logger.info("FETCHING", "FETCHING");
+      logger.info("FETCHING", "FETCHING");
 
-        dht_values = dht_sensor.getValues();
+      dht_values[temp] = dht_sensor.getTemperature();
+      dht_values[hum] = dht_sensor.getHumidity();
 
-        digitalWrite(relay_pin, LOW);
-        delay(500);
-        v_c_values[c_12v] = current_12v.readCurrent();
-        v_c_values[v_12v] = voltage_12v.readVoltage();
-        v_c_values[c_solar] = current_solar.readCurrent();
-        v_c_values[v_solar] = voltage_solar.readVoltage();
+      start_dht = millis();
 
-        digitalWrite(relay_pin, HIGH);
-        delay(500);
-        v_c_values[v_5v] = volatage_5v.readVoltage();
-        v_c_values[v_battery] = voltage_battery.readVoltage();
-        v_c_values[c_5v] = current_5v.readCurrent();
-        v_c_values[c_battery] = current_battery.readCurrent();
-
-        pow_values[p_12v] = v_c_values[c_12v] * v_c_values[v_12v];
-        pow_values[p_solar] = v_c_values[c_solar] * v_c_values[v_solar];
-        pow_values[p_5v] = v_c_values[c_5v] * v_c_values[v_5v];
-        pow_values[p_battery] = v_c_values[c_battery] * v_c_values[v_battery];
-
-        bat_level = current_battery.getBatLevel(v_c_values[c_battery], v_c_values[v_battery]);
-        
-        if (dht_sensor.isCorrect_values(dht_values)) {
-          logger.error("FETCHING", "DHT11 values are incorrect");
-          current_state = ERROR;
-        }
-        else {
-          logger.debug("FETCHING", "DHT11 values are correct");
-          current_state = SENDING;
-        }
-        break;
+      while((isnan(dht_values[temp]) || isnan(dht_values[hum])) && (millis() - start_dht < 10000)) {
+        dht_values[temp] = dht_sensor.getTemperature();
+        dht_values[hum] = dht_sensor.getHumidity();
       }
+
+      dht_values[temp] = isnan(dht_values[temp]) ? -1 : dht_values[temp];
+      dht_values[hum] = isnan(dht_values[hum]) ? -1 : dht_values[hum];
+
+      digitalWrite(relay_pin, LOW);
+      delay(1000);
+      v_c_values[v_battery] = voltage_battery.readVoltage();
+      v_c_values[c_battery] = current_battery.readCurrent();
+      v_c_values[c_solar] = current_solar.readCurrent();
+      v_c_values[v_solar] = voltage_solar.readVoltage();
+
+      digitalWrite(relay_pin, HIGH);
+      delay(1000);
+      v_c_values[v_5v] = volatage_5v.readVoltage();
+      v_c_values[c_5v] = current_5v.readCurrent();
+      v_c_values[c_12v] = current_12v.readCurrent();
+      v_c_values[v_12v] = voltage_12v.readVoltage();      
+
+      pow_values[p_12v] = v_c_values[c_12v] * v_c_values[v_12v];
+      pow_values[p_solar] = v_c_values[c_solar] * v_c_values[v_solar];
+      pow_values[p_5v] = v_c_values[c_5v] * v_c_values[v_5v];
+      pow_values[p_battery] = v_c_values[c_battery] * v_c_values[v_battery];
+
+      bat_level = current_battery.getBatLevel(v_c_values[c_battery], v_c_values[v_battery]);
+
+      if (dht_sensor.isCorrect_values(dht_values)) {
+        logger.error("FETCHING", "DHT11 values are incorrect");
+      }
+      else {
+        logger.debug("FETCHING", "DHT11 values are correct");
+      }
+      current_state = SENDING;
+      break;
 
     case SENDING:
-      {
-        logger.info("SENDING", "SENDING");
+      logger.info("SENDING", "SENDING");
 
-        float *data;
+      Serial.println("Values :\n-------------------------------");
+      Serial.print("DHT11 : ");
+      Serial.print(dht_values[temp]);
+      Serial.print("C ");
+      Serial.print(dht_values[hum]);
+      Serial.println("%");
 
-        data[0] = dht_values[temp];
-        data[1] = dht_values[hum];
+      Serial.print("12V : ");
+      Serial.print(v_c_values[c_12v]);
+      Serial.print("A ");
+      Serial.print(v_c_values[v_12v]);
+      Serial.println("V");
 
-        api_lib::response res;
-        res = api.sendAll(data, sizeof(data)/sizeof(float));
-        if (res.code == 200) {
-          logger.debug("SENDING", "Return message : " + res.data);
-          current_state = SLEEP;
-        }
-        break;
+      Serial.print("5V : ");
+      Serial.print(v_c_values[c_5v]);
+      Serial.print("A ");
+      Serial.print(v_c_values[v_5v]);
+      Serial.println("V");
+
+      Serial.print("Solar : ");
+      Serial.print(v_c_values[c_solar]);
+      Serial.print("A ");
+      Serial.print(v_c_values[v_solar]);
+      Serial.println("V");
+
+      Serial.print("Battery : ");
+      Serial.print(v_c_values[c_battery]);
+      Serial.print("A ");
+      Serial.print(v_c_values[v_battery]);
+      Serial.println("V");
+
+      Serial.println("-------------------------------");
+
+      current_state = SLEEP;
+
+      
+      for(int i = 0; i < 8; i++) {
+        all_data[i] = v_c_values[i];
       }
+
+      for(int i = 0; i < 4; i++) {
+        all_data[i + 8] = pow_values[i];
+      }
+
+      all_data[12] = bat_level;
+
+      all_data[13] = dht_values[temp];
+      all_data[14] = dht_values[hum];
+
+      res = api.sendAll(all_data, sizeof(all_data)/sizeof(float));
+      if (res.code == 200) {
+        logger.debug("SENDING", "Return message : " + res.data);
+        current_state = SLEEP;
+      }
+      else {
+        logger.error("SENDING", "API call failed : " + res.data);
+      }
+      break;
+      
 
     case ERROR:
-      {
-        logger.info("ERROR", "ERROR state");
-        current_state = SLEEP;
-        break;
+      if(current_error == WIFI_NOT_CONNECTED) {
+        logger.error("ERROR", "Wifi is not connected");
       }
+      else if(current_error == DHT11_VALUES_INCORRECT) {
+        logger.error("ERROR", "DHT11 values are incorrect");
+        current_state = SLEEP;
+      }
+      else if(current_error == FETCHING_ERROR) {
+        logger.error("ERROR", "Error while fetching data");
+        current_state = SLEEP;
+      }
+      else {
+        logger.error("ERROR", "Unknown error");
+      }
+      break;
+      
 
     case SLEEP:
-    {
-      time_to_sleep = time_period - (start - millis()) * 1000;
-
-      esp_sleep_enable_timer_wakeup(time_to_sleep * us_to_s_factor);
-      logger.info("SLEEP", "Time to sleep: " + String(time_to_sleep) + " seconds");
+    logger.info("SLEEP", "SLEEP");
+      time_to_sleep = time_period - (millis() - start) / 1000;
       
       log_info[0] = logger.getLogFile();
       log_info[1] = logger.getOldLogFile();
-      deepSleep(time_to_sleep);
+      // deepSleep(time_to_sleep);
+      delay(5000);
+      current_state = CHECKING;
       break;
+
     default:
       logger.debug("DEFAULT", "DEFAULT state");
-      break;
-    }
+    
   }
 }
 
@@ -241,11 +325,37 @@ void loop()
 void SerialEvent() {
   while (Serial.available()) {
     String inChar = Serial.readString();
-    if (inChar.indexOf("date") != -1) {
-      Serial.println("lol");
-    }
+
     if(inChar.indexOf("show_data") != -1){
       show_data = !show_data;
+    }
+
+    if(inChar.indexOf("output") != -1){
+      if(inChar.indexOf("on") != -1){
+        digitalWrite(relay_output_pin, HIGH);
+      }
+      else if(inChar.indexOf("off") != -1){
+        digitalWrite(relay_output_pin, LOW);
+      }
+    }
+
+    if(inChar.indexOf("logging") != -1){
+      if(inChar.indexOf("sd") != -1){
+        if(inChar.indexOf("on") != -1){
+          logger.enableLoggingInSD();
+        }
+        else if(inChar.indexOf("off") != -1){
+          logger.disableLoggingInSD();
+        }
+      }
+      else if(inChar.indexOf("serial") != -1){
+        if(inChar.indexOf("on") != -1){
+          logger.enableLoggingInMonitor();
+        }
+        else if(inChar.indexOf("off") != -1){
+          logger.disableLoggingInMonitor();
+        }
+      }
     }
   }
 }
@@ -279,7 +389,7 @@ void deepSleep(int sleepTime) {
   btStop();
 
   // Set sleep mode
-  esp_sleep_enable_timer_wakeup(sleepTime * us_to_s_factor);
+  esp_sleep_enable_timer_wakeup(sleepTime * s_to_us_factor);
 
   // Enter deep sleep
   esp_deep_sleep_start();
