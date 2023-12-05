@@ -1,63 +1,72 @@
 #include <Arduino.h>
-#include "../lib/api/src/api.hpp"
-#include "../lib/wifi/src/wifi.hpp"
+#include <WiFi.h>
+#include <HTTPClient.h>
+#include <ArduinoJson.h>
 
 // Objects
-wifi_connection wifi("LakeLaogai", "thereisnowifiinbasingse");
-api_lib api;
 
 // Global Variables
-const int debug = false;
+const char* ssid = "LakeLaogai";
+const char* password = "thereisnowifiinbasingse";
 
-int connection_status;
+const char* host = "solarsync.azure-devices.net";
+const char* device_id = "esp32hub";
+const char* sas_token = "SharedAccessSignature sr=SolarSync.azure-devices.net%2Fdevices%2Fesp32hub&sig=qTW1FcZWh8M1kzhDTHFCAmqY3SPP%2FD0reP6eHn0dyhE%3D&se=1701753692";
 
+
+// Azure IoT Hub endpoint for posting messages
+String url = String("https://") + host + "/devices/" + device_id + "/messages/events?api-version=2018-06-30";
 
 //  Prototyping
-void SerialEvent();
 
 // Setup and Loop
 void setup() {
   Serial.begin(115200);
 
-  while(!Serial) {
-    ;
+  WiFi.begin(ssid, password);
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
   }
-  delay(1000);
-  connection_status = wifi.connect(10000);
-
-  api.setHost("https://api.thingspeak.com/update?api_key=72ZH5DA3WVKUD5R5");
+  Serial.println("Connected to WiFi");
 }
 
 void loop() {
-  // polling for serial input
-  SerialEvent();
+  StaticJsonDocument<256> jsonDoc;
+  jsonDoc["Temperature"] = 25;
+  jsonDoc["Puissance"] = 25;
+  jsonDoc["Niveau batterie"] = 25;
+  jsonDoc["niveauBatterieAlert"] = true;
 
-  if (debug) {
-    Serial.print("Connection status: ");
-    Serial.println(wifi.getStatus());
-    Serial.print("IP Address: ");
-    Serial.println(wifi.getIP());
+  String jsonBuffer;
+  serializeJson(jsonDoc, jsonBuffer);
+
+  // Send HTTP POST request
+  HTTPClient httpClient;
+  // httpClient.setTimeout(10000);
+  if(!httpClient.begin(url)){
+    Serial.println("Could not connect to Azure");
+    return;
+  }
+  httpClient.addHeader("Content-Type", "application/json");
+  httpClient.addHeader("Authorization", sas_token);
+
+  int httpResponseCode = httpClient.POST(jsonBuffer);
+  if (httpResponseCode > 0) {
+    // Print HTTP response code
+    Serial.print("HTTP Response code: ");
+    Serial.println(httpResponseCode);
+
+    // Print HTTP response body
+    String responseBody = httpClient.getString();
+    Serial.println(responseBody);
+  } else {
+    Serial.print("HTTP Error Code: ");
+    Serial.println(httpResponseCode);
+    Serial.print("HTTP Error Message: ");
+    Serial.println(httpClient.errorToString(httpResponseCode).c_str());
+    Serial.println("Failed to send data");
   }
 
-  float data[] = {1.0, 2.0, 3.0};
-  api.sendAmp(data, sizeof(data)/sizeof(data[0]));
   delay(1000);
 }
-
-// Functions
-void SerialEvent() {
-  while (Serial.available()) {
-    String inChar = Serial.readString();
-
-    if (inChar == "hello") {
-      Serial.println("hello, world!");
-    }
-    else if (inChar == "wifi_ip") {
-      Serial.print("IP Address: ");
-      Serial.println(wifi.getIP());
-    }
-    else {
-      Serial.println("Command not found");
-    }    
-  }
-} 

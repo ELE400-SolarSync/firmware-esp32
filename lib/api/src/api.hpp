@@ -24,10 +24,21 @@ public:
     String getResponse(String url) {
         HTTPClient http;
 
-        String server_call = host + url;
-        http.begin((server_call).c_str());
+        const char* iotHubName = "solarsync";
+        const char* deviceId = "esp32hub";
+        const char* sharedAccessKey = "HostName=SolarSync.azure-devices.net;SharedAccessKeyName=device;SharedAccessKey=qQZthpXIb+vJugD/l2hQ4MxNKCaVAEGwXAIoTGsTlUU=";
 
-        int httpCode = http.GET();
+        String endpoint = "https://" + String(iotHubName) + ".azure-devices.net/devices/" + String(deviceId) + "/messages/events?api-version=2018-06-30";
+
+        String authorizationHeader = "SharedAccessSignature sr=" + String(iotHubName) + ".azure-devices.net%2Fdevices%2F" + String(deviceId) + "&sig=" + String(sharedAccessKey) + "&se=1638700000";
+
+
+        String server_call = host + url;
+        http.begin(endpoint);
+        http.addHeader("Content-Type", "application/json");
+        http.addHeader("Authorization", authorizationHeader);
+
+        int httpCode = http.POST("{\"temperature\":\"1.0\"}");
         if (httpCode > 0) {
             if (httpCode == HTTP_CODE_OK) {
                 return http.getString();
