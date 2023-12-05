@@ -15,55 +15,49 @@ void api_lib::setHost(String host) {
  * @param url string to complete the host
  * @return String string return of the api call
  */
-api_lib::response api_lib::getResponse(String url) {
-    HTTPClient http;
+api_lib::response api_lib::getResponse() {
+    api_lib::response res;
 
-    response res;
+    String jsonBuffer;
+    serializeJson(api_lib::jsonDoc, jsonBuffer);
 
-    String server_call = host + url + "/";
+    HTTPClient httpClient;
 
-    http.begin((server_call).c_str());
+    httpClient.begin(api_lib::url);
+    httpClient.addHeader("Content-Type", "application/json");
+    httpClient.addHeader("Authorization", sas_token);
 
-    res.code = http.GET();
+    res.code = httpClient.POST(jsonBuffer);
     if (res.code > 0) {
         if (res.code == HTTP_CODE_OK) {
-            res.data = http.getString();
+            res.data = httpClient.getString();
             return res;
         }
     }
-    res.data = "";
+    res.data = httpClient.errorToString(res.code);
     return res;
 }
 
-/**
- * @brief Send data to the host + url and return the code
- * 
- * @param url string to complete the host
- * @return int api code
- */
-int api_lib::getCode(String url) {
-    HTTPClient http;
+bool api_lib::createJson(float temp, float puissance, float niveauBatterie, bool niveauBatterieAlert) {
+    try {
+        api_lib::jsonDoc["Temperature"] = temp;
+        api_lib::jsonDoc["Puissance"] = puissance;
+        api_lib::jsonDoc["Niveau batterie"] = niveauBatterie;
+        api_lib::jsonDoc["niveauBatterieAlert"] = niveauBatterieAlert;
 
-    String server_call = host + url;
-    http.begin((server_call).c_str());
-
-    int httpCode = http.GET();
-    return httpCode;
+        return true;
+    }
+    catch (const std::exception& e) {
+        return false;
+    }
 }
 
-/**
- * @brief send multiple data according to thinspeak atemplate /!\ look at AZURE template
- * 
- * @param data data to send
- * @param data_len length of the data
- * @return int code return by the api call
- */
-api_lib::response api_lib::sendAll(float data[], size_t data_len){
-    String url;
-
-    for(int i = 0; i < data_len; i++){
-        url = url + "&field" + i + "=" + String(data[i]);
+bool api_lib::clearJson() {
+    try {
+        api_lib::jsonDoc.clear();
+        return true;
     }
-
-    return getResponse(url);
+    catch (const std::exception& e) {
+        return false;
+    }
 }
