@@ -7,13 +7,13 @@
 
 class myLogger {
     private:
-        int log_path;
-        int log_file;
-        int oldest_log_file = 0;
-        String log_fullPath;
-        bool SerialToglle = true;
-        bool SDToglle = true;
-        SDCustom& sd;
+        int log_path; //< Path of the log file
+        int log_file; //< Name of the log file
+        int oldest_log_file = 0; //< Name of the oldest log file
+        String log_fullPath; //< Full path of the log file
+        bool SerialToglle = true; //< Boolean to know if we need to log in the monitor
+        bool SDToglle = true; //< Boolean to know if we need to log in the SD Card
+        SDCustom& sd; //< SD Card object
 
         enum roll_t {
             SWITCH,
@@ -21,14 +21,26 @@ class myLogger {
         };
 
     public:
+        /**
+         * @brief Enumeration of the debug levels
+         * 
+         */
         enum level_t {
-            DEBUG = 0,
-            INFO,
-            WARN,
-            ERROR
+            DEBUG = 0,<//< Debug level
+            INFO, //< Info level
+            WARN, //< Warning level
+            ERROR //< Error level
         };
         level_t logLevel;
 
+        /**
+         * @brief Construct a new my Logger object
+         * 
+         * @param sd 
+         * @param log_file, default value is 0
+         * @param log_path, default value is 0
+         * @param level, default value is INFO
+         */
         myLogger(SDCustom& sd, int log_file = 0, int log_path = 0, level_t level = INFO) : sd(sd), log_file(log_file), log_path(log_path), logLevel(level) {
             this->log_fullPath = String(log_file) + ".txt";
         }
@@ -50,38 +62,82 @@ class myLogger {
             }
         }
 
+        /**
+         * @brief Get the Level parameter
+         * 
+         * @return level_t 
+         */
         level_t getLevel() const {
             return logLevel;
         }
 
+        /**
+         * @brief Get the Log Path parameter
+         * 
+         * @return int 
+         */
         int getLogPath() const {
             return log_path;
         }
 
+        /**
+         * @brief Get the Log File parameter
+         * 
+         * @return int 
+         */
         int getLogFile() const {
             return log_file;
         }
 
+        /**
+         * @brief Set the Old Log File parameter
+         * 
+         * @param old_log 
+         */
         void setOldLogFile(int old_log) {
             this->oldest_log_file = old_log;
         }
 
+        /**
+         * @brief Get the Old Log File parameter
+         * 
+         * @return int 
+         */
         int getOldLogFile() const {
             return oldest_log_file;
         }
 
+        /**
+         * @brief Set the Log Path parameter
+         * 
+         * @param log_path 
+         */
         void setLogPath(int log_path) {
             this->log_path = log_path;
         }
 
+        /**
+         * @brief Set the Log File parameter
+         * 
+         * @param log_file 
+         */
         void setLogFile(int log_file) {
             this->log_file = log_file;
         }
 
+        /**
+         * @brief Set the Log Full Path parameter
+         * 
+         */
         void setLogFullPath() {
             this->log_fullPath = String(log_path) + "/" + String(log_file) + ".txt";
         }
 
+        /**
+         * @brief Set the Level parameter
+         * 
+         * @param level 
+         */
         void setLevel(level_t level) {
             this->logLevel = level;
         }
@@ -132,18 +188,34 @@ class myLogger {
             }
         }
 
+        /**
+         * @brief Enable logging in the monitor
+         * 
+         */
         void enableLoggingInMonitor() {
             SerialToglle = true;
         }
 
+        /**
+         * @brief Disable logging in the monitor
+         * 
+         */
         void disableLoggingInMonitor() {
             SerialToglle = false;
         }
 
+        /**
+         * @brief Enable logging in the SD Card
+         * 
+         */
         void enableLoggingInSD() {
             SDToglle = true;
         }
 
+        /**
+         * @brief Disable logging in the SD Card
+         * 
+         */
         void disableLoggingInSD() {
             SDToglle = false;
         }
@@ -186,6 +258,13 @@ class myLogger {
             }
         }
 
+        /**
+         * @brief Build the format of the log
+         * 
+         * @param logTag First part to identify where comes the log
+         * @param level Level of the log
+         * @return String 
+         */
         String buildlogFormat(String logTag, String level) {
             return "[" + String(esp_timer_get_time() / 1000) + "] [" + level + "] [" + logTag + "] ";
         }
@@ -205,11 +284,19 @@ class myLogger {
             }
         }
 
+        /**
+         * @brief Delete the oldest log file
+         * 
+         */
         void deleteOldestFile() {
             sd.deleteFile(String(log_file)+".txt");
             oldest_log_file++;
         }
 
+        /**
+         * @brief Create a New log File
+         * 
+         */
         void createNewFile() {
             setLogFile(log_file + 1);
 

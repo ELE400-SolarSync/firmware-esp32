@@ -4,21 +4,27 @@
 #include <HTTPClient.h>
 #include <ArduinoJson.h>
 
+/**
+ * @brief Class to call the api
+ * 
+ */
 class api_lib {     
     private:
-        // Azure IoT Hub connection parameters
-        String host = "solarsync.azure-devices.net";
-        String device_id = "esp32hub";
-        String sas_token = "SharedAccessSignature sr=SolarSync.azure-devices.net%2Fdevices%2Fesp32hub&sig=qTW1FcZWh8M1kzhDTHFCAmqY3SPP%2FD0reP6eHn0dyhE%3D&se=1701753692";
+        String host = "solarsync.azure-devices.net"; //< Host of the api call
+        String device_id = "esp32hub"; //< Device id of the api call
+        String sas_token = "SharedAccessSignature sr=SolarSync.azure-devices.net%2Fdevices%2Fesp32hub&sig=qTW1FcZWh8M1kzhDTHFCAmqY3SPP%2FD0reP6eHn0dyhE%3D&se=1701753692"; //< SAS token of the api call
 
-        // Azure IoT Hub endpoint for posting messages
-        String url = String("https://") + host + "/devices/" + device_id + "/messages/events?api-version=2018-06-30";
-        StaticJsonDocument<256> jsonDoc;
+        String url = String("https://") + host + "/devices/" + device_id + "/messages/events?api-version=2018-06-30"; //< Url of the api call
+        StaticJsonDocument<256> jsonDoc; //< Json payload of the api call
 
     public:
+
+        /**
+         * @brief Contain all the data of the api call
+         */
         struct response {
-            int code;
-            String data;
+            int code; ///< HTTP code of the api call
+            String data; ///< Data of the api call
         };
 
         response getResponse();

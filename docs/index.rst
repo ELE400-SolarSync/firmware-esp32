@@ -1,5 +1,6 @@
+=======================
 SolarSync Documentation
-========================
+=======================
 
 .. toctree::
   :maxdepth: 2
@@ -9,6 +10,7 @@ SolarSync Documentation
   src/modules
   src/usage
   src/manuel
+
 
 Firmware Documentation for Solar-Powered IoT Device
 ===================================================

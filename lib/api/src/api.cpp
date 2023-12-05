@@ -29,6 +29,16 @@ api_lib::response api_lib::getResponse() {
     return res;
 }
 
+/**
+ * @brief Create the json which will be the payload of the api call
+ * 
+ * @param temp 
+ * @param puissance 
+ * @param niveauBatterie 
+ * @param niveauBatterieAlert 
+ * @return true 
+ * @return false 
+ */
 bool api_lib::createJson(float temp, float puissance, float niveauBatterie, bool niveauBatterieAlert) {
     try {
         api_lib::jsonDoc["Temperature"] = temp;
@@ -43,6 +53,12 @@ bool api_lib::createJson(float temp, float puissance, float niveauBatterie, bool
     }
 }
 
+/**
+ * @brief Clear the json payload
+ * 
+ * @return true 
+ * @return false 
+ */
 bool api_lib::clearJson() {
     try {
         api_lib::jsonDoc.clear();

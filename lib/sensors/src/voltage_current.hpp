@@ -88,10 +88,24 @@ class CurrentSensor {
             return ((adc_max_voltage * read() / adc_bits) - current_sensor_offset) / current_sensor_multiplier;
         };
 
+        /**
+         * @brief Get the Bat Level with the given current and the voltage
+         * 
+         * @param current 
+         * @param voltage 
+         * @return float 
+         */
         float getBatLevel(float current, float voltage) {
             return (current * voltage) / 3600;
         }
 
+        /**
+         * @brief Get the Power with the given current and the voltage
+         * 
+         * @param current 
+         * @param voltage 
+         * @return float 
+         */
         float getPower(float current, float voltage) {
             return current * voltage;
         }

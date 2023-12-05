@@ -7,8 +7,13 @@
 #define SDCUSTOM_H
 class SDCustom {
     public:
-        int max_size;
+        int max_size; //< Max size of the SD Card
 
+        /**
+         * @brief Construct a new SDCustom object
+         * 
+         * @param size the max size of the SD Card
+         */
         SDCustom(int size) {
             this->max_size = size;
         };
@@ -145,11 +150,11 @@ class SDCustom {
         };
 
     private:
-        int SD_MISO = 5;
-        int SD_MOSI = 7;
-        int SD_SCLK = 6;
-        int SD_CS = 18;
-        int SD_DET = 19;
+        int SD_MISO = 5; //< MISO pin
+        int SD_MOSI = 7; //< MOSI pin
+        int SD_SCLK = 6; //< SCLK pin
+        int SD_CS = 18; //< CS pin
+        int SD_DET = 19; //< DET pin
 };
 
 #endif // SDCUSTOM_H
