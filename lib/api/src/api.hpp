@@ -3,7 +3,14 @@
 
 class api_lib {
 private:
-    String host;
+    // Azure IoT Hub connection parameters
+    const char* host = "solarsync.azure-devices.net";
+    const char* device_id = "esp32hub";
+    const char* sas_token = "SharedAccessSignature sr=SolarSync.azure-devices.net%2Fdevices%2Fesp32hub&sig=qTW1FcZWh8M1kzhDTHFCAmqY3SPP%2FD0reP6eHn0dyhE%3D&se=1701753692";
+
+    // Azure IoT Hub endpoint for posting messages
+    String url = String("https://") + host + "/devices/" + device_id + "/messages/events?api-version=2018-06-30";
+    StaticJsonDocument<256> jsonDoc;
 
 public:
 /**
@@ -21,30 +28,46 @@ public:
  * @param url string to complete the host
  * @return String string return of the api call
  */
-    String getResponse(String url) {
-        HTTPClient http;
+    String getResponse() {
+        String jsonBuffer;
+        serializeJson(jsonDoc, jsonBuffer);
 
-        const char* iotHubName = "solarsync";
-        const char* deviceId = "esp32hub";
-        const char* sharedAccessKey = "HostName=SolarSync.azure-devices.net;SharedAccessKeyName=device;SharedAccessKey=qQZthpXIb+vJugD/l2hQ4MxNKCaVAEGwXAIoTGsTlUU=";
-
-        String endpoint = "https://" + String(iotHubName) + ".azure-devices.net/devices/" + String(deviceId) + "/messages/events?api-version=2018-06-30";
-
-        String authorizationHeader = "SharedAccessSignature sr=" + String(iotHubName) + ".azure-devices.net%2Fdevices%2F" + String(deviceId) + "&sig=" + String(sharedAccessKey) + "&se=1638700000";
-
+        HTTPClient httpClient;
 
         String server_call = host + url;
-        http.begin(endpoint);
-        http.addHeader("Content-Type", "application/json");
-        http.addHeader("Authorization", authorizationHeader);
+        httpClient.begin(url)
+        httpClient.addHeader("Content-Type", "application/json");
+        httpClient.addHeader("Authorization", sas_token);
 
-        int httpCode = http.POST("{\"temperature\":\"1.0\"}");
+        int httpCode = httpClient.POST(jsonBuffer);
         if (httpCode > 0) {
             if (httpCode == HTTP_CODE_OK) {
                 return http.getString();
             }
         }
-        return "";
+        return httpClient.errorToString(httpResponseCode).c_str();
+    }
+
+    bool createJson(float temp, float puissance, float niveauBatterie, bool niveauBatterieAlert) {
+        try:
+            jsonDoc["Temperature"] = temp;
+            jsonDoc["Puissance"] = puissance;
+            jsonDoc["Niveau batterie"] = niveauBatterie;
+            jsonDoc["niveauBatterieAlert"] = niveauBatterieAlert;
+
+            return true;
+        catch (const std::exception& e) {
+            return false;
+        }
+    }
+
+    bool clearJson() {
+        try:
+            jsonDoc.clear();
+            return true;
+        catch (const std::exception& e) {
+            return false;
+        }
     }
 
 /**
