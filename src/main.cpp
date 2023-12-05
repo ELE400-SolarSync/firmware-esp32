@@ -222,6 +222,21 @@ void loop()
     case SENDING:
       logger.info("SENDING", "SENDING");
 
+      if(show_data){
+        logger.info("Values Start", "-------------------------------");
+
+        logger.info("DHT11", String(dht_values[temp]) + "C " + String(dht_values[hum]) + "%");
+
+        logger.info("12V", String(v_c_values[c_12v]) + "A " + String(v_c_values[v_12v]) + "V");
+
+        logger.info("5V", String(v_c_values[c_5v]) + "A " + String(v_c_values[v_5v]) + "V");
+
+        logger.info("Solar",  String(v_c_values[c_solar]) + "A " + String(v_c_values[v_solar]) + "V");
+
+        logger.info("Battery", String(v_c_values[c_battery]) + "A " + String(v_c_values[v_battery]) + "V");
+
+        logger.info("Values End", "-------------------------------");
+      }
 
       api.clearJson();
       api.createJson(dht_values[temp], pow_values[p_solar], bat_level, bat_level < 0.2);
@@ -270,6 +285,7 @@ void loop()
 
     default:
       logger.debug("DEFAULT", "DEFAULT state");
+      break;
     
   }
 }
