@@ -1,4 +1,4 @@
 .pio
 .vscode
 venv
-docs/doc_out/*
+docs/doc_out
