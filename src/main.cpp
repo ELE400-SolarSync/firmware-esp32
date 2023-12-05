@@ -222,63 +222,20 @@ void loop()
     case SENDING:
       logger.info("SENDING", "SENDING");
 
-      Serial.println("Values :\n-------------------------------");
-      Serial.print("DHT11 : ");
-      Serial.print(dht_values[temp]);
-      Serial.print("C ");
-      Serial.print(dht_values[hum]);
-      Serial.println("%");
 
-      Serial.print("12V : ");
-      Serial.print(v_c_values[c_12v]);
-      Serial.print("A ");
-      Serial.print(v_c_values[v_12v]);
-      Serial.println("V");
+      api.clearJson();
+      api.createJson(dht_values[temp], pow_values[p_solar], bat_level, bat_level < 0.2);
 
-      Serial.print("5V : ");
-      Serial.print(v_c_values[c_5v]);
-      Serial.print("A ");
-      Serial.print(v_c_values[v_5v]);
-      Serial.println("V");
-
-      Serial.print("Solar : ");
-      Serial.print(v_c_values[c_solar]);
-      Serial.print("A ");
-      Serial.print(v_c_values[v_solar]);
-      Serial.println("V");
-
-      Serial.print("Battery : ");
-      Serial.print(v_c_values[c_battery]);
-      Serial.print("A ");
-      Serial.print(v_c_values[v_battery]);
-      Serial.println("V");
-
-      Serial.println("-------------------------------");
-
-      current_state = SLEEP;
-
-      
-      for(int i = 0; i < 8; i++) {
-        all_data[i] = v_c_values[i];
-      }
-
-      for(int i = 0; i < 4; i++) {
-        all_data[i + 8] = pow_values[i];
-      }
-
-      all_data[12] = bat_level;
-
-      all_data[13] = dht_values[temp];
-      all_data[14] = dht_values[hum];
-
-      res = api.sendAll(all_data, sizeof(all_data)/sizeof(float));
-      if (res.code == 200) {
+      res = api.getResponse();
+      if (res.code == 204) {
         logger.debug("SENDING", "Return message : " + res.data);
         current_state = SLEEP;
       }
       else {
         logger.error("SENDING", "API call failed : " + res.data);
+        current_state = ERROR;
       }
+
       break;
       
 
@@ -307,7 +264,7 @@ void loop()
       log_info[0] = logger.getLogFile();
       log_info[1] = logger.getOldLogFile();
       // deepSleep(time_to_sleep);
-      delay(15000);
+      delay(1000);
       current_state = CHECKING;
       break;
 
