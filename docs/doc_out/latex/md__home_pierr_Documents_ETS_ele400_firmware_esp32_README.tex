@@ -1,0 +1,28 @@
+\hypertarget{md__home_pierr_Documents_ETS_ele400_firmware_esp32_README_autotoc_md4}{}\doxysection{Overview}\label{md__home_pierr_Documents_ETS_ele400_firmware_esp32_README_autotoc_md4}
+This project is an ESP32 firmware designed to fetch data from a solar panel sensor and transmit it to the Azure IoT cloud using an API. The firmware is developed for the ESP32 platform, making it suitable for low-\/power, IoT applications.\hypertarget{md__home_pierr_Documents_ETS_ele400_firmware_esp32_README_autotoc_md5}{}\doxysection{Features}\label{md__home_pierr_Documents_ETS_ele400_firmware_esp32_README_autotoc_md5}
+
+\begin{DoxyItemize}
+\item {\bfseries{Sensor Data Retrieval\+:}} The firmware is capable of reading data from the connected solar panel sensor and additionnal sensors such as a temperature sensor.
+\item {\bfseries{Azure IoT Integration\+:}} It securely sends the collected data to the Azure IoT cloud via API, providing a seamless way to monitor and analyze solar panel performance.
+\item {\bfseries{Power Efficiency\+:}} The firmware is optimized for power efficiency to ensure minimal energy consumption, making it suitable for battery-\/powered applications.
+\item {\bfseries{Configurability\+:}} The firmware allows easy configuration of parameters such as Wi\+Fi credentials, Azure IoT connection details, and sensor communication settings through a uart connection.
+\end{DoxyItemize}\hypertarget{md__home_pierr_Documents_ETS_ele400_firmware_esp32_README_autotoc_md6}{}\doxysection{Getting Started}\label{md__home_pierr_Documents_ETS_ele400_firmware_esp32_README_autotoc_md6}
+\hypertarget{md__home_pierr_Documents_ETS_ele400_firmware_esp32_README_autotoc_md7}{}\doxysubsection{Prerequisites}\label{md__home_pierr_Documents_ETS_ele400_firmware_esp32_README_autotoc_md7}
+
+\begin{DoxyItemize}
+\item \href{https://platformio.org/}{\texttt{ Platform\+IO}} -\/ An open source ecosystem for IoT development. Can be installed as an extension for \href{https://code.visualstudio.com/}{\texttt{ Visual Studio Code}}. You can read the documentation for the project by opening the \href{docs/doc_out/sphinx/src/installation.html}{\texttt{ doc}} file in your browser.
+\end{DoxyItemize}\hypertarget{md__home_pierr_Documents_ETS_ele400_firmware_esp32_README_autotoc_md8}{}\doxysubsection{Installation}\label{md__home_pierr_Documents_ETS_ele400_firmware_esp32_README_autotoc_md8}
+
+\begin{DoxyEnumerate}
+\item Clone this repository to your local machine
+
+\`{}\`{}\`{}bash git clone \href{https://github.com/ELE400-SolarSync/firmware-esp32.git}{\texttt{ https\+://github.\+com/\+ELE400-\/\+Solar\+Sync/firmware-\/esp32.\+git}} \`{}\`{}\`{}
+\item Upload the firmware to your ESP32 device using Platform\+IO.
+
+\`{}\`{}\`{}bash pio run -\/t upload \`{}\`{}\`{}
+\end{DoxyEnumerate}\hypertarget{md__home_pierr_Documents_ETS_ele400_firmware_esp32_README_autotoc_md9}{}\doxysubsection{Usage}\label{md__home_pierr_Documents_ETS_ele400_firmware_esp32_README_autotoc_md9}
+
+\begin{DoxyEnumerate}
+\item Open the project in \href{https://platformio.org/}{\texttt{ Platform\+IO}}.
+\item Follow the instructions in the \href{docs/doc_out/sphinx/src/usage.html}{\texttt{ documentation}} to use the firmware. 
+\end{DoxyEnumerate}

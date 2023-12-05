@@ -1,0 +1,171 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="classVoltageSensor" kind="class" language="C++" prot="public">
+    <compoundname>VoltageSensor</compoundname>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classVoltageSensor_1ad8aca7cae50226a54b0559f385b79ab9" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int VoltageSensor::pin</definition>
+        <argsstring></argsstring>
+        <name>pin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/sensors/src/voltage_current.hpp" line="5" column="9" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/sensors/src/voltage_current.hpp" bodystart="5" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classVoltageSensor_1ac057321a9880b364fc7a5945df15f000" prot="private" static="no" mutable="no">
+        <type>const int</type>
+        <definition>const int VoltageSensor::adc_bits</definition>
+        <argsstring></argsstring>
+        <name>adc_bits</name>
+        <initializer>= 4095</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/sensors/src/voltage_current.hpp" line="6" column="15" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/sensors/src/voltage_current.hpp" bodystart="6" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classVoltageSensor_1ad52e4101e3cef64346860c5454529d89" prot="private" static="no" mutable="no">
+        <type>const int</type>
+        <definition>const int VoltageSensor::adc_max_voltage</definition>
+        <argsstring></argsstring>
+        <name>adc_max_voltage</name>
+        <initializer>= 3.3</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/sensors/src/voltage_current.hpp" line="7" column="15" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/sensors/src/voltage_current.hpp" bodystart="7" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classVoltageSensor_1a5de9205abd86f5585ef041ad4c1cc143" prot="private" static="no" mutable="no">
+        <type>const int</type>
+        <definition>const int VoltageSensor::voltage_sensor_multiplier</definition>
+        <argsstring></argsstring>
+        <name>voltage_sensor_multiplier</name>
+        <initializer>= 5</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/sensors/src/voltage_current.hpp" line="8" column="15" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/sensors/src/voltage_current.hpp" bodystart="8" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classVoltageSensor_1ade929b270602776c982a850a04271812" prot="private" static="no" mutable="no">
+        <type>const int</type>
+        <definition>const int VoltageSensor::adc_correction_factor</definition>
+        <argsstring></argsstring>
+        <name>adc_correction_factor</name>
+        <initializer>= 1.15</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/sensors/src/voltage_current.hpp" line="9" column="15" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/sensors/src/voltage_current.hpp" bodystart="9" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classVoltageSensor_1a4bf70c1dcefabfbf22d0e9507e4856fc" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>VoltageSensor::VoltageSensor</definition>
+        <argsstring>(int pin)</argsstring>
+        <name>VoltageSensor</name>
+        <param>
+          <type>int</type>
+          <declname>pin</declname>
+        </param>
+        <briefdescription>
+<para>Construct a new Voltage Sensor object. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pin</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/sensors/src/voltage_current.hpp" line="17" column="5" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/sensors/src/voltage_current.hpp" bodystart="17" bodyend="19"/>
+      </memberdef>
+      <memberdef kind="function" id="classVoltageSensor_1a33fcc58d10cb07ac560f1e65476895cb" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void VoltageSensor::setup</definition>
+        <argsstring>()</argsstring>
+        <name>setup</name>
+        <briefdescription>
+<para>Setup the pin as input. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/sensors/src/voltage_current.hpp" line="24" column="10" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/sensors/src/voltage_current.hpp" bodystart="24" bodyend="26"/>
+      </memberdef>
+      <memberdef kind="function" id="classVoltageSensor_1a1d75b018df31ff876f43aac2ad92b2fe" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>float</type>
+        <definition>float VoltageSensor::read</definition>
+        <argsstring>()</argsstring>
+        <name>read</name>
+        <briefdescription>
+<para>Read the raw value from the pin. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>float Value between 0 and 4095 </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/sensors/src/voltage_current.hpp" line="33" column="11" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/sensors/src/voltage_current.hpp" bodystart="33" bodyend="35"/>
+      </memberdef>
+      <memberdef kind="function" id="classVoltageSensor_1ae995eed43cee2b1feebfad6134e09cbe" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>float</type>
+        <definition>float VoltageSensor::readVoltage</definition>
+        <argsstring>()</argsstring>
+        <name>readVoltage</name>
+        <briefdescription>
+<para>Read the voltage from the pin. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>float </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/sensors/src/voltage_current.hpp" line="42" column="11" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/sensors/src/voltage_current.hpp" bodystart="42" bodyend="44"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/sensors/src/voltage_current.hpp" line="3" column="1" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/sensors/src/voltage_current.hpp" bodystart="3" bodyend="45"/>
+    <listofallmembers>
+      <member refid="classVoltageSensor_1ac057321a9880b364fc7a5945df15f000" prot="private" virt="non-virtual"><scope>VoltageSensor</scope><name>adc_bits</name></member>
+      <member refid="classVoltageSensor_1ade929b270602776c982a850a04271812" prot="private" virt="non-virtual"><scope>VoltageSensor</scope><name>adc_correction_factor</name></member>
+      <member refid="classVoltageSensor_1ad52e4101e3cef64346860c5454529d89" prot="private" virt="non-virtual"><scope>VoltageSensor</scope><name>adc_max_voltage</name></member>
+      <member refid="classVoltageSensor_1ad8aca7cae50226a54b0559f385b79ab9" prot="private" virt="non-virtual"><scope>VoltageSensor</scope><name>pin</name></member>
+      <member refid="classVoltageSensor_1a1d75b018df31ff876f43aac2ad92b2fe" prot="public" virt="non-virtual"><scope>VoltageSensor</scope><name>read</name></member>
+      <member refid="classVoltageSensor_1ae995eed43cee2b1feebfad6134e09cbe" prot="public" virt="non-virtual"><scope>VoltageSensor</scope><name>readVoltage</name></member>
+      <member refid="classVoltageSensor_1a33fcc58d10cb07ac560f1e65476895cb" prot="public" virt="non-virtual"><scope>VoltageSensor</scope><name>setup</name></member>
+      <member refid="classVoltageSensor_1a5de9205abd86f5585ef041ad4c1cc143" prot="private" virt="non-virtual"><scope>VoltageSensor</scope><name>voltage_sensor_multiplier</name></member>
+      <member refid="classVoltageSensor_1a4bf70c1dcefabfbf22d0e9507e4856fc" prot="public" virt="non-virtual"><scope>VoltageSensor</scope><name>VoltageSensor</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

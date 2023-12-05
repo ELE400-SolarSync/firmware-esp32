@@ -103,24 +103,42 @@ $(function() {
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;            <span class="keywordflow">return</span> WiFi.status() == WL_CONNECTED;</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        }</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="classwifi__connection.html#a52afbfc28143e9cc24a8a7c0d7cadf02">   40</a></span>&#160;        <span class="keywordtype">bool</span> <a class="code" href="classwifi__connection.html#a52afbfc28143e9cc24a8a7c0d7cadf02">connect</a>(<span class="keywordtype">int</span> timeout_ms) {</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;            <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> start = millis();</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;            WiFiServer server(80);</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;            Serial.println(<span class="stringliteral">&quot;Connecting to WiFi &quot;</span>);</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;            WiFi.begin(ssid, password);</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;            <span class="keywordflow">while</span> (WiFi.status() != WL_CONNECTED &amp;&amp; millis() - start &gt; timeout_ms) {</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;                delay(500);</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;                Serial.print(<span class="stringliteral">&quot;.&quot;</span>);</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;            }</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="keywordtype">bool</span> isConnected()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;            <span class="keywordflow">return</span> WiFi.isConnected();</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        }</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="classwifi__connection.html#a33816fba6968e02098085e7d6c52708b">   44</a></span>&#160;        <span class="keywordtype">bool</span> <a class="code" href="classwifi__connection.html#a33816fba6968e02098085e7d6c52708b">connect</a>(<span class="keywordtype">int</span> max_attempts) {</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;            <span class="keywordtype">int</span> attempts = 0;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;            IPAddress staticIP(192, 168, 1, 100);</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;            IPAddress gateway(192, 168, 1, 1);</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;            IPAddress subnet(255, 255, 255, 0); </div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;            WiFiServer server(80);</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            <span class="keywordflow">return</span> WiFi.status() == WL_CONNECTED;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        }        </div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;};</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            Serial.print(<span class="stringliteral">&quot;Connecting to WiFi &quot;</span>);</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;            <span class="keywordflow">while</span> (WiFi.status() != WL_CONNECTED &amp;&amp; attempts &lt; max_attempts) {</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;                WiFi.begin(ssid, password);</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;                delay(1000);</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;                Serial.print(<span class="stringliteral">&quot;.&quot;</span>);</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;                attempts ++;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;            }</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;            Serial.println();</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;            <span class="keywordflow">return</span> WiFi.status() == WL_CONNECTED;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        }</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        <span class="keywordtype">bool</span> disconnect() {</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;            <span class="keywordflow">return</span> WiFi.disconnect(<span class="keyword">true</span>);</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        }</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        <span class="keywordtype">bool</span> setModeOff() {</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;            <span class="keywordflow">return</span> WiFi.mode(WIFI_OFF);</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        }</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;};</div>
 <div class="ttc" id="aclasswifi__connection_html"><div class="ttname"><a href="classwifi__connection.html">wifi_connection</a></div><div class="ttdef"><b>Definition:</b> wifi.hpp:5</div></div>
-<div class="ttc" id="aclasswifi__connection_html_a52afbfc28143e9cc24a8a7c0d7cadf02"><div class="ttname"><a href="classwifi__connection.html#a52afbfc28143e9cc24a8a7c0d7cadf02">wifi_connection::connect</a></div><div class="ttdeci">bool connect(int timeout_ms)</div><div class="ttdoc">Connect to the wifi.</div><div class="ttdef"><b>Definition:</b> wifi.hpp:40</div></div>
+<div class="ttc" id="aclasswifi__connection_html_a33816fba6968e02098085e7d6c52708b"><div class="ttname"><a href="classwifi__connection.html#a33816fba6968e02098085e7d6c52708b">wifi_connection::connect</a></div><div class="ttdeci">bool connect(int max_attempts)</div><div class="ttdoc">Connect to the wifi.</div><div class="ttdef"><b>Definition:</b> wifi.hpp:44</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

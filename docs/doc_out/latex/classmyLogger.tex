@@ -1,0 +1,195 @@
+\hypertarget{classmyLogger}{}\doxysection{my\+Logger Class Reference}
+\label{classmyLogger}\index{myLogger@{myLogger}}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classmyLogger_ac711e3c653fa61bfe2bd19b723b608c3}\label{classmyLogger_ac711e3c653fa61bfe2bd19b723b608c3}} 
+enum {\bfseries level\+\_\+t} \{ {\bfseries DEBUG} = 0
+, {\bfseries INFO}
+, {\bfseries WARN}
+, {\bfseries ERROR}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classmyLogger_a32d215e499371a3cf3cca5da8d609ac9}\label{classmyLogger_a32d215e499371a3cf3cca5da8d609ac9}} 
+{\bfseries my\+Logger} (\mbox{\hyperlink{classSDCustom}{SDCustom}} \&sd, int log\+\_\+file=0, int log\+\_\+path=0, level\+\_\+t level=INFO)
+\item 
+\mbox{\Hypertarget{classmyLogger_ad23b181afe0eccf231701068912277f2}\label{classmyLogger_ad23b181afe0eccf231701068912277f2}} 
+void \mbox{\hyperlink{classmyLogger_ad23b181afe0eccf231701068912277f2}{init}} ()
+\begin{DoxyCompactList}\small\item\em Initialise the logger. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classmyLogger_abf786e116ad9dfb51cd806b982efe8c4}\label{classmyLogger_abf786e116ad9dfb51cd806b982efe8c4}} 
+level\+\_\+t {\bfseries get\+Level} () const
+\item 
+\mbox{\Hypertarget{classmyLogger_abacd100fa3dba269632711eb99b93a78}\label{classmyLogger_abacd100fa3dba269632711eb99b93a78}} 
+int {\bfseries get\+Log\+Path} () const
+\item 
+\mbox{\Hypertarget{classmyLogger_af440d46190f823c9817c610a4ed88f34}\label{classmyLogger_af440d46190f823c9817c610a4ed88f34}} 
+int {\bfseries get\+Log\+File} () const
+\item 
+\mbox{\Hypertarget{classmyLogger_af9939ab221cd5f31aef73c0698bb4df3}\label{classmyLogger_af9939ab221cd5f31aef73c0698bb4df3}} 
+void {\bfseries set\+Old\+Log\+File} (int old\+\_\+log)
+\item 
+\mbox{\Hypertarget{classmyLogger_a3fa4f3b7654558a947030871fff9c674}\label{classmyLogger_a3fa4f3b7654558a947030871fff9c674}} 
+int {\bfseries get\+Old\+Log\+File} () const
+\item 
+\mbox{\Hypertarget{classmyLogger_a788d188e5793d9ef71086e9395125890}\label{classmyLogger_a788d188e5793d9ef71086e9395125890}} 
+void {\bfseries set\+Log\+Path} (int log\+\_\+path)
+\item 
+\mbox{\Hypertarget{classmyLogger_a5e56d3c12eda6da1bf2daeb7a18ee86b}\label{classmyLogger_a5e56d3c12eda6da1bf2daeb7a18ee86b}} 
+void {\bfseries set\+Log\+File} (int log\+\_\+file)
+\item 
+\mbox{\Hypertarget{classmyLogger_a4d2badf28ebc5dd6ea179a137c2981c1}\label{classmyLogger_a4d2badf28ebc5dd6ea179a137c2981c1}} 
+void {\bfseries set\+Log\+Full\+Path} ()
+\item 
+\mbox{\Hypertarget{classmyLogger_a92c5f02994cb4e1aeae89f9a90285abf}\label{classmyLogger_a92c5f02994cb4e1aeae89f9a90285abf}} 
+void {\bfseries set\+Level} (level\+\_\+t level)
+\item 
+void \mbox{\hyperlink{classmyLogger_a17871fca537c8609a3ac8c7c2bb9719e}{error}} (String tag, String message)
+\begin{DoxyCompactList}\small\item\em Function to write error log. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classmyLogger_a18b71c939cf9dba82b82f50accee8ebe}{warning}} (String tag, String message)
+\begin{DoxyCompactList}\small\item\em Function to write warning log. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classmyLogger_a8c6c7b9d1f97103979be317fe8fe83bf}{info}} (String tag, String message)
+\begin{DoxyCompactList}\small\item\em Function to write info log. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classmyLogger_a40c793a254de92079c7f499d03f48937}{debug}} (String tag, String message)
+\begin{DoxyCompactList}\small\item\em Function to write debug log. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classmyLogger_a28a78a7aa80cae651aa2237173fea04c}\label{classmyLogger_a28a78a7aa80cae651aa2237173fea04c}} 
+void {\bfseries enable\+Logging\+In\+Monitor} ()
+\item 
+\mbox{\Hypertarget{classmyLogger_af7d5212f2b1c3542f9ee9c254cbfb3fe}\label{classmyLogger_af7d5212f2b1c3542f9ee9c254cbfb3fe}} 
+void {\bfseries disable\+Logging\+In\+Monitor} ()
+\item 
+\mbox{\Hypertarget{classmyLogger_a7d8873f9d6363ec7eb5e8370fc808dce}\label{classmyLogger_a7d8873f9d6363ec7eb5e8370fc808dce}} 
+void {\bfseries enable\+Logging\+In\+SD} ()
+\item 
+\mbox{\Hypertarget{classmyLogger_aa512e6fbf1f072284b36d3f986349ca0}\label{classmyLogger_aa512e6fbf1f072284b36d3f986349ca0}} 
+void {\bfseries disable\+Logging\+In\+SD} ()
+\item 
+void \mbox{\hyperlink{classmyLogger_a5efaa4d4be16db5b09aa9fe4bc98ae96}{log}} (String log\+Format, String message)
+\begin{DoxyCompactList}\small\item\em Main function to write the log. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classmyLogger_aef4b5776ac10f03a1db79489a67d4d19}\label{classmyLogger_aef4b5776ac10f03a1db79489a67d4d19}} 
+String {\bfseries buildlog\+Format} (String log\+Tag, String level)
+\item 
+void \mbox{\hyperlink{classmyLogger_a40ea6555afcb5446ef0ac0db8d730319}{log\+Roll}} (roll\+\_\+t roll)
+\begin{DoxyCompactList}\small\item\em Roll the log, if size is too big or if there is too much files. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classmyLogger_ae45b9bf34211c752ecf50d55f6f3588b}\label{classmyLogger_ae45b9bf34211c752ecf50d55f6f3588b}} 
+void {\bfseries delete\+Oldest\+File} ()
+\item 
+\mbox{\Hypertarget{classmyLogger_aff9c31db40b2335c966f452ef7706e37}\label{classmyLogger_aff9c31db40b2335c966f452ef7706e37}} 
+void {\bfseries create\+New\+File} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classmyLogger_aa814101f085bfffdf200553a1c7ecda4}\label{classmyLogger_aa814101f085bfffdf200553a1c7ecda4}} 
+level\+\_\+t {\bfseries log\+Level}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classmyLogger_a40c793a254de92079c7f499d03f48937}\label{classmyLogger_a40c793a254de92079c7f499d03f48937}} 
+\index{myLogger@{myLogger}!debug@{debug}}
+\index{debug@{debug}!myLogger@{myLogger}}
+\doxysubsubsection{\texorpdfstring{debug()}{debug()}}
+{\footnotesize\ttfamily void my\+Logger\+::debug (\begin{DoxyParamCaption}\item[{String}]{tag,  }\item[{String}]{message }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Function to write debug log. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em tag} & First part to identify where comes the log \\
+\hline
+{\em message} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classmyLogger_a17871fca537c8609a3ac8c7c2bb9719e}\label{classmyLogger_a17871fca537c8609a3ac8c7c2bb9719e}} 
+\index{myLogger@{myLogger}!error@{error}}
+\index{error@{error}!myLogger@{myLogger}}
+\doxysubsubsection{\texorpdfstring{error()}{error()}}
+{\footnotesize\ttfamily void my\+Logger\+::error (\begin{DoxyParamCaption}\item[{String}]{tag,  }\item[{String}]{message }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Function to write error log. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em tag} & First part to identify where comes the log \\
+\hline
+{\em message} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classmyLogger_a8c6c7b9d1f97103979be317fe8fe83bf}\label{classmyLogger_a8c6c7b9d1f97103979be317fe8fe83bf}} 
+\index{myLogger@{myLogger}!info@{info}}
+\index{info@{info}!myLogger@{myLogger}}
+\doxysubsubsection{\texorpdfstring{info()}{info()}}
+{\footnotesize\ttfamily void my\+Logger\+::info (\begin{DoxyParamCaption}\item[{String}]{tag,  }\item[{String}]{message }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Function to write info log. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em tag} & First part to identify where comes the log \\
+\hline
+{\em message} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classmyLogger_a5efaa4d4be16db5b09aa9fe4bc98ae96}\label{classmyLogger_a5efaa4d4be16db5b09aa9fe4bc98ae96}} 
+\index{myLogger@{myLogger}!log@{log}}
+\index{log@{log}!myLogger@{myLogger}}
+\doxysubsubsection{\texorpdfstring{log()}{log()}}
+{\footnotesize\ttfamily void my\+Logger\+::log (\begin{DoxyParamCaption}\item[{String}]{log\+Format,  }\item[{String}]{message }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Main function to write the log. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em log\+Format} & Format of the log \\
+\hline
+{\em message} & Message to log \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classmyLogger_a40ea6555afcb5446ef0ac0db8d730319}\label{classmyLogger_a40ea6555afcb5446ef0ac0db8d730319}} 
+\index{myLogger@{myLogger}!logRoll@{logRoll}}
+\index{logRoll@{logRoll}!myLogger@{myLogger}}
+\doxysubsubsection{\texorpdfstring{logRoll()}{logRoll()}}
+{\footnotesize\ttfamily void my\+Logger\+::log\+Roll (\begin{DoxyParamCaption}\item[{roll\+\_\+t}]{roll }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Roll the log, if size is too big or if there is too much files. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em roll} & Argument to know if we need to switch file or delete the oldest one \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classmyLogger_a18b71c939cf9dba82b82f50accee8ebe}\label{classmyLogger_a18b71c939cf9dba82b82f50accee8ebe}} 
+\index{myLogger@{myLogger}!warning@{warning}}
+\index{warning@{warning}!myLogger@{myLogger}}
+\doxysubsubsection{\texorpdfstring{warning()}{warning()}}
+{\footnotesize\ttfamily void my\+Logger\+::warning (\begin{DoxyParamCaption}\item[{String}]{tag,  }\item[{String}]{message }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Function to write warning log. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em tag} & First part to identify where comes the log \\
+\hline
+{\em message} & \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/pierr/\+Documents/\+ETS/ele400/firmware-\/esp32/lib/log/src/log.\+hpp\end{DoxyCompactItemize}

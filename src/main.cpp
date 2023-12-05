@@ -1,72 +1,396 @@
 #include <Arduino.h>
-#include <WiFi.h>
-#include <HTTPClient.h>
-#include <ArduinoJson.h>
+#include "../lib/api/src/api.hpp"
+#include "../lib/wifi/src/wifi.hpp"
+#include "../lib/sd/src/sdcustom.hpp"
+#include "../lib/log/src/log.hpp"
+#include "../lib/sensors/src/voltage_current.hpp"
+#include "../lib/sensors/src/dht.hpp"
 
-// Objects
+/***********************************************************/
+/****************** Global variable ************************/
+/***********************************************************/
+// Voltage and current
+const int current_pin_12v = A2;
+const int voltage_pin_12v = A1;
 
-// Global Variables
-const char* ssid = "LakeLaogai";
-const char* password = "thereisnowifiinbasingse";
+const int current_pin_5v = A3;
+const int voltage_pin_5v = A4;
 
-const char* host = "solarsync.azure-devices.net";
-const char* device_id = "esp32hub";
-const char* sas_token = "SharedAccessSignature sr=SolarSync.azure-devices.net%2Fdevices%2Fesp32hub&sig=qTW1FcZWh8M1kzhDTHFCAmqY3SPP%2FD0reP6eHn0dyhE%3D&se=1701753692";
+const int current_pin_solar = A2;
+const int voltage_pin_solar = A0;
 
+const int current_pin_battery = A3;
+const int voltage_pin_battery = A4;
 
-// Azure IoT Hub endpoint for posting messages
-String url = String("https://") + host + "/devices/" + device_id + "/messages/events?api-version=2018-06-30";
+const int relay_pin = 9;
 
-//  Prototyping
+enum v_c_data { v_12v, c_12v, v_5v, c_5v, v_solar, c_solar, v_battery, c_battery };
+float v_c_values[8];
 
-// Setup and Loop
+enum pow_data { p_12v, p_5v, p_solar, p_battery };
+float pow_values[4];
+
+float bat_level;
+
+// API
+float all_data[15];
+api_lib::response res;
+
+// Relay for the output
+const int relay_output_pin = 8;
+
+// State machine
+enum state {
+    INIT,
+    CHECKING,
+    FETCHING,
+    SENDING,
+    ERROR,
+    SLEEP
+};
+state current_state = INIT;
+
+enum errors_t {
+  NONE,
+  SD_NOT_INSERTED,
+  WIFI_NOT_CONNECTED,
+  DHT11_VALUES_INCORRECT,
+  FETCHING_ERROR
+};
+
+error_t current_error = NONE;
+
+// Debug
+bool show_data = false;
+const int sd_size = 32;
+
+// DHT11
+const int dh11_pin = 10;
+enum dht_data { hum, temp };
+float dht_values[2];
+unsigned long start_dht;
+
+// Deep sleep
+unsigned long start;
+const int s_to_us_factor = 1000000;
+int time_to_sleep = 5;
+const int time_period = 15;
+
+RTC_DATA_ATTR int log_info[2] = {0, 0};
+
+/***********************************************************/
+/********************* Objects *****************************/
+/***********************************************************/
+wifi_connection wifi("Siri-al_killer", "15112001");
+api_lib api;
+
+SDCustom sd(sd_size);
+myLogger logger(sd);
+
+DHTSensor dht_sensor(dh11_pin);
+
+CurrentSensor current_12v(current_pin_12v);
+VoltageSensor voltage_12v(voltage_pin_12v);
+
+CurrentSensor current_5v(current_pin_5v);
+VoltageSensor volatage_5v(voltage_pin_5v);
+
+CurrentSensor current_solar(current_pin_solar);
+VoltageSensor voltage_solar(voltage_pin_solar);
+
+CurrentSensor current_battery(current_pin_battery);
+VoltageSensor voltage_battery(voltage_pin_battery);
+
+/***********************************************************/
+/********************* Prototype ***************************/
+/***********************************************************/
+void deepSleep(int sleepTime);
+String get_wakeup_reason();
+void SerialEvent();
+
+/***********************************************************/
+/****************** Setup and Looop ************************/
+/***********************************************************/
 void setup() {
   Serial.begin(115200);
 
-  WiFi.begin(ssid, password);
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
-    Serial.print(".");
-  }
-  Serial.println("Connected to WiFi");
+  pinMode(relay_pin, OUTPUT);
+  pinMode(relay_output_pin, OUTPUT);
+
+  digitalWrite(relay_output_pin, HIGH);
+
+  // Set up logger
+  logger.setOldLogFile(0);
+  logger.init(); 
+  logger.setLevel(myLogger::level_t::DEBUG);
+
+  logger.enableLoggingInSD();
+  logger.enableLoggingInMonitor();
+  
+  // Set up wifi
+  logger.debug("SETUP", "Wifi status : " + String(wifi.connect(10000)));
+
+  wifi.connect(10000);
+  api.setHost("https://api.thingspeak.com/update?api_key=72ZH5DA3WVKUD5R5");
+
+  // Set up deep sleep
+  logger.info("SETUP", "Wakeup reason : " + get_wakeup_reason());
+
+  // Setup sensors
+  current_12v.setup();
+  voltage_12v.setup();
+
+  current_state = CHECKING;
 }
 
-void loop() {
-  StaticJsonDocument<256> jsonDoc;
-  jsonDoc["Temperature"] = 25;
-  jsonDoc["Puissance"] = 25;
-  jsonDoc["Niveau batterie"] = 25;
-  jsonDoc["niveauBatterieAlert"] = true;
+void loop() 
+{
+  SerialEvent();
 
-  String jsonBuffer;
-  serializeJson(jsonDoc, jsonBuffer);
+  switch (current_state) {
+    case CHECKING:
+      start = millis();
 
-  // Send HTTP POST request
-  HTTPClient httpClient;
-  // httpClient.setTimeout(10000);
-  if(!httpClient.begin(url)){
-    Serial.println("Could not connect to Azure");
-    return;
+      logger.info("CHECKING", "CHECKING");
+      if (!sd.isSDInserted()) {
+        logger.disableLoggingInSD();
+        logger.error("CHECKING", "SD Card is not inserted");
+      }
+      else {
+        logger.enableLoggingInSD();
+        logger.debug("CHECKING", "SD Card is inserted");
+      }
+
+      if (wifi.isConnected()) {
+        logger.debug("CHECKING", "Wifi is connected");
+        current_state = FETCHING;
+      }
+      else {
+        logger.error("CHECKING", "Wifi is not connected");
+        current_state = ERROR;
+        current_error = WIFI_NOT_CONNECTED;
+      }
+      break;
+    
+
+    case FETCHING:
+      logger.info("FETCHING", "FETCHING");
+
+      dht_values[temp] = dht_sensor.getTemperature();
+      dht_values[hum] = dht_sensor.getHumidity();
+
+      start_dht = millis();
+
+      while((isnan(dht_values[temp]) || isnan(dht_values[hum])) && (millis() - start_dht < 10000)) {
+        dht_values[temp] = dht_sensor.getTemperature();
+        dht_values[hum] = dht_sensor.getHumidity();
+      }
+
+      dht_values[temp] = isnan(dht_values[temp]) ? -1 : dht_values[temp];
+      dht_values[hum] = isnan(dht_values[hum]) ? -1 : dht_values[hum];
+
+      digitalWrite(relay_pin, LOW);
+      delay(1000);
+      v_c_values[v_battery] = voltage_battery.readVoltage();
+      v_c_values[c_battery] = current_battery.readCurrent();
+      v_c_values[c_solar] = current_solar.readCurrent();
+      v_c_values[v_solar] = voltage_solar.readVoltage();
+
+      digitalWrite(relay_pin, HIGH);
+      delay(1000);
+      v_c_values[v_5v] = volatage_5v.readVoltage();
+      v_c_values[c_5v] = current_5v.readCurrent();
+      v_c_values[c_12v] = current_12v.readCurrent();
+      v_c_values[v_12v] = voltage_12v.readVoltage();      
+
+      pow_values[p_12v] = v_c_values[c_12v] * v_c_values[v_12v];
+      pow_values[p_solar] = v_c_values[c_solar] * v_c_values[v_solar];
+      pow_values[p_5v] = v_c_values[c_5v] * v_c_values[v_5v];
+      pow_values[p_battery] = v_c_values[c_battery] * v_c_values[v_battery];
+
+      bat_level = current_battery.getBatLevel(v_c_values[c_battery], v_c_values[v_battery]);
+
+      if (dht_sensor.isCorrect_values(dht_values)) {
+        logger.debug("FETCHING", "DHT11 values are correct");
+      }
+      else {
+        logger.error("FETCHING", "DHT11 values are incorrect");
+      }
+      current_state = SENDING;
+      break;
+
+    case SENDING:
+      logger.info("SENDING", "SENDING");
+
+      Serial.println("Values :\n-------------------------------");
+      Serial.print("DHT11 : ");
+      Serial.print(dht_values[temp]);
+      Serial.print("C ");
+      Serial.print(dht_values[hum]);
+      Serial.println("%");
+
+      Serial.print("12V : ");
+      Serial.print(v_c_values[c_12v]);
+      Serial.print("A ");
+      Serial.print(v_c_values[v_12v]);
+      Serial.println("V");
+
+      Serial.print("5V : ");
+      Serial.print(v_c_values[c_5v]);
+      Serial.print("A ");
+      Serial.print(v_c_values[v_5v]);
+      Serial.println("V");
+
+      Serial.print("Solar : ");
+      Serial.print(v_c_values[c_solar]);
+      Serial.print("A ");
+      Serial.print(v_c_values[v_solar]);
+      Serial.println("V");
+
+      Serial.print("Battery : ");
+      Serial.print(v_c_values[c_battery]);
+      Serial.print("A ");
+      Serial.print(v_c_values[v_battery]);
+      Serial.println("V");
+
+      Serial.println("-------------------------------");
+
+      current_state = SLEEP;
+
+      
+      for(int i = 0; i < 8; i++) {
+        all_data[i] = v_c_values[i];
+      }
+
+      for(int i = 0; i < 4; i++) {
+        all_data[i + 8] = pow_values[i];
+      }
+
+      all_data[12] = bat_level;
+
+      all_data[13] = dht_values[temp];
+      all_data[14] = dht_values[hum];
+
+      res = api.sendAll(all_data, sizeof(all_data)/sizeof(float));
+      if (res.code == 200) {
+        logger.debug("SENDING", "Return message : " + res.data);
+        current_state = SLEEP;
+      }
+      else {
+        logger.error("SENDING", "API call failed : " + res.data);
+      }
+      break;
+      
+
+    case ERROR:
+      if(current_error == WIFI_NOT_CONNECTED) {
+        logger.error("ERROR", "Wifi is not connected");
+      }
+      else if(current_error == DHT11_VALUES_INCORRECT) {
+        logger.error("ERROR", "DHT11 values are incorrect");
+        current_state = SLEEP;
+      }
+      else if(current_error == FETCHING_ERROR) {
+        logger.error("ERROR", "Error while fetching data");
+        current_state = SLEEP;
+      }
+      else {
+        logger.error("ERROR", "Unknown error");
+      }
+      break;
+      
+
+    case SLEEP:
+    logger.info("SLEEP", "SLEEP");
+      time_to_sleep = time_period - (millis() - start) / 1000;
+      
+      log_info[0] = logger.getLogFile();
+      log_info[1] = logger.getOldLogFile();
+      // deepSleep(time_to_sleep);
+      delay(15000);
+      current_state = CHECKING;
+      break;
+
+    default:
+      logger.debug("DEFAULT", "DEFAULT state");
+    
   }
-  httpClient.addHeader("Content-Type", "application/json");
-  httpClient.addHeader("Authorization", sas_token);
+}
 
-  int httpResponseCode = httpClient.POST(jsonBuffer);
-  if (httpResponseCode > 0) {
-    // Print HTTP response code
-    Serial.print("HTTP Response code: ");
-    Serial.println(httpResponseCode);
+/***********************************************************/
+/********************* Functions ***************************/
+/***********************************************************/
+void SerialEvent() {
+  while (Serial.available()) {
+    String inChar = Serial.readString();
 
-    // Print HTTP response body
-    String responseBody = httpClient.getString();
-    Serial.println(responseBody);
-  } else {
-    Serial.print("HTTP Error Code: ");
-    Serial.println(httpResponseCode);
-    Serial.print("HTTP Error Message: ");
-    Serial.println(httpClient.errorToString(httpResponseCode).c_str());
-    Serial.println("Failed to send data");
+    if(inChar.indexOf("show_data") != -1){
+      show_data = !show_data;
+    }
+
+    if(inChar.indexOf("output") != -1){
+      if(inChar.indexOf("on") != -1){
+        logger.debug("SerialEvent", "Output on");
+        digitalWrite(relay_output_pin, HIGH);
+      }
+      else if(inChar.indexOf("off") != -1){
+        logger.debug("SerialEvent", "Output off");
+        digitalWrite(relay_output_pin, LOW);
+      }
+    }
+
+    if(inChar.indexOf("logging") != -1){
+      if(inChar.indexOf("sd") != -1){
+        if(inChar.indexOf("on") != -1){
+          logger.enableLoggingInSD();
+        }
+        else if(inChar.indexOf("off") != -1){
+          logger.disableLoggingInSD();
+        }
+      }
+      else if(inChar.indexOf("serial") != -1){
+        if(inChar.indexOf("on") != -1){
+          logger.enableLoggingInMonitor();
+        }
+        else if(inChar.indexOf("off") != -1){
+          logger.disableLoggingInMonitor();
+        }
+      }
+    }
+  }
+}
+
+String get_wakeup_reason() {
+  esp_sleep_wakeup_cause_t wakeup_reason;
+
+  wakeup_reason = esp_sleep_get_wakeup_cause();
+
+  String reason;
+
+  switch(wakeup_reason)
+  {
+    case ESP_SLEEP_WAKEUP_EXT0 : reason = "Wakeup caused by external signal using RTC_IO"; break;
+    case ESP_SLEEP_WAKEUP_EXT1 : reason = "Wakeup caused by external signal using RTC_CNTL"; break;
+    case ESP_SLEEP_WAKEUP_TIMER : reason = "Wakeup caused by timer"; break;
+    case ESP_SLEEP_WAKEUP_TOUCHPAD : reason = "Wakeup caused by touchpad"; break;
+    case ESP_SLEEP_WAKEUP_ULP : reason = "Wakeup caused by ULP program"; break;
+    default : reason = "Wakeup was not caused by deep sleep: %d\n",wakeup_reason; break;
   }
 
-  delay(1000);
+  return reason;
+}
+
+void deepSleep(int sleepTime) {
+  // Disconnect from Wi-Fi
+  wifi.disconnect();
+  wifi.setModeOff();
+
+  // Disable Bluetooth
+  btStop();
+
+  // Set sleep mode
+  esp_sleep_enable_timer_wakeup(sleepTime * s_to_us_factor);
+
+  // Enter deep sleep
+  esp_deep_sleep_start();
 }

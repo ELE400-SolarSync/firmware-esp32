@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="classapi__lib" kind="class" language="C++" prot="public">
     <compoundname>api_lib</compoundname>
+    <innerclass refid="structapi__lib_1_1response" prot="public">api_lib::response</innerclass>
       <sectiondef kind="private-attrib">
       <memberdef kind="variable" id="classapi__lib_1a8021f6321559556c3cce5614dd181c9d" prot="private" static="no" mutable="no">
         <type>String</type>
@@ -14,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/api/src/api.hpp" line="6" column="12" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/api/src/api.hpp" bodystart="6" bodyend="-1"/>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/api/src/api.hpp" line="5" column="16" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/api/src/api.hpp" bodystart="5" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -36,7 +37,7 @@
 <parametername>host</parametername>
 </parameternamelist>
 <parameterdescription>
-<para></para>
+<para>hostname </para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
@@ -44,11 +45,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/api/src/api.hpp" line="14" column="10" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/api/src/api.hpp" bodystart="14" bodyend="16"/>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/api/src/api.hpp" line="18" column="14" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/api/src/api.hpp" bodystart="18" bodyend="20"/>
       </memberdef>
-      <memberdef kind="function" id="classapi__lib_1a9ab1cded091733984ab5ef62d864fa58" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>String</type>
-        <definition>String api_lib::getResponse</definition>
+      <memberdef kind="function" id="classapi__lib_1aa2d3cdb9cd6c49b59a04398dba839c82" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structapi__lib_1_1response" kindref="compound">response</ref></type>
+        <definition>response api_lib::getResponse</definition>
         <argsstring>(String url)</argsstring>
         <name>getResponse</name>
         <param>
@@ -74,7 +75,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/api/src/api.hpp" line="24" column="12" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/api/src/api.hpp" bodystart="24" bodyend="37"/>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/api/src/api.hpp" line="28" column="18" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/api/src/api.hpp" bodystart="28" bodyend="46"/>
       </memberdef>
       <memberdef kind="function" id="classapi__lib_1a4e4ef2d4e421740991d278c53f857f66" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>int</type>
@@ -104,13 +105,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/api/src/api.hpp" line="45" column="9" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/api/src/api.hpp" bodystart="45" bodyend="53"/>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/api/src/api.hpp" line="54" column="13" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/api/src/api.hpp" bodystart="54" bodyend="62"/>
       </memberdef>
-      <memberdef kind="function" id="classapi__lib_1ab9b8efe44c87dcf29d6690f9a599752e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>String</type>
-        <definition>String api_lib::sendAmp</definition>
+      <memberdef kind="function" id="classapi__lib_1accc43a805690ddfa8c4da98588b0ab24" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structapi__lib_1_1response" kindref="compound">response</ref></type>
+        <definition>response api_lib::sendAll</definition>
         <argsstring>(float data[], size_t data_len)</argsstring>
-        <name>sendAmp</name>
+        <name>sendAll</name>
         <param>
           <type>float</type>
           <declname>data</declname>
@@ -141,25 +142,25 @@
 </parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>String tring return of the api call </para>
+<simplesect kind="return"><para>int code return by the api call </para>
 </simplesect>
 </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/api/src/api.hpp" line="62" column="12" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/api/src/api.hpp" bodystart="62" bodyend="70"/>
+        <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/api/src/api.hpp" line="71" column="18" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/api/src/api.hpp" bodystart="71" bodyend="79"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/api/src/api.hpp" line="4" column="1" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/api/src/api.hpp" bodystart="4" bodyend="71"/>
+    <location file="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/api/src/api.hpp" line="3" column="1" bodyfile="/home/pierr/Documents/ETS/ele400/firmware-esp32/lib/api/src/api.hpp" bodystart="3" bodyend="80"/>
     <listofallmembers>
       <member refid="classapi__lib_1a4e4ef2d4e421740991d278c53f857f66" prot="public" virt="non-virtual"><scope>api_lib</scope><name>getCode</name></member>
-      <member refid="classapi__lib_1a9ab1cded091733984ab5ef62d864fa58" prot="public" virt="non-virtual"><scope>api_lib</scope><name>getResponse</name></member>
+      <member refid="classapi__lib_1aa2d3cdb9cd6c49b59a04398dba839c82" prot="public" virt="non-virtual"><scope>api_lib</scope><name>getResponse</name></member>
       <member refid="classapi__lib_1a8021f6321559556c3cce5614dd181c9d" prot="private" virt="non-virtual"><scope>api_lib</scope><name>host</name></member>
-      <member refid="classapi__lib_1ab9b8efe44c87dcf29d6690f9a599752e" prot="public" virt="non-virtual"><scope>api_lib</scope><name>sendAmp</name></member>
+      <member refid="classapi__lib_1accc43a805690ddfa8c4da98588b0ab24" prot="public" virt="non-virtual"><scope>api_lib</scope><name>sendAll</name></member>
       <member refid="classapi__lib_1a2ae88643c58b39abed46e97d9048f0d8" prot="public" virt="non-virtual"><scope>api_lib</scope><name>setHost</name></member>
     </listofallmembers>
   </compounddef>
