@@ -21,9 +21,7 @@ class api_lib {
             String data;
         };
 
-        void setHost(String host);
         response getResponse();
-        response sendAll(float data[], size_t data_len);
         bool clearJson();
         bool createJson(float temp, float puissance, float niveauBatterie, bool niveauBatterieAlert);
         

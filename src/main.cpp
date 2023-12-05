@@ -131,7 +131,6 @@ void setup() {
   logger.debug("SETUP", "Wifi status : " + String(wifi.connect(10000)));
 
   wifi.connect(10000);
-  api.setHost("https://api.thingspeak.com/update?api_key=72ZH5DA3WVKUD5R5");
 
   // Set up deep sleep
   logger.info("SETUP", "Wakeup reason : " + get_wakeup_reason());

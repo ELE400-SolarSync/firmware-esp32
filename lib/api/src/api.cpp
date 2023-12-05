@@ -1,15 +1,6 @@
 #include "api.hpp"
 
 /**
- * @brief Set the Host object (part of the resquestt with the data)
- * 
- * @param host hostname
- */
-void api_lib::setHost(String host) {
-    this->host = host;
-}
-
-/**
  * @brief Send data to the host + url
  * 
  * @param url string to complete the host
