@@ -59,6 +59,7 @@ enum errors_t {
 };
 
 error_t current_error = NONE;
+bool saved_data = false;
 
 // Debug
 bool show_data = false;
@@ -107,6 +108,9 @@ VoltageSensor voltage_battery(voltage_pin_battery);
 void deepSleep(int sleepTime);
 String get_wakeup_reason();
 void SerialEvent();
+void sendSavedData();
+float ** convertDataStringtoFloat(String& data);
+void saveData(float *data);
 
 /***********************************************************/
 /****************** Setup and Looop ************************/
@@ -161,7 +165,6 @@ void loop()
       }
       else {
         logger.error("CHECKING", "Wifi is not connected");
-        current_state = ERROR;
         current_error = WIFI_NOT_CONNECTED;
       }
       break;
@@ -210,11 +213,22 @@ void loop()
       else {
         logger.error("FETCHING", "DHT11 values are incorrect");
       }
-      current_state = SENDING;
+
+      if(current_error == NONE) {
+        current_state = SENDING;
+      }
+      else if(current_error == WIFI_NOT_CONNECTED) {
+        current_state = ERROR;
+      }
       break;
 
     case SENDING:
       logger.info("SENDING", "SENDING");
+
+      if(saved_data) {
+        sendSavedData();
+        saved_data = false;
+      }
 
       if(show_data){
         logger.info("Values Start", "-------------------------------");
@@ -251,6 +265,17 @@ void loop()
     case ERROR:
       if(current_error == WIFI_NOT_CONNECTED) {
         logger.error("ERROR", "Wifi is not connected");
+        
+        if(!sd.isSDInserted()) {
+          logger.error("ERROR", "SD Card is not inserted, cannot save data");
+          current_state = SLEEP;
+          current_error = NONE;
+        }
+        else {
+          float data[6] = {dht_values[temp], pow_values[p_solar], pow_values[p_battery], pow_values[p_5v], pow_values[p_12v], bat_level};
+          saveData(data);
+          saved_data = true;
+        }
       }
       else if(current_error == DHT11_VALUES_INCORRECT) {
         logger.error("ERROR", "DHT11 values are incorrect");
@@ -360,4 +385,71 @@ void deepSleep(int sleepTime) {
 
   // Enter deep sleep
   esp_deep_sleep_start();
+}
+
+void saveData(float *data) {
+  if(!sd.fileExists("save_data.txt")) {
+    sd.createFile("save_data.txt");
+  }
+
+  String _str;
+  for(int i = 0; i < 6; i++){
+    _str += data[i];
+    _str += "/";
+  }
+  sd.writeFile("save_data.txt", _str);
+}
+
+float** convertDataStringtoFloat(String& lines) {
+  int count = 0;
+  size_t pos = 0;
+  String delimiter = "\r\n";
+
+  while ((pos = lines.indexOf(delimiter, pos)) != -1) {
+      count++;
+      pos += delimiter.length();
+  }
+
+  float** data_out = new float*[count];
+    for (int i = 0; i < count; i++) {
+        data_out[i] = new float[6];
+    }
+
+  int i = 0, j = 0, k = 0, lastIndex = 0;
+  while (k < lines.length()) {
+      if (lines[k] == '/') {
+          data_out[i][j] = lines.substring(lastIndex, k).toFloat();
+          lastIndex = k + 1;
+          j++;
+      }
+      if (lines[k] == '\n') {
+          i++;
+          j = 0;
+      }
+      k++;
+  }
+
+  return data_out;
+}
+
+void sendSavedData() {
+  String data_str = sd.readFile("save_data.txt");
+
+  float** data_float = convertDataStringtoFloat(data_str);
+
+  int nb_data = sizeof(data_float) / (4 * sizeof(float));
+
+  for(int i = 0; i < nb_data; i++) {
+    api.clearJson();
+    api.createJson(data_float[i][0], data_float[i][1], data_float[i][2], data_float[i][3], data_float[i][4], data_float[i][5], false);
+
+    res = api.getResponse();
+
+    if(res.code == 204) {
+      logger.info("SENDING SAVED DATA", "Data sent");
+    }
+    else {
+      logger.info("SENDING SAVED DATA", "Data failed to send");
+    }
+  }
 }

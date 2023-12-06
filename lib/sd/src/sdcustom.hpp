@@ -60,13 +60,13 @@ class SDCustom {
         };
 
         /**
-         * @brief Open a file
+         * @brief Open a file in reading mode
          * 
          * @param filename 
          * @return SDFile 
          */
         SDFile openFile(String filename) {
-            SDLib::File myFile = SD.open(filename);
+            SDLib::File myFile = SD.open(filename, FILE_READ);
             return myFile;
         };
 
@@ -148,6 +148,57 @@ class SDCustom {
 
             return content;
         };
+
+        /**
+         * @brief Will read and save the last line and then remove it from the file
+         * 
+         * @param filename File to read
+         * @return String& Last line
+         */
+        String read_delLastLine(String filename) {
+            if(!fileExists(filename)) {
+                return "error";
+            }
+
+            SDLib::File file = SD.open(filename, FILE_READ);
+
+
+            long fileSize = file.size();
+            file.seek(fileSize);
+
+            while (file.position() > 0 && file.read() != '\n') {
+                file.seek(file.position() - 2);
+            }
+
+            String lastLine = file.readString();
+
+            file.close();
+
+            // Open a new file for writing
+            SDLib::File newFile = SD.open("temp.txt", FILE_WRITE);
+            if (!newFile) {
+                return "error";
+            }
+
+            // Seek to the start of the original file
+            file.seek(0);
+
+            // Copy content from the original file to the new file, excluding the last line
+            while (file.position() < fileSize - lastLine.length()) {
+                char c = file.read();
+                newFile.write(c);
+            }
+
+            // Close both files
+            file.close();
+            newFile.close();
+
+            // Replace the original file with the new one
+            SD.remove("data.txt");
+            // SD.rename("temp.txt", "data.txt");
+
+            return lastLine;
+        }
 
     private:
         int SD_MISO = 5; //< MISO pin
