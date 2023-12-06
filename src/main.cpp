@@ -352,6 +352,11 @@ void SerialEvent() {
   }
 }
 
+/**
+ * @brief Get the wakeup reason object
+ * 
+ * @return String wakeup reason
+ */
 String get_wakeup_reason() {
   esp_sleep_wakeup_cause_t wakeup_reason;
 
@@ -372,6 +377,11 @@ String get_wakeup_reason() {
   return reason;
 }
 
+/**
+ * @brief Start a deepsleep for the esp. Will be waked up by the timer
+ * 
+ * @param sleepTime Time to sleep in seconds
+ */
 void deepSleep(int sleepTime) {
   // Disconnect from Wi-Fi
   wifi.disconnect();
@@ -387,6 +397,11 @@ void deepSleep(int sleepTime) {
   esp_deep_sleep_start();
 }
 
+/**
+ * @brief Saved the data in a file
+ * 
+ * @param data Data to saved
+ */
 void saveData(float *data) {
   if(!sd.fileExists("save_data.txt")) {
     sd.createFile("save_data.txt");
@@ -400,6 +415,12 @@ void saveData(float *data) {
   sd.writeFile("save_data.txt", _str);
 }
 
+/**
+ * @brief Convert the saved data to a list of float
+ * 
+ * @param lines lines from the file
+ * @return float** data to send
+ */
 float** convertDataStringtoFloat(String& lines) {
   int count = 0;
   size_t pos = 0;
@@ -432,6 +453,10 @@ float** convertDataStringtoFloat(String& lines) {
   return data_out;
 }
 
+/**
+ * @brief Send the data saved in file while there was no wifi
+ * 
+ */
 void sendSavedData() {
   String data_str = sd.readFile("save_data.txt");
 
