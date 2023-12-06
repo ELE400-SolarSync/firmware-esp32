@@ -12,7 +12,7 @@ class api_lib {
     private:
         String host = "solarsync.azure-devices.net"; //< Host of the api call
         String device_id = "esp32hub"; //< Device id of the api call
-        String sas_token = "SharedAccessSignature sr=SolarSync.azure-devices.net%2Fdevices%2Fesp32hub&sig=qTW1FcZWh8M1kzhDTHFCAmqY3SPP%2FD0reP6eHn0dyhE%3D&se=1701753692"; //< SAS token of the api call
+        String sas_token = "SharedAccessSignature sr=SolarSync.azure-devices.net%2Fdevices%2Fesp32hub&sig=nmp3K5oFa81pxXqNOj%2FRaYezdlrO2p6VsN7qn1Al2Ug%3D&se=1701824380"; //< SAS token of the api call
 
         String url = String("https://") + host + "/devices/" + device_id + "/messages/events?api-version=2018-06-30"; //< Url of the api call
         StaticJsonDocument<256> jsonDoc; //< Json payload of the api call
@@ -29,7 +29,7 @@ class api_lib {
 
         response getResponse();
         bool clearJson();
-        bool createJson(float temp, float puissance, float niveauBatterie, bool niveauBatterieAlert);
+        bool createJson(float temp, float puissance_solaire, float puissance_battery, float puissance_5v, float puissance_12v, float niveauBatterie, bool niveauBatterieAlert);
         
 };
 
