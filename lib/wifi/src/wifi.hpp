@@ -83,9 +83,11 @@ class wifi_connection {
 
             // WiFiServer server(80);
 
+            Serial.println("Connecting to " + ssid);
             while (WiFi.status() != WL_CONNECTED && attempts < max_attempts) {
                 WiFi.begin(ssid, password);
                 delay(1000);
+                Serial.print(".");
                 attempts ++;
             }
             Serial.println();
