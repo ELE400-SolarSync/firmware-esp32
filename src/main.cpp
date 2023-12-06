@@ -81,7 +81,7 @@ RTC_DATA_ATTR int log_info[2] = {0, 0};
 /***********************************************************/
 /********************* Objects *****************************/
 /***********************************************************/
-wifi_connection wifi("Siri-al_killer", "15112001");
+wifi_connection wifi("Siri-al_killer", "12345678");
 api_lib api;
 
 SDCustom sd(sd_size);
@@ -128,12 +128,7 @@ void setup() {
   logger.enableLoggingInMonitor();
   
   // Set up wifi
-  logger.debug("SETUP", "Wifi status : " + String(wifi.connect(10000)));
-
-  wifi.connect(10000);
-
-  // Set up deep sleep
-  logger.info("SETUP", "Wakeup reason : " + get_wakeup_reason());
+  logger.debug("SETUP", "Wifi status : " + String(wifi.connect(30)));
 
   // Setup sensors
   current_12v.setup();
@@ -238,7 +233,7 @@ void loop()
       }
 
       api.clearJson();
-      api.createJson(dht_values[temp], pow_values[p_solar], bat_level, bat_level < 0.2);
+      api.createJson(dht_values[temp], pow_values[p_solar], pow_values[p_battery], pow_values[p_5v], pow_values[p_12v], bat_level, false);
 
       res = api.getResponse();
       if (res.code == 204) {
@@ -246,8 +241,8 @@ void loop()
         current_state = SLEEP;
       }
       else {
-        logger.error("SENDING", "API call failed : " + res.data);
-        current_state = ERROR;
+        logger.error("SENDING", "API call failed : " + res.code);
+        current_state = SLEEP;
       }
 
       break;
