@@ -26,7 +26,7 @@ class myLogger {
          * 
          */
         enum level_t {
-            DEBUG = 0,<//< Debug level
+            DEBUG = 0, //< Debug level
             INFO, //< Info level
             WARN, //< Warning level
             ERROR //< Error level
