@@ -39,10 +39,13 @@ api_lib::response api_lib::getResponse() {
  * @return true 
  * @return false 
  */
-bool api_lib::createJson(float temp, float puissance, float niveauBatterie, bool niveauBatterieAlert) {
+bool api_lib::createJson(float temp, float puissance_solaire, float puissance_battery, float puissance_5v, float puissance_12v, float niveauBatterie, bool niveauBatterieAlert) {
     try {
         api_lib::jsonDoc["Temperature"] = temp;
-        api_lib::jsonDoc["Puissance"] = puissance;
+        api_lib::jsonDoc["Puissance Solaire"] = puissance_solaire;
+        api_lib::jsonDoc["Puissance Batterie"] = puissance_battery;
+        api_lib::jsonDoc["Puissance 5V"] = puissance_5v;
+        api_lib::jsonDoc["Puissance 12V"] = puissance_12v;
         api_lib::jsonDoc["Niveau batterie"] = niveauBatterie;
         api_lib::jsonDoc["niveauBatterieAlert"] = niveauBatterieAlert;
 
