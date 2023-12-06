@@ -3,55 +3,65 @@
 class VoltageSensor {
     private:
     int pin;
-    const int adc_bits = 4095;
-    const int adc_max_voltage = 3.3;
-    const int voltage_sensor_multiplier = 5;
-    const int adc_correction_factor = 1.15;
+    static constexpr float adc_bits = 4095.0f;
+    static constexpr float adc_max_voltage = 3.3f;
+    static constexpr float voltage_sensor_multiplier = 5.0f;
 
-  public:
-    /**
-     * @brief Construct a new Voltage Sensor object
-     * 
-     * @param pin 
-     */
-    VoltageSensor(int pin) {
-        this->pin = pin;
-    };
-    
-    /**
-     * @brief Setup the pin as input
-     */
-    void setup() {
-        pinMode(pin, INPUT);
-    };
+    public:
+        /**
+         * @brief Construct a new Voltage Sensor object
+         * 
+         * @param pin 
+         */
+        VoltageSensor(int pin) {
+            this->pin = pin;
+        };
+        
+        /**
+         * @brief Setup the pin as input
+         */
+        void setup() {
+            pinMode(pin, INPUT);
+        };
 
-    /**
-     * @brief Read the raw value from the pin
-     *
-     * @return float Value between 0 and 4095
-     */
-    float read() {
-        return analogRead(pin) / adc_correction_factor;
-    };
+        /**
+         * @brief Read the raw value from the pin
+         *
+         * @return float Value between 0 and 4095
+         */
+        float read() {
+            return analogRead(pin);
+        };
 
-    /**
-     * @brief Read the voltage from the pin
-     * 
-     * @return float 
-     */
-    float readVoltage() {
-        return adc_max_voltage * voltage_sensor_multiplier * read() / adc_bits;
-    };
+        /**
+         * @brief Read the voltage from the pin
+         * 
+         * @return float 
+         */
+        float readPinVoltage() {
+            return 0.000698388508841322 * read() + 0.0213329188224827;
+        };
+
+        /**
+         * @brief Read the voltage from the sensor
+         * 
+         * @return float 
+         */
+        float readVoltage() {
+            return voltage_sensor_multiplier * readPinVoltage();
+        };
+
+        static float CorrectReading(float ref_ratio_5v, float voltage) {
+            return voltage / ref_ratio_5v;
+        };
 };
 
 class CurrentSensor {
     private:
         int pin;
-        const float adc_bits = 4095.0;
-        const float adc_max_voltage = 3.3;
-        const float current_sensor_multiplier = 0.066;
-        const float adc_correction_factor = 1.15;
-        const float current_sensor_offset = 2.5;
+        static constexpr float adc_bits = 4095.0;
+        static constexpr float current_sensor_multiplier = 0.066;
+        static constexpr float current_sensor_offset = 2.5;
 
     public:
         /**
@@ -76,23 +86,37 @@ class CurrentSensor {
          * @return float Value between 0 and 4095
          */
         float read() {
-            return analogRead(pin) / adc_correction_factor;
+            return analogRead(pin);
         };
     
         /**
-         * @brief Read the current from the pin
+         * @brief Read the voltage from the pin
+         * 
+         * @return float 
+         */
+        float readPinVoltage() {
+            return 0.000698388508841322 * read() + 0.0213329188224827;
+        };
+
+        /**
+         * @brief Read the current from the sensor
          * 
          * @return float 
          */
         float readCurrent() {
-            return ((adc_max_voltage * read() / adc_bits) - current_sensor_offset) / current_sensor_multiplier;
+            return (readPinVoltage() - current_sensor_offset) / current_sensor_multiplier;
         };
 
         float getBatLevel(float current, float voltage) {
             return (current * voltage) / 3600;
-        }
+        };
 
         float getPower(float current, float voltage) {
             return current * voltage;
-        }
+        };
+
+        static float CorrectReading(float ref_ratio_5v, float current) {
+            float recovered_pin_voltage = current * current_sensor_multiplier + current_sensor_offset;
+            return (recovered_pin_voltage / ref_ratio_5v - current_sensor_offset) / current_sensor_multiplier;
+        };
 };
