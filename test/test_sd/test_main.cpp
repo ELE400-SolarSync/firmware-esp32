@@ -12,22 +12,26 @@ void test_sd_insert(void)
 
 void test_sd_writing(void)
 {
-  if (!sd.fileExists("esp32.txt")) {
-    sd.createFile("esp32.txt");
+  if (!sd.fileExists("ESP32.txt")) {
+    sd.createFile("ESP32.txt");
   }
 
-  TEST_ASSERT_TRUE(sd.fileExists("esp32.txt"));
+  bool result = sd.fileExists("ESP32.txt");
+
+  sd.deleteFile("ESP32.txt");
+
+  TEST_ASSERT_TRUE(result);
 }
 
 void test_sd_reading(void)
 {
-  if(sd.fileExists("esp32.txt")) {
-    sd.deleteFile("esp32.txt");
+  if(sd.fileExists("ESP32.txt")) {
+    sd.deleteFile("ESP32.txt");
   }
-  sd.writeFile("esp32.txt", "Hello World!");
-  const char* reading = sd.readFile("esp32.txt").c_str();
-  sd.deleteFile("esp32.txt");
-  TEST_ASSERT_EQUAL_STRING("Hello World!\r\n", reading);
+  sd.writeFile("ESP32.txt", "Hello World!");
+  String reading = sd.readFile("ESP32.txt");
+  // sd.deleteFile("ESP32.txt");
+  TEST_ASSERT_EQUAL_STRING("Hello World!\r\n", reading.c_str());
   
 }
 
