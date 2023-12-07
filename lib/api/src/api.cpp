@@ -56,6 +56,14 @@ bool api_lib::createJson(float temp, float puissance_solaire, float puissance_ba
     }
 }
 
+int api_lib::getCodeTest(String url) {
+    HTTPClient http;
+
+    http.begin(url);
+
+    return http.GET();
+}
+
 /**
  * @brief Clear the json payload
  * 
