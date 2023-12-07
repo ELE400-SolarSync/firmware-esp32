@@ -30,6 +30,7 @@ class api_lib {
         response getResponse();
         bool clearJson();
         bool createJson(float temp, float puissance_solaire, float puissance_battery, float puissance_5v, float puissance_12v, float niveauBatterie, bool niveauBatterieAlert);
+        int getCodeTest(String url);
         
 };
 

@@ -29,6 +29,14 @@ api_lib::response api_lib::getResponse() {
     return res;
 }
 
+int api_lib::getCodeTest(String url) {
+    HTTPClient http;
+
+    http.begin(url);
+
+    return http.GET();
+}
+
 /**
  * @brief Create the json which will be the payload of the api call
  * 
