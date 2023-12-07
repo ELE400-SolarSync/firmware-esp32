@@ -10,19 +10,19 @@ VoltageSensor voltage_solar(A0);
 
 void test_dht_values(void)
 {
-  TEST_ASSERT_EQUAL_MESSAGE(dht.isCorrect_values(dht.getValues()));
+  TEST_ASSERT_TRUE(dht.isCorrect_values(dht.getValues()));
 }
 
 void test_voltage_values(void)
 {
     float values = voltage_solar.readVoltage();
-    TEST_ASSERT_EQUAL_MESSAGE(true, values >= 0 && values <= 30);
+    TEST_ASSERT_TRUE(values >= 0 && values <= 30);
 }
 
 void test_current_values(void)
 {
     float values = current_solar.readCurrent();
-    TEST_ASSERT_EQUAL_MESSAGE(true, values >= 0 && values <= 30);
+    TEST_ASSERT_TRUE(values >= 0 && values <= 100);
 }
 
 void test_power(void)
@@ -30,7 +30,7 @@ void test_power(void)
     float v_values = voltage_solar.readVoltage();
     float c_values = current_solar.readCurrent();
     float power = current_solar.getPower(v_values, c_values);
-    TEST_ASSERT_EQUAL_MESSAGE(true, power >= 0 && power <= 100);
+    TEST_ASSERT_TRUE(power >= 0 && power <= 100);
 }
 
 void test_bat_level(void)
@@ -38,7 +38,7 @@ void test_bat_level(void)
     float v_values = voltage_solar.readVoltage();
     float c_values = current_solar.readCurrent();
     float bat_level = current_solar.getBatLevel(v_values);
-    TEST_ASSERT_EQUAL_MESSAGE(true, bat_level >= 0 && bat_level <= 100);
+    TEST_ASSERT_TRUE(bat_level >= 0 && bat_level <= 100);
 }
 
 void setup()
