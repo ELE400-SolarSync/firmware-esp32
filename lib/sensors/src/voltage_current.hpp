@@ -107,10 +107,24 @@ class CurrentSensor {
             return (readPinVoltage() - current_sensor_offset) / current_sensor_multiplier;
         };
 
-        float getBatLevel(float current, float voltage) {
-            return (current * voltage) / 3600;
-        };
+        /**
+         * @brief Get the Bat Level with the given current and the voltage
+         * 
+         * @param current 
+         * @param voltage 
+         * @return float 
+         */
+        float getBatLevel(float voltage) {
+            return voltage;
+        }
 
+        /**
+         * @brief Get the Power with the given current and the voltage
+         * 
+         * @param current 
+         * @param voltage 
+         * @return float 
+         */
         float getPower(float current, float voltage) {
             return current * voltage;
         };

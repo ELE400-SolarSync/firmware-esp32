@@ -129,13 +129,7 @@ void setup() {
   logger.enableLoggingInMonitor();
   
   // Set up wifi
-  logger.debug("SETUP", "Wifi status : " + String(wifi.connect(10000)));
-
-  wifi.connect(10000);
-  api.setHost("https://api.thingspeak.com/update?api_key=72ZH5DA3WVKUD5R5");
-
-  // Set up deep sleep
-  logger.info("SETUP", "Wakeup reason : " + get_wakeup_reason());
+  logger.debug("SETUP", "Wifi status : " + String(wifi.connect(30)));
 
   // Setup sensors
   current_12v.setup();
@@ -241,63 +235,35 @@ void loop()
     case SENDING:
       logger.info("SENDING", "SENDING");
 
-      Serial.println("Values :\n-------------------------------");
-      Serial.print("DHT11 : ");
-      Serial.print(dht_values[temp]);
-      Serial.print("C ");
-      Serial.print(dht_values[hum]);
-      Serial.println("%");
+      if(show_data){
+        logger.info("Values Start", "-------------------------------");
 
-      Serial.print("12V : ");
-      Serial.print(v_c_values[c_12v]);
-      Serial.print("A ");
-      Serial.print(v_c_values[v_12v]);
-      Serial.println("V");
+        logger.info("DHT11", String(dht_values[temp]) + "C " + String(dht_values[hum]) + "%");
 
-      Serial.print("5V : ");
-      Serial.print(v_c_values[c_5v]);
-      Serial.print("A ");
-      Serial.print(v_c_values[v_5v]);
-      Serial.println("V");
+        logger.info("12V", String(v_c_values[c_12v]) + "A " + String(v_c_values[v_12v]) + "V");
 
-      Serial.print("Solar : ");
-      Serial.print(v_c_values[c_solar]);
-      Serial.print("A ");
-      Serial.print(v_c_values[v_solar]);
-      Serial.println("V");
+        logger.info("5V", String(v_c_values[c_5v]) + "A " + String(v_c_values[v_5v]) + "V");
 
-      Serial.print("Battery : ");
-      Serial.print(v_c_values[c_battery]);
-      Serial.print("A ");
-      Serial.print(v_c_values[v_battery]);
-      Serial.println("V");
+        logger.info("Solar",  String(v_c_values[c_solar]) + "A " + String(v_c_values[v_solar]) + "V");
 
-      Serial.println("-------------------------------");
+        logger.info("Battery", String(v_c_values[c_battery]) + "A " + String(v_c_values[v_battery]) + "V");
 
-      current_state = SLEEP;
-
-      
-      for(int i = 0; i < 8; i++) {
-        all_data[i] = v_c_values[i];
+        logger.info("Values End", "-------------------------------");
       }
 
-      for(int i = 0; i < 4; i++) {
-        all_data[i + 8] = pow_values[i];
-      }
+      api.clearJson();
+      api.createJson(dht_values[temp], pow_values[p_solar], pow_values[p_battery], pow_values[p_5v], pow_values[p_12v], bat_level, false);
 
-      all_data[12] = bat_level;
-
-      all_data[13] = dht_values[temp];
-      all_data[14] = dht_values[hum];
-
-      res = api.sendAll(all_data, sizeof(all_data)/sizeof(float));
-      if (res.code == 200) {
+      res = api.getResponse();
+      if (res.code == 204) {
         logger.debug("SENDING", "Return message : " + res.data);
         current_state = SLEEP;
       }
       else {
-        logger.error("SENDING", "API call failed : " + res.data);
+        logger.error("SENDING", "API call failed : " + res.code);
+        current_state = SLEEP;
       }
+
       break;
       
 
@@ -326,12 +292,13 @@ void loop()
       log_info[0] = logger.getLogFile();
       log_info[1] = logger.getOldLogFile();
       // deepSleep(time_to_sleep);
-      delay(15000);
+      delay(1000);
       current_state = CHECKING;
       break;
 
     default:
       logger.debug("DEFAULT", "DEFAULT state");
+      break;
     
   }
 }

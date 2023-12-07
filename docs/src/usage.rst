@@ -107,12 +107,55 @@ This will automatically add the docstring of the class in the documentation.
 How to build the documentation
 ------------------------------
 
+Linux
+^^^^^
+
 To build the documentation you will need to install sphinx and doxygen.
 The version for this project can be find in the file requirements.txt.
 To install the requirements you can type the following command :
 
 .. code-block:: bash
 
+    sudo apt install doxygen
+    pip install -r requirements.txt
+
+Then you will need to go in the docs folder and type the following command :
+
+.. code-block:: bash
+
+    cd docs
+    doxygen Doxyfile.in
+    sphinx-build -b html -Dbreathe_projects.solarsync=doc_out/xml . doc_out/sphinx/
+
+Windows
+^^^^^^^
+
+Install Doxygen, at this `link <https://www.doxygen.nl/manual/install.html>`_ you will find the official inscruction to install Doxygen.
+
+Then install all the requirements with the following command :
+
+.. code-block:: bash
+
+    pip install -r requirements.txt
+
+Then you will need to go in the docs folder and type the following command :
+
+.. code-block:: bash
+
+    cd docs
+    doxygen Doxyfile.in
+    sphinx-build -b html -Dbreathe_projects.solarsync=doc_out/xml . doc_out/sphinx/
+
+MacOS
+^^^^^
+
+To build the documentation you will need to install sphinx and doxygen.
+The version for this project can be find in the file requirements.txt.
+To install the requirements you can type the following command :
+
+.. code-block:: bash
+
+    brew install doxygen
     pip install -r requirements.txt
 
 Then you will need to go in the docs folder and type the following command :
