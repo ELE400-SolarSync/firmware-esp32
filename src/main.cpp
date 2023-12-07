@@ -59,6 +59,7 @@ enum errors_t {
 };
 
 error_t current_error = NONE;
+float correction = 0;
 
 // Debug
 bool show_data = false;
@@ -81,7 +82,7 @@ RTC_DATA_ATTR int log_info[2] = {0, 0};
 /***********************************************************/
 /********************* Objects *****************************/
 /***********************************************************/
-wifi_connection wifi("Siri-al_killer", "12345678");
+wifi_connection wifi("", "");
 api_lib api;
 
 SDCustom sd(sd_size);
@@ -93,7 +94,7 @@ CurrentSensor current_12v(current_pin_12v);
 VoltageSensor voltage_12v(voltage_pin_12v);
 
 CurrentSensor current_5v(current_pin_5v);
-VoltageSensor volatage_5v(voltage_pin_5v);
+VoltageSensor voltage_5v(voltage_pin_5v);
 
 CurrentSensor current_solar(current_pin_solar);
 VoltageSensor voltage_solar(voltage_pin_solar);
@@ -183,19 +184,37 @@ void loop()
       dht_values[temp] = isnan(dht_values[temp]) ? -1 : dht_values[temp];
       dht_values[hum] = isnan(dht_values[hum]) ? -1 : dht_values[hum];
 
+      // solar CS offset: 2.49V
+      // battery CS offset: 2.48V
+      // 12V CS offset: 2.50V 
+      // 5V CS offset: 2.50V
+
       digitalWrite(relay_pin, LOW);
-      delay(1000);
+      delay(4000);
       v_c_values[v_battery] = voltage_battery.readVoltage();
       v_c_values[c_battery] = current_battery.readCurrent();
-      v_c_values[c_solar] = current_solar.readCurrent();
       v_c_values[v_solar] = voltage_solar.readVoltage();
+      v_c_values[c_solar] = current_solar.readCurrent();
 
       digitalWrite(relay_pin, HIGH);
-      delay(1000);
-      v_c_values[v_5v] = volatage_5v.readVoltage();
+      delay(4000);
+      v_c_values[v_5v] = voltage_5v.readVoltage();
       v_c_values[c_5v] = current_5v.readCurrent();
+      v_c_values[v_12v] = voltage_12v.readVoltage();
       v_c_values[c_12v] = current_12v.readCurrent();
-      v_c_values[v_12v] = voltage_12v.readVoltage();      
+
+      // voltage correction
+      correction = v_c_values[v_5v] / 5.0f;
+
+      v_c_values[v_battery] = VoltageSensor::CorrectReading(correction, v_c_values[v_battery]);
+      v_c_values[c_battery] = CurrentSensor::CorrectReading(correction, v_c_values[c_battery]);
+      v_c_values[v_solar] = VoltageSensor::CorrectReading(correction, v_c_values[v_solar]);
+      v_c_values[c_solar] = CurrentSensor::CorrectReading(correction, v_c_values[c_solar]);
+      v_c_values[v_5v] = VoltageSensor::CorrectReading(correction, v_c_values[v_5v]);
+      v_c_values[c_5v] = CurrentSensor::CorrectReading(correction, v_c_values[c_5v]);
+      v_c_values[v_12v] = VoltageSensor::CorrectReading(correction, v_c_values[v_12v]);
+      v_c_values[c_12v] = CurrentSensor::CorrectReading(correction, v_c_values[c_12v]);
+
 
       pow_values[p_12v] = v_c_values[c_12v] * v_c_values[v_12v];
       pow_values[p_solar] = v_c_values[c_solar] * v_c_values[v_solar];
