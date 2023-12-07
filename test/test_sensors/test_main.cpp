@@ -5,8 +5,10 @@
 #include "../lib/sensors/src/voltage_current.hpp"
 
 DHTSensor dht(10);
-CurrentSensor current_solar(A2);
-VoltageSensor voltage_solar(A0);
+CurrentSensor current_5v(A3);
+VoltageSensor voltage_5v(A4);
+
+const int relay_pin = 9;
 
 void test_dht_values(void)
 {
@@ -15,29 +17,29 @@ void test_dht_values(void)
 
 void test_voltage_values(void)
 {
-    float values = voltage_solar.readVoltage();
+    float values = voltage_5v.readPinVoltage();
     TEST_ASSERT_TRUE(values >= 0 && values <= 30);
 }
 
 void test_current_values(void)
 {
-    float values = current_solar.readCurrent();
+    float values = current_5v.readPinVoltage();
     TEST_ASSERT_TRUE(values >= 0 && values <= 100);
 }
 
 void test_power(void)
 {
-    float v_values = voltage_solar.readVoltage();
-    float c_values = current_solar.readCurrent();
-    float power = current_solar.getPower(v_values, c_values);
+    float v_values = voltage_5v.readPinVoltage();
+    float c_values = current_5v.readPinVoltage();
+    float power = current_5v.getPower(v_values, c_values);
     TEST_ASSERT_TRUE(power >= 0 && power <= 100);
 }
 
 void test_bat_level(void)
 {
-    float v_values = voltage_solar.readVoltage();
-    float c_values = current_solar.readCurrent();
-    float bat_level = current_solar.getBatLevel(v_values);
+    float v_values = voltage_5v.readPinVoltage();
+    float c_values = current_5v.readPinVoltage();
+    float bat_level = current_5v.getBatLevel(v_values);
     TEST_ASSERT_TRUE(bat_level >= 0 && bat_level <= 100);
 }
 
@@ -47,6 +49,8 @@ void setup()
   // if board doesn't support software reset via Serial.DTR/RTS
   delay(2000);
 
+  pinMode(relay_pin, OUTPUT);
+  digitalWrite(relay_pin, HIGH);
 
   UNITY_BEGIN(); // IMPORTANT LINE!
   
