@@ -221,7 +221,7 @@ void loop()
       pow_values[p_5v] = v_c_values[c_5v] * v_c_values[v_5v];
       pow_values[p_battery] = v_c_values[c_battery] * v_c_values[v_battery];
 
-      bat_level = current_battery.getBatLevel(v_c_values[c_battery], v_c_values[v_battery]);
+      bat_level = current_battery.getBatLevel(v_c_values[v_battery]);
 
       if (dht_sensor.isCorrect_values(dht_values)) {
         logger.debug("FETCHING", "DHT11 values are correct");
@@ -260,7 +260,7 @@ void loop()
         current_state = SLEEP;
       }
       else {
-        logger.error("SENDING", "API call failed : " + res.code);
+        logger.error("SENDING", "API call failed : " + String(res.code));
         current_state = SLEEP;
       }
 
@@ -270,6 +270,7 @@ void loop()
     case ERROR:
       if(current_error == WIFI_NOT_CONNECTED) {
         logger.error("ERROR", "Wifi is not connected");
+        current_state = FETCHING;
       }
       else if(current_error == DHT11_VALUES_INCORRECT) {
         logger.error("ERROR", "DHT11 values are incorrect");
