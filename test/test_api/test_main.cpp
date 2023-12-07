@@ -6,7 +6,6 @@
 const String api_url = "https://randomuser.me/api/";
 const String wifi_ssid = "Siri-al_killer";
 const String wifi_password = "15112001";
-
 wifi_connection wifi(wifi_ssid, wifi_password);
 
 api_lib api;
@@ -23,8 +22,7 @@ void tearDown(void)
 
 void test_api_call(void)
 {
-  api.setHost("");
-  TEST_ASSERT_EQUAL(200, api.getCode(api_url));
+  TEST_ASSERT_EQUAL(200, api.getCodeTest(api_url));
 }
 
 void test_wifi_connection(void)
