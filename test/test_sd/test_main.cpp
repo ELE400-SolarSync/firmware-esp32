@@ -25,7 +25,10 @@ void test_sd_reading(void)
     sd.deleteFile("esp32.txt");
   }
   sd.writeFile("esp32.txt", "Hello World!");
-  TEST_ASSERT_EQUAL_STRING("Hello World!\r\n", sd.readFile("esp32.txt").c_str());
+  const char* reading = sd.readFile("esp32.txt").c_str();
+  sd.deleteFile("esp32.txt");
+  TEST_ASSERT_EQUAL_STRING("Hello World!\r\n", reading);
+  
 }
 
 void setup()
