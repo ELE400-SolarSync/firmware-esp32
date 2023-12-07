@@ -37,7 +37,7 @@ void setup()
   // if board doesn't support software reset via Serial.DTR/RTS
   delay(2000);
 
-  wifi.connect(10000);
+  wifi.connect(10);
 
   UNITY_BEGIN(); // IMPORTANT LINE!
   
