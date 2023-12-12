@@ -287,13 +287,10 @@ void loop()
       
 
     case SLEEP:
-    logger.info("SLEEP", "SLEEP");
+      logger.info("SLEEP", "SLEEP");
       time_to_sleep = time_period - (millis() - start) / 1000;
-      
-      log_info[0] = logger.getLogFile();
-      log_info[1] = logger.getOldLogFile();
       // deepSleep(time_to_sleep);
-      delay(1000);
+      // delay(1000);
       current_state = CHECKING;
       break;
 
@@ -317,29 +314,39 @@ void SerialEvent() {
 
     if(inChar.indexOf("output") != -1){
       if(inChar.indexOf("on") != -1){
-        logger.debug("SerialEvent", "Output on");
+        logger.info("SerialEvent", "Output on");
         digitalWrite(relay_output_pin, HIGH);
       }
       else if(inChar.indexOf("off") != -1){
-        logger.debug("SerialEvent", "Output off");
+        logger.info("SerialEvent", "Output off");
         digitalWrite(relay_output_pin, LOW);
       }
+    }
+
+    if(inChar.indexOf("shutdown") != -1){
+      logger.info("SerialEvent", "Shutdown");
+      sd.end();
+      wifi.disconnect();
     }
 
     if(inChar.indexOf("logging") != -1){
       if(inChar.indexOf("sd") != -1){
         if(inChar.indexOf("on") != -1){
+          logger.info("Logging", "Output sd on");
           logger.enableLoggingInSD();
         }
         else if(inChar.indexOf("off") != -1){
+          logger.info("Logging", "Output sd off");
           logger.disableLoggingInSD();
         }
       }
       else if(inChar.indexOf("serial") != -1){
         if(inChar.indexOf("on") != -1){
+          logger.info("Logging", "Output serial on");
           logger.enableLoggingInMonitor();
         }
         else if(inChar.indexOf("off") != -1){
+          logger.info("Logging", "Output serial off");
           logger.disableLoggingInMonitor();
         }
       }

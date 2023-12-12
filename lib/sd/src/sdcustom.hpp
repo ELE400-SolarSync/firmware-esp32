@@ -33,6 +33,11 @@ class SDCustom {
             return true;
         };
 
+        bool end() {
+            SD.end();
+            return true;
+        };
+
         /**
          * @brief Check if the SD Card is inserted
          * 
