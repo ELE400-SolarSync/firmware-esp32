@@ -46,7 +46,8 @@ enum state {
     FETCHING,
     SENDING,
     ERROR,
-    SLEEP
+    SLEEP,
+    OFF
 };
 state current_state = INIT;
 
@@ -294,6 +295,10 @@ void loop()
       current_state = CHECKING;
       break;
 
+    case OFF:
+      logger.info("OFF", "OFF");
+      break;
+
     default:
       logger.debug("DEFAULT", "DEFAULT state");
       break;
@@ -327,6 +332,14 @@ void SerialEvent() {
       logger.info("SerialEvent", "Shutdown");
       sd.end();
       wifi.disconnect();
+      current_state = OFF;
+    }
+
+    if(inChar.indexOf("wakeup") != -1){
+      logger.info("SerialEvent", "Wakeup");
+      sd.begin();
+      wifi.connect(30);
+      current_state = CHECKING;
     }
 
     if(inChar.indexOf("logging") != -1){

@@ -35,6 +35,7 @@ class SDCustom {
 
         bool end() {
             SD.end();
+            SPI.end();
             return true;
         };
 
