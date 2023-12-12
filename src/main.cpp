@@ -364,6 +364,21 @@ void SerialEvent() {
         }
       }
     }
+
+    if(inChar.indexOf("logging -l") != -1){
+      if(inChar.indexOf("debug") != -1){
+        logger.setLevel(myLogger::level_t::DEBUG);
+      }
+      else if(inChar.indexOf("info") != -1){
+        logger.setLevel(myLogger::level_t::INFO);
+      }
+      else if(inChar.indexOf("error") != -1){
+        logger.setLevel(myLogger::level_t::ERROR);
+      }
+      else if(inChar.indexOf("warn") != -1){
+        logger.setLevel(myLogger::level_t::WARN);
+      }
+    }
   }
 }
 
