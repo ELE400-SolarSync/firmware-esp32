@@ -25,15 +25,16 @@ Available commands
 ------------------
 
 * ``help`` : Display the list of available commands.
-* ``log -l <level>`` : Set the log level.
-* ``log -o <output>`` : Select the output of the log (SD or terminal or both).
-* ``data -e`` : Enable the data printing in the terminal.
-* ``data -d`` : Disable the data printing in the terminal.
-* ``wifi -s <ssid>`` : Set the ssid of the wifi.
-* ``wifi -p <password>`` : Set the password of the wifi.
-* ``wifi -c`` : Connect to the wifi.
-* ``stop`` : Stop the state machine.
-* ``start`` : Start the state machine.
+* ``logging sd on`` : Set log output to SD card.
+* ``logging sd off`` : Set log output to terminal.
+* ``logging serial on`` : Set log output to terminal.
+* ``logging serial off`` : Set log output to SD card.
+* ``logging -l <level>`` : Set the log level.
+* ``shutdown`` : Shutdown the ESP32.
+* ``wakeup`` : Reboot the ESP32.
+* ``show_data`` : Display the data.
+* ``output on`` : Enable the 5V and 12V output.
+* ``output off`` : Disable the 5V and 12V output.
 
 How to write documentation
 ==========================
