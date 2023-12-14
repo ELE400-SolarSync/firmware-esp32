@@ -24,7 +24,6 @@ To use the serial communication you will need to install a serial communication 
 Available commands
 ------------------
 
-* ``help`` : Display the list of available commands.
 * ``logging sd on`` : Set log output to SD card.
 * ``logging sd off`` : Set log output to terminal.
 * ``logging serial on`` : Set log output to terminal.

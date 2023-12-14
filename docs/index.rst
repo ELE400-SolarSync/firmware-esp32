@@ -9,6 +9,7 @@ SolarSync Documentation
   src/installation
   src/modules
   src/usage
+  src/hardware
   src/manuel
 
 
