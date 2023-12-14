@@ -79,3 +79,13 @@ bool api_lib::clearJson() {
         return false;
     }
 }
+
+
+/**
+ * @brief Set the sas token
+ * 
+ * @param sas_token 
+ */
+void api_lib::setSAS(String sas_token) {
+    api_lib::sas_token = sas_token;
+}
