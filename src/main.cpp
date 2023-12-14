@@ -205,16 +205,16 @@ void loop()
       v_c_values[c_12v] = current_12v.readCurrent();
 
       // voltage correction
-      correction = v_c_values[v_5v] / 5.0f;
+      // correction = v_c_values[v_5v] / 5.0f;
 
-      v_c_values[v_battery] = VoltageSensor::CorrectReading(correction, v_c_values[v_battery]);
-      v_c_values[c_battery] = CurrentSensor::CorrectReading(correction, v_c_values[c_battery]);
-      v_c_values[v_solar] = VoltageSensor::CorrectReading(correction, v_c_values[v_solar]);
-      v_c_values[c_solar] = CurrentSensor::CorrectReading(correction, v_c_values[c_solar]);
-      v_c_values[v_5v] = VoltageSensor::CorrectReading(correction, v_c_values[v_5v]);
-      v_c_values[c_5v] = CurrentSensor::CorrectReading(correction, v_c_values[c_5v]);
-      v_c_values[v_12v] = VoltageSensor::CorrectReading(correction, v_c_values[v_12v]);
-      v_c_values[c_12v] = CurrentSensor::CorrectReading(correction, v_c_values[c_12v]);
+      // v_c_values[v_battery] = VoltageSensor::CorrectReading(correction, v_c_values[v_battery]);
+      // v_c_values[c_battery] = CurrentSensor::CorrectReading(correction, v_c_values[c_battery]);
+      // v_c_values[v_solar] = VoltageSensor::CorrectReading(correction, v_c_values[v_solar]);
+      // v_c_values[c_solar] = CurrentSensor::CorrectReading(correction, v_c_values[c_solar]);
+      // v_c_values[v_5v] = VoltageSensor::CorrectReading(correction, v_c_values[v_5v]);
+      // v_c_values[c_5v] = CurrentSensor::CorrectReading(correction, v_c_values[c_5v]);
+      // v_c_values[v_12v] = VoltageSensor::CorrectReading(correction, v_c_values[v_12v]);
+      // v_c_values[c_12v] = CurrentSensor::CorrectReading(correction, v_c_values[c_12v]);
 
 
       pow_values[p_12v] = v_c_values[c_12v] * v_c_values[v_12v];
@@ -249,6 +249,8 @@ void loop()
 
         logger.info("Battery", String(v_c_values[c_battery]) + "A " + String(v_c_values[v_battery]) + "V");
 
+        logger.info("Battery level", String(bat_level) + "%");
+
         logger.info("Values End", "-------------------------------");
       }
 
@@ -271,6 +273,7 @@ void loop()
     case ERROR:
       if(current_error == WIFI_NOT_CONNECTED) {
         logger.error("ERROR", "Wifi is not connected");
+        wifi.connect(5);
         current_state = FETCHING;
       }
       else if(current_error == DHT11_VALUES_INCORRECT) {
@@ -320,11 +323,11 @@ void SerialEvent() {
     if(inChar.indexOf("output") != -1){
       if(inChar.indexOf("on") != -1){
         logger.info("SerialEvent", "Output on");
-        digitalWrite(relay_output_pin, HIGH);
+        digitalWrite(relay_output_pin, LOW);
       }
       else if(inChar.indexOf("off") != -1){
         logger.info("SerialEvent", "Output off");
-        digitalWrite(relay_output_pin, LOW);
+        digitalWrite(relay_output_pin, HIGH);
       }
     }
 
@@ -332,6 +335,7 @@ void SerialEvent() {
       logger.info("SerialEvent", "Shutdown");
       sd.end();
       wifi.disconnect();
+      digitalWrite(relay_output_pin, HIGH);
       current_state = OFF;
     }
 
@@ -339,6 +343,7 @@ void SerialEvent() {
       logger.info("SerialEvent", "Wakeup");
       sd.begin();
       wifi.connect(30);
+      digitalWrite(relay_output_pin, LOW);
       current_state = CHECKING;
     }
 
@@ -366,6 +371,7 @@ void SerialEvent() {
     }
 
     if(inChar.indexOf("logging -l") != -1){
+      logger.debug("SerialEvent", "Set level : " + inChar.substring(10));
       if(inChar.indexOf("debug") != -1){
         logger.setLevel(myLogger::level_t::DEBUG);
       }
@@ -378,6 +384,10 @@ void SerialEvent() {
       else if(inChar.indexOf("warn") != -1){
         logger.setLevel(myLogger::level_t::WARN);
       }
+    }
+
+    if(inChar.indexOf("api") != -1){
+      logger.debug("SerialEvent", "Set token : " + inChar.substring(4));
     }
   }
 }
