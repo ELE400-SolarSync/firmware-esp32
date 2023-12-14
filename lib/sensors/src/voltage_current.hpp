@@ -115,7 +115,7 @@ class CurrentSensor {
          * @return float 
          */
         float getBatLevel(float voltage) {
-            return voltage;
+            return 5 * pow(10, -20) * pow(voltage, 19.263);
         }
 
         /**
