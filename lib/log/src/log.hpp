@@ -252,8 +252,6 @@ class myLogger {
                     }
                     else {
                         // Write to file
-                        // debug("SD TEST", "Writing in SD");
-                        Serial.println("[LOGGER] Writing in SD");
                         sd.writeFile(String(log_file)+".txt", logFormat + message);
                     }
                 }
